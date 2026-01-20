@@ -1,0 +1,36 @@
+destination: docs/
+url: https://wlandau.github.io/pmrm
+template:
+  bootstrap: 5
+reference:
+- title: Simulations
+  contents:
+  - pmrm_simulate_decline
+  - pmrm_simulate_slowing
+- title: Models
+  contents:
+  - pmrm_model_decline
+  - pmrm_model_slowing
+- title: Estimates and predictions 
+  contents:
+  - coef.pmrm_fit_decline
+  - coef.pmrm_fit_slowing
+  - confint.pmrm_fit
+  - fitted.pmrm_fit_decline
+  - fitted.pmrm_fit_slowing
+  - plot.pmrm_fit
+  - pmrm_estimates
+  - pmrm_marginals
+  - predict.pmrm_fit
+  - residuals.pmrm_fit
+  - VarCorr.pmrm_fit
+  - vcov.pmrm_fit_decline
+  - vcov.pmrm_fit_slowing
+- title: Model comparison
+  contents:
+  - AIC.pmrm_fit
+  - BIC.pmrm_fit
+  - deviance.pmrm_fit
+  - logLik.pmrm_fit
+  - summary.pmrm_fit
+

@@ -1,0 +1,15 @@
+^.*\.gcda$
+^.*\.gcno$
+^.*\.o$
+^.*\.Rproj$
+^.*\.so$
+^\.Rproj\.user$
+^README\.Rmd$
+^\.github$
+^\.lintr$
+^_pkgdown\.yml$
+^pkgdown$
+^docs$
+^README\.html$
+^LICENSE\.md$
+

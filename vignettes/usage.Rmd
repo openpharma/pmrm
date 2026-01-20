@@ -1,0 +1,268 @@
+---
+title: "Usage"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Usage}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 7L,
+  fig.height = 5L
+)
+```
+
+This vignette explains how to use the `pmrm` package
+
+# Raw data
+
+The package functions expect tidy longitudinal data with one row per subject visit and columns with the patient outcome, continuous time, indicator variables, and optional covariates.
+The `pmrm` package has functions to simulate datasets from each supported model.
+
+```{r}
+library(pmrm)
+set.seed(0)
+simulation <- pmrm_simulate_decline(
+  patients = 500,
+  visit_times = c(0, 1, 2, 3, 4),
+  tau = 0.25,
+  alpha = c(0, 0.7, 1, 1.4, 1.6),
+  beta = c(0, 0.2, 0.35),
+  gamma = c(-1, 1)
+)
+```
+
+The outcome column can have missing values, but no other column must have missing values.^[Baseline outcomes must not be missing.]
+
+```{r}
+simulation$y[c(2L, 3L, 12L, 13L, 14L, 15L)] <- NA_real_
+```
+
+The output datasets includes important information that you would supply to a modeling function.
+
+```{r}
+simulation[, c("y", "t", "patient", "visit", "arm")]
+```
+
+# Models
+
+To fit a model, simply supply the preprocessed dataset and optionally the knot vector `xi` (which usually just contains the scheduled times of all the visits).
+The package is powered by the [`RTMB`](https://github.com/kaskr/RTMB) package, so the model fitting process runs fast.
+
+```{r}
+system.time(
+  fit <- pmrm_model_decline(
+    data = simulation,
+    outcome = "y",
+    time = "t",
+    patient = "patient",
+    visit = "visit",
+    arm = "arm",
+    covariates = ~ w_1 + w_2,
+    visit_times = c(0, 1, 2, 3, 4)
+  )
+)
+```
+
+The fitted model object has parameter estimates, standard errors, model constants, the convergence status, raw [`RTMB`](https://github.com/kaskr/RTMB) objects, and other information.
+
+```{r}
+names(fit)
+```
+
+All estimates:^[See also `fit$standard_errors`.]
+
+```{r}
+str(fit$estimates)
+```
+
+Just the estimates of actual parameters, omitting functions of other parameters:^[Can be supplied to the `initial` argument of `pmrm_model_decline()`.]
+
+```{r}
+str(fit$final)
+```
+
+# Checking and troubleshooting
+
+Model-checking is an involved topic, and `pmrm` itself does not go into tremendous depth.
+Instead, it offers only the most basic checks on the fitted model object.
+The goal is to guide your intuition and high-level understanding.
+
+First, check the convergence code.
+A 0 indicates convergence, and a 1 indicates that the model diverged or a local minimum was not otherwise reached (e.g. in the case of a saddle point).
+
+```{r}
+fit$optimization$convergence
+```
+
+Next, you may wish to check that the parameter estimates and standard errors make sense.
+
+```{r}
+str(fit$estimates)
+```
+
+```{r}
+str(fit$standard_errors)
+```
+
+Also, please check for odd behavior in the fitted spline $f(x | \xi, \alpha)$.
+
+```{r}
+knots <- fit$constants$spline_knots
+curve(fit$spline(x), min(knots), max(knots))
+```
+
+In tough cases, the spline may flatten out at the knot boundaries or twist in strange directions.
+If you notice a strange fitted spline in a divergent model, you may wish to experiment with different knot placement or hand-pick initial values for the vertical knot distances `alpha`.
+The latter can sometimes help stabilize `theta` (especially for `pmrm_model_slowing()`) by beginning with an appropriately strict monotone spline.
+Example:
+
+```{r}
+initial <- fit$initial
+initial$alpha <- c(0, 0.5, 1, 1.5, 2)
+
+fit2 <- pmrm_model_decline(
+  data = simulation,
+  outcome = "y",
+  time = "t",
+  patient = "patient",
+  visit = "visit",
+  arm = "arm",
+  covariates = ~ w_1 + w_2,
+  visit_times = c(0, 1, 2, 3, 4),
+  initial = initial # with hand-picked initial alpha
+)
+```
+
+Alternatively, you can even tweak one or more parameters and then resume the original optimization.
+
+```{r}
+initial <- fit$final # true parameters from the last fit
+initial$theta[2] <- 0 # reset a scalar parameter that may have diverged
+
+fit3 <- pmrm_model_decline(
+  data = simulation,
+  outcome = "y",
+  time = "t",
+  patient = "patient",
+  visit = "visit",
+  arm = "arm",
+  covariates = ~ w_1 + w_2,
+  visit_times = c(0, 1, 2, 3, 4),
+  initial = initial # with the modified parameter values
+)
+```
+
+Finally, you may wish to fit a Bayesian version the model using `tmbstan` and check for correlations among the parameters. 
+Strong pairwise correlations involving the $\alpha$ parameter may indicate that your spline has too many knots.
+
+```{r, eval = FALSE}
+library(dplyr)
+library(tmbstan)
+library(posterior)
+
+# Fit a Bayesian version of the same model.
+# Increase the number of chains for the Rhat diagnostic to be valid.
+mcmc <- tmbstan(fit$model, chains = 1, refresh = 10)
+
+# Extract the MCMC draws.
+draws <- as_draws_df(mcmc) |>
+  select(starts_with("alpha"), any_of(c("theta", "phi")))
+
+# Plot pairwise correlations among MCMC draws.
+# Pairs of parameters should not be strongly correlated.
+# Tight correlations and funneling indicate problems,
+# such as non-identifiability if you have too many knots.
+pairs(draws)
+
+# Alternatively, if you have many parameters, you can look at
+# pairwise linear correlations. However, this may miss
+# important pathologies.
+correlations <- cor(samples)[lower.tri(cor(samples))]
+hist(correlations)
+```
+
+# Summaries
+
+Use `pmrm_estimates()` to compute estimates, standard errors, and confidence intervals of model parameters and standard downstream functions of parameters. For example, here are the active-arm post-baseline treatment effect parameters:
+
+```{r}
+pmrm_estimates(fit, parameter = "theta")
+```
+
+And the same for the visit-specific standard deviations of the residuals:
+
+```{r}
+pmrm_estimates(fit, parameter = "sigma", confidence = 0.9)
+```
+
+The `summary()` method produces high-level metrics for model comparison.
+
+```{r}
+summary(fit)
+```
+
+# Marginals
+
+`pmrm_marginals()` returns estimated marginal means for each study arm and visit.
+The continuous time at each visit is given by the `marginals` argument to `pmrm_model_decline()`.
+
+```{r}
+pmrm_marginals(fit, type = "outcome")
+```
+
+Select `type = "change"` for estimates of change from baseline.
+
+```{r}
+pmrm_marginals(fit, type = "change")
+```
+
+Select `type = "effect"` for estimates of the treatment effect (change from baseline of each active arm minus that of the control arm).
+
+```{r}
+pmrm_marginals(fit, type = "effect")
+```
+
+# Predictions
+
+The package supports a `predict()` method for models fit with `pmrm_model_decline()` or `pmrm_model_slowing()`.
+It returns the expected values, standard errors, and confidence intervals for the outcomes given new data.
+All the important columns from the original data need to be part of the new data, except that the outcome column can be entirely absent.
+
+```{r}
+predict(fit, data = head(simulation, 5))
+```
+
+# Plots
+
+`pmrm` supports an S3 method for the `plot()` generic.
+This method `plot.pmrm_fit()` visually compares the model to the data.
+The default plot shows:
+
+* Raw estimates and confidence intervals on the data, as points and vertical line segments.
+* Model-based marginal means and confidence intervals, as horizontal line segments and boxes around them.
+* Model-based predictions and confidence bands, as continuous lines and shaded regions.
+
+```{r}
+plot(
+  fit,
+  show_predictions = TRUE # Defaults to FALSE because predictions take extra time.
+)
+```
+
+You can customize the plot: for example, to compare the fitted disease progression trajectory across treatment arms.
+
+```{r}
+plot(
+  fit,
+  confidence = 0.9,
+  show_data = FALSE,
+  show_predictions = TRUE, # Defaults to FALSE because predictions take extra time.
+  facet = FALSE,
+  alpha = 0.5
+)
+```

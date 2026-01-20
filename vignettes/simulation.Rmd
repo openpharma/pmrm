@@ -1,0 +1,108 @@
+---
+title: "Simulation"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    number_sections: true
+bibliography: '`r system.file("bibliography.bib", package = "pmrm")`'
+vignette: >
+  %\VignetteIndexEntry{Simulation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+This vignette explains how to simulate longitudinal clinical disease progression datasets from each of the models in `pmrm`.
+For details about the models, including definitions of all the notation used below, please see the "Models" vignette.
+
+# Residuals
+
+The user supplies the $J \times J$ residual covariance matrix $\Sigma$^[$\Sigma$ can be computed from latent parameter vectors $\sigma$ and $\rho$ using `pmrm_compute_Sigma()`.].
+Independently for each patient $i$ ($i = 1, \ldots, I$), the package simulates a vector of patient-specific residuals from a multivariate normal distribution:
+
+$$
+\begin{aligned}
+\begin{bmatrix}
+e_{i1} \\
+\vdots \\
+e_{iJ}
+\end{bmatrix} \sim \text{MVN} \left (0, \Sigma \right)
+\end{aligned}
+$$
+
+# Covariates
+
+Each column of the covariate adjustment model matrix $W$ is constructed by simulating independent draws from a Normal(0, 1) distribution and then subtracting the mean.
+The columns of $W$ are independent and centered at zero.
+The user chooses the fixed effect vector $\gamma$ to generate data.
+
+# Continuous time
+
+As previously mentioned, time $j = 1$ denotes the baseline visit, and so $t_{i1} = 0$ for $i = 1, \ldots, I$.
+For $j > 1$, we simulate each observation time $t_{ij}$ as follows:
+
+$$
+\begin{aligned}
+t_{ij}^* &\sim \text{Normal}(t_j^*, \tau^2) \\
+t_{ij} &= |t_{ij}^*|
+\end{aligned}
+$$
+
+where $t_1^*$ ($j = 1, \ldots, J$) are user-specified visit times (which could be different from the knots $\xi$) and $\tau^2$ is a user-specified variance.
+
+# Splines
+
+The knot vector $\xi = (\xi_1, \dots, \xi_S)$ and corresponding outcome vector $\alpha = (\alpha_1, \ldots, \alpha_S)$ uniquely determine a fitted spline.
+Both vectors are supplied by the user.
+We compute $f(t | \xi, \alpha)$ using the function provided by `RTMB::splinefun()`.
+
+# Proportional decline outcomes
+
+For the proportional decline model, we use the spline basis to calculate the value $m_{ij}$ of the mean function for each simulated continuous time point $t_{ij}$:
+
+$$
+\begin{aligned}
+m_{ij} &= f(t_{ij} | \xi, \alpha)
+\end{aligned}
+$$
+
+The user supplies values for parameters $\theta_1, \ldots, \theta_{K - 1}$.
+This gives us known values for all of $\beta_1, \ldots, \beta_K$.
+We calculate $y_{ij}$ as follows:
+
+$$
+\begin{aligned}
+y_{ij} &= (1 - \beta_{b(i)}) \left (m_{ij} - m_{i1} \right ) + m_{i1} + W_{i}\gamma + e_{ij}
+\end{aligned}
+$$
+
+The output dataset includes simulated clinical outcomes $y_{ij}$, simulated observed times $t_{ij}$, the columns of $W$, the values $m_{ij}$ of the mean function, the evaluated values $h_s(t_{ij} | \xi)$ of the spline basis functions, and the residuals $e_{ij}$.
+
+# Non-proportional slowing outcomes
+
+For the non-proportional slowing model, the user supplies the values of true parameters $\theta_{11}, \dots, \theta_{(K - 1)(J - 1)}$.
+This gives us a known value of $\beta_{kj}$ for $k = 1, \ldots, K$ and $j = 1, \ldots, J$.
+Recall that $u_{ij}$ is the effective time point along the disease progression trajectory of patient $i$ at visit $j$:
+
+$$
+\begin{aligned}
+u_{ij} = (1 - \beta_{b(i)j}) t_{ij}
+\end{aligned}
+$$
+
+We calculate each value $m_{ij}$ of the mean function by evaluating the spline at $u_{ij}$ instead of $t_{ij}$:
+
+$$
+\begin{aligned}
+m_{ij} &= f(u_{ij} | \xi, \alpha)
+\end{aligned}
+$$
+
+Then, $y_{ij}$ for the non-proportional slowing model is:
+
+$$
+\begin{aligned}
+y_{ij} &= m_{ij} + W_{i}\gamma + e_{ij}
+\end{aligned}
+$$
+
+The output dataset includes simulated clinical outcomes $y_{ij}$, simulated observed times $t_{ij}$, the corresponding effective times $u_{ij}$, the columns of $W$, the values $m_{ij}$ of the mean function evaluated at the effective times $u_{ij}$, the values $h_s(u_{ij} | \xi)$ of the spline basis functions evaluated at the effective times, and the residuals $e_{ij}$.
