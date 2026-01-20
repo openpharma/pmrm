@@ -20,7 +20,7 @@
 #'   At these marginals,
 #'   the standard errors and confidence intervals for `beta` are `NA_real_`.
 #' @param fit A fitted model object of class `"pmrm_fit"` returned
-#'   by a `pmrm` model-fitting function such as [pmrm_model_decline()].
+#'   by a `pmrm` model-fitting function.
 #' @param parameter Character string, name of the type of model
 #'   parameter to summarize. Must be one of `"beta"`, `"theta"`,
 #'   `"alpha"`, `"gamma"`, `"sigma"`, `"rho"`, `"Sigma"`, or `"Lambda"`.
@@ -28,11 +28,11 @@
 #'   to use in 2-sided normal confidence intervals.
 #' @examples
 #'   set.seed(0L)
-#'   simulation <- pmrm_simulate_decline(
+#'   simulation <- pmrm_simulate_decline_proportional(
 #'     visit_times = seq_len(5L) - 1,
 #'     gamma = c(1, 2)
 #'   )
-#'   fit <- pmrm_model_decline(
+#'   fit <- pmrm_model_decline_proportional(
 #'     data = simulation,
 #'     outcome = "y",
 #'     time = "t",

@@ -7,8 +7,7 @@
 \method{VarCorr}{pmrm_fit}(x, sigma = NA, ...)
 }
 \arguments{
-\item{x}{A fitted model object of class \code{"pmrm_fit"}
-produced by \code{\link[=pmrm_model_decline]{pmrm_model_decline()}} or \code{\link[=pmrm_model_slowing]{pmrm_model_slowing()}}.}
+\item{x}{A fitted model object of class \code{"pmrm_fit"}.}
 
 \item{sigma}{Not used for \code{pmrm}.}
 
@@ -24,11 +23,11 @@ within patients.
 }
 \examples{
   set.seed(0L)
-  simulation <- pmrm_simulate_decline(
+  simulation <- pmrm_simulate_decline_proportional(
     visit_times = seq_len(5L) - 1,
     gamma = c(1, 2)
   )
-  fit <- pmrm_model_decline(
+  fit <- pmrm_model_decline_proportional(
     data = simulation,
     outcome = "y",
     time = "t",

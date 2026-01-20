@@ -29,11 +29,11 @@
 #'   to use in the 2-sided confidence intervals.
 #' @examples
 #'   set.seed(0L)
-#'   simulation <- pmrm_simulate_decline(
+#'   simulation <- pmrm_simulate_decline_proportional(
 #'     visit_times = seq_len(5L) - 1,
 #'     gamma = c(1, 2)
 #'   )
-#'   fit <- pmrm_model_decline(
+#'   fit <- pmrm_model_decline_proportional(
 #'     data = simulation,
 #'     outcome = "y",
 #'     time = "t",
@@ -42,7 +42,7 @@
 #'     arm = "arm",
 #'     covariates = ~ w_1 + w_2
 #'   )
-#'   new_data <- pmrm_simulate_decline(
+#'   new_data <- pmrm_simulate_decline_proportional(
 #'     patients = 1,
 #'     visit_times = seq_len(5L) - 1,
 #'     gamma = c(1, 2)

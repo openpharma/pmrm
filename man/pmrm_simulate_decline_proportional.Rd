@@ -46,7 +46,7 @@ Must have \code{length(spline_knots)} elements.}
 See \code{vignette("models", package = "pmrm")} for details on this parameter.}
 
 \item{gamma}{Numeric vector of model coefficients for covariate adjustment.
-\code{\link[=pmrm_simulate_decline]{pmrm_simulate_decline()}} simulates \code{length(gamma)} columns for
+The simulation functions in \code{pmrm} simulate \code{length(gamma)} columns for
 the covariate adjustment model matrix \code{W}.
 Set to \code{numeric(0)} to omit covariates.}
 

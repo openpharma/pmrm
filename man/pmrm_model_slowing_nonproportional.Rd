@@ -218,16 +218,14 @@ on the standard deviations of model parameters.
 Includes true parameters like \code{theta} and \code{alpha} but does not
 include derived parameters like \code{beta} or \code{sigma}.
 You can supply your own list of similarly formatted initial values
-to the \code{initial} argument of the modeling function
-(\code{\link[=pmrm_model_decline]{pmrm_model_decline()}} or \code{\link[=pmrm_model_slowing]{pmrm_model_slowing()}}).
+to the \code{initial} argument of the modeling function you choose.
 \item \code{final}: a list of model parameter estimates after optimization,
 but not including derived parameters like \code{beta} or \code{sigma}.
 The format is exactly the same as \code{initial} (see above)
 to help deal with divergent model fits.
 If your model fit diverged and you want to try resume the optimization
 with slightly better values, you can modify values in \code{final}
-and supply the result to the \code{initial} argument of the modeling function
-(\code{\link[=pmrm_model_decline]{pmrm_model_decline()}} or \code{\link[=pmrm_model_slowing]{pmrm_model_slowing()}}.
+and supply the result to the \code{initial} argument of the modeling function.
 \item \code{estimates}: a full list of parameter estimates, including derived
 parameters
 \item \code{standard_errors}: a list of parameter standard errors.

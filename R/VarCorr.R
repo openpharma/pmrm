@@ -5,17 +5,16 @@
 #'   within patients.
 #' @return A matrix `J` rows and `J` columns, where `J` is the number
 #'   of scheduled visits in the clinical trial.
-#' @param x A fitted model object of class `"pmrm_fit"`
-#'   produced by [pmrm_model_decline()] or [pmrm_model_slowing()].
+#' @param x A fitted model object of class `"pmrm_fit"`.
 #' @param sigma Not used for `pmrm`.
 #' @param ... Not used.
 #' @examples
 #'   set.seed(0L)
-#'   simulation <- pmrm_simulate_decline(
+#'   simulation <- pmrm_simulate_decline_proportional(
 #'     visit_times = seq_len(5L) - 1,
 #'     gamma = c(1, 2)
 #'   )
-#'   fit <- pmrm_model_decline(
+#'   fit <- pmrm_model_decline_proportional(
 #'     data = simulation,
 #'     outcome = "y",
 #'     time = "t",

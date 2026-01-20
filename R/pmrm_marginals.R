@@ -3,15 +3,15 @@
 #' @family estimates and predictions
 #' @description Report the estimates and standard errors of marginal means
 #'   at each study arm and visit. The assumed visit times should have been
-#'   given in the `marginals` argument of the model-fitting function,
-#'   e.g. [pmrm_model_decline()]. Use the `type` argument to choose
+#'   given in the `marginals` argument of the model-fitting function.
+#'   Use the `type` argument to choose
 #'   marginal means of the outcomes, marginal estimates of change from
 #'   baseline, and marginal estimates of treatment effects.
 #' @return A `tibble` with one row per marginal mean and columns with the
 #'   estimate, standard error, 2-sided confidence bounds, and indicator
 #'   columns.
 #' @param fit A `pmrm` fitted model object returned by a model-fitting
-#'   function such as [pmrm_model_decline()].
+#'   function.
 #' @param type Character string.
 #'   `"outcome"` reports marginal means on the outcome scale,
 #'   `"change"` reports estimates of change from baseline,
@@ -21,11 +21,11 @@
 #'   for confidence intervals.
 #' @examples
 #'   set.seed(0L)
-#'   simulation <- pmrm_simulate_decline(
+#'   simulation <- pmrm_simulate_decline_proportional(
 #'     visit_times = seq_len(5L) - 1,
 #'     gamma = c(1, 2)
 #'   )
-#'   fit <- pmrm_model_slowing(
+#'   fit <- pmrm_model_decline_proportional(
 #'     data = simulation,
 #'     outcome = "y",
 #'     time = "t",

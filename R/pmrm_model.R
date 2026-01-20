@@ -42,16 +42,14 @@
 #'    Includes true parameters like `theta` and `alpha` but does not
 #'    include derived parameters like `beta` or `sigma`.
 #'    You can supply your own list of similarly formatted initial values
-#'    to the `initial` argument of the modeling function
-#'    ([pmrm_model_decline()] or [pmrm_model_slowing()]).
+#'    to the `initial` argument of the modeling function you choose.
 #'  * `final`: a list of model parameter estimates after optimization,
 #'    but not including derived parameters like `beta` or `sigma`.
 #'    The format is exactly the same as `initial` (see above)
 #'    to help deal with divergent model fits.
 #'    If your model fit diverged and you want to try resume the optimization
 #'    with slightly better values, you can modify values in `final`
-#'    and supply the result to the `initial` argument of the modeling function
-#'    ([pmrm_model_decline()] or [pmrm_model_slowing()].
+#'    and supply the result to the `initial` argument of the modeling function.
 #'  * `estimates`: a full list of parameter estimates, including derived
 #'    parameters
 #'  * `standard_errors`: a list of parameter standard errors.
@@ -156,7 +154,7 @@
 #'  * `gamma`: a vector with `V` elements, where `V` is the
 #'    number of columns in the covariate adjustment model matrix `W`.
 #'    If you are unsure of `V`, simply fit a test model
-#'    (e.g. `fit <- pmrm_model_decline(...)`)
+#'    (e.g. `fit <- pmrm_model_decline_proportional(...)`)
 #'    and then check `ncol(fit$constants$W)`.
 #'  * `phi`: a vector with the same length as `visit_times`
 #'    (which may be different from the length of `spline_knots`).
@@ -164,7 +162,8 @@
 #'     where `J` is the length of `visit_times`.
 #'
 #'   You can generate an example of the format of this list
-#'   by fitting a test model (e.g. `fit <- pmrm_model_decline(...)`)
+#'   by fitting a test model
+#'   (e.g. `fit <- pmrm_model_decline_proportional(...)`)
 #'   and then extracting `fit$initial` or `fit$final`.
 #' @param slowing `TRUE` to fit a slowing model,
 #'   `FALSE` to fit a decline model.

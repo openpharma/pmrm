@@ -14,7 +14,7 @@
 #'     (if `show_predictions` is `TRUE`).
 #' @return A `ggplot` object with the plot.
 #' @param x A fitted model object of class `"pmrm_fit"` returned
-#'   by a `pmrm` model-fitting function such as [pmrm_model_decline()].
+#'   by a `pmrm` model-fitting function.
 #' @param y Not used.
 #' @param confidence Numeric between 0 and 1, the confidence level
 #'   to use in the 2-sided confidence intervals.
@@ -43,11 +43,11 @@
 #' @param ... Not used.
 #' @examples
 #'   set.seed(0L)
-#'   simulation <- pmrm_simulate_decline(
+#'   simulation <- pmrm_simulate_decline_proportional(
 #'     visit_times = seq_len(5L) - 1,
 #'     gamma = c(1, 2)
 #'   )
-#'   fit <- pmrm_model_decline(
+#'   fit <- pmrm_model_decline_proportional(
 #'     data = simulation,
 #'     outcome = "y",
 #'     time = "t",

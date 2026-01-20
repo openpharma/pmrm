@@ -12,8 +12,7 @@
 )
 }
 \arguments{
-\item{object}{A fitted model object of class \code{"pmrm_fit"}
-produced by \code{\link[=pmrm_model_decline]{pmrm_model_decline()}} or \code{\link[=pmrm_model_slowing]{pmrm_model_slowing()}}.}
+\item{object}{A fitted model object of class \code{"pmrm_fit"}.}
 
 \item{parm}{Character string, name of a family of parameters
 to compute confidence intervals.}
@@ -35,11 +34,11 @@ See \code{vignette("models", package = "pmrm")} for details.
 }
 \examples{
   set.seed(0L)
-  simulation <- pmrm_simulate_decline(
+  simulation <- pmrm_simulate_decline_proportional(
     visit_times = seq_len(5L) - 1,
     gamma = c(1, 2)
   )
-  fit <- pmrm_model_decline(
+  fit <- pmrm_model_decline_proportional(
     data = simulation,
     outcome = "y",
     time = "t",

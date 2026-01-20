@@ -11,8 +11,7 @@ pmrm_simulate_slowing_proportional(
   spline_method = c("natural", "fmm"),
   tau = 0,
   alpha = log(spline_knots + 1),
-  beta = cbind(0, rbind(0, rep(0.2, length(visit_times) - 1L), rep(0.3,
-    length(visit_times) - 1L))),
+  beta = c(0, 0.1, 0.2),
   gamma = numeric(0L),
   sigma = rep(1, length(visit_times)),
   rho = rep(0, length(visit_times) * (length(visit_times) - 1L)/2L)
@@ -47,7 +46,7 @@ Must have \code{length(spline_knots)} elements.}
 See \code{vignette("models", package = "pmrm")} for details on this parameter.}
 
 \item{gamma}{Numeric vector of model coefficients for covariate adjustment.
-\code{\link[=pmrm_simulate_decline]{pmrm_simulate_decline()}} simulates \code{length(gamma)} columns for
+The simulation functions in \code{pmrm} simulate \code{length(gamma)} columns for
 the covariate adjustment model matrix \code{W}.
 Set to \code{numeric(0)} to omit covariates.}
 

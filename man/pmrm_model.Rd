@@ -155,7 +155,7 @@ where \code{K} is the number of study arms and
 \item \code{gamma}: a vector with \code{V} elements, where \code{V} is the
 number of columns in the covariate adjustment model matrix \code{W}.
 If you are unsure of \code{V}, simply fit a test model
-(e.g. \code{fit <- pmrm_model_decline(...)})
+(e.g. \code{fit <- pmrm_model_decline_proportional(...)})
 and then check \code{ncol(fit$constants$W)}.
 \item \code{phi}: a vector with the same length as \code{visit_times}
 (which may be different from the length of \code{spline_knots}).
@@ -164,7 +164,8 @@ where \code{J} is the length of \code{visit_times}.
 }
 
 You can generate an example of the format of this list
-by fitting a test model (e.g. \code{fit <- pmrm_model_decline(...)})
+by fitting a test model
+(e.g. \code{fit <- pmrm_model_decline_proportional(...)})
 and then extracting \code{fit$initial} or \code{fit$final}.}
 
 \item{silent}{As \link[TMB]{MakeADFun}.}
@@ -224,16 +225,14 @@ on the standard deviations of model parameters.
 Includes true parameters like \code{theta} and \code{alpha} but does not
 include derived parameters like \code{beta} or \code{sigma}.
 You can supply your own list of similarly formatted initial values
-to the \code{initial} argument of the modeling function
-(\code{\link[=pmrm_model_decline]{pmrm_model_decline()}} or \code{\link[=pmrm_model_slowing]{pmrm_model_slowing()}}).
+to the \code{initial} argument of the modeling function you choose.
 \item \code{final}: a list of model parameter estimates after optimization,
 but not including derived parameters like \code{beta} or \code{sigma}.
 The format is exactly the same as \code{initial} (see above)
 to help deal with divergent model fits.
 If your model fit diverged and you want to try resume the optimization
 with slightly better values, you can modify values in \code{final}
-and supply the result to the \code{initial} argument of the modeling function
-(\code{\link[=pmrm_model_decline]{pmrm_model_decline()}} or \code{\link[=pmrm_model_slowing]{pmrm_model_slowing()}}.
+and supply the result to the \code{initial} argument of the modeling function.
 \item \code{estimates}: a full list of parameter estimates, including derived
 parameters
 \item \code{standard_errors}: a list of parameter standard errors.

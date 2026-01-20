@@ -19,14 +19,7 @@ pmrm_simulate_slowing_proportional <- function(
   spline_method = c("natural", "fmm"),
   tau = 0,
   alpha = log(spline_knots + 1),
-  beta = cbind(
-    0,
-    rbind(
-      0,
-      rep(0.2, length(visit_times) - 1L),
-      rep(0.3, length(visit_times) - 1L)
-    )
-  ),
+  beta = c(0, 0.1, 0.2),
   gamma = numeric(0L),
   sigma = rep(1, length(visit_times)),
   rho = rep(0, length(visit_times) * (length(visit_times) - 1L) / 2L)

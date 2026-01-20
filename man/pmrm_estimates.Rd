@@ -13,7 +13,7 @@ pmrm_estimates(
 }
 \arguments{
 \item{fit}{A fitted model object of class \code{"pmrm_fit"} returned
-by a \code{pmrm} model-fitting function such as \code{\link[=pmrm_model_decline]{pmrm_model_decline()}}.}
+by a \code{pmrm} model-fitting function.}
 
 \item{parameter}{Character string, name of the type of model
 parameter to summarize. Must be one of \code{"beta"}, \code{"theta"},
@@ -46,11 +46,11 @@ a progression model for repeated measures (PMRM).
 }
 \examples{
   set.seed(0L)
-  simulation <- pmrm_simulate_decline(
+  simulation <- pmrm_simulate_decline_proportional(
     visit_times = seq_len(5L) - 1,
     gamma = c(1, 2)
   )
-  fit <- pmrm_model_decline(
+  fit <- pmrm_model_decline_proportional(
     data = simulation,
     outcome = "y",
     time = "t",

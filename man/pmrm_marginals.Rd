@@ -8,7 +8,7 @@ pmrm_marginals(fit, type = c("outcome", "change", "effect"), confidence = 0.95)
 }
 \arguments{
 \item{fit}{A \code{pmrm} fitted model object returned by a model-fitting
-function such as \code{\link[=pmrm_model_decline]{pmrm_model_decline()}}.}
+function.}
 
 \item{type}{Character string.
 \code{"outcome"} reports marginal means on the outcome scale,
@@ -27,18 +27,18 @@ columns.
 \description{
 Report the estimates and standard errors of marginal means
 at each study arm and visit. The assumed visit times should have been
-given in the \code{marginals} argument of the model-fitting function,
-e.g. \code{\link[=pmrm_model_decline]{pmrm_model_decline()}}. Use the \code{type} argument to choose
+given in the \code{marginals} argument of the model-fitting function.
+Use the \code{type} argument to choose
 marginal means of the outcomes, marginal estimates of change from
 baseline, and marginal estimates of treatment effects.
 }
 \examples{
   set.seed(0L)
-  simulation <- pmrm_simulate_decline(
+  simulation <- pmrm_simulate_decline_proportional(
     visit_times = seq_len(5L) - 1,
     gamma = c(1, 2)
   )
-  fit <- pmrm_model_slowing(
+  fit <- pmrm_model_decline_proportional(
     data = simulation,
     outcome = "y",
     time = "t",

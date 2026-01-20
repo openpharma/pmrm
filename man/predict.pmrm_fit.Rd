@@ -7,8 +7,7 @@
 \method{predict}{pmrm_fit}(object, data = object$data, adjust = TRUE, confidence = 0.95, ...)
 }
 \arguments{
-\item{object}{A fitted model object of class \code{"pmrm_fit"}
-produced by \code{\link[=pmrm_model_decline]{pmrm_model_decline()}} or \code{\link[=pmrm_model_slowing]{pmrm_model_slowing()}}.}
+\item{object}{A fitted model object of class \code{"pmrm_fit"}.}
 
 \item{data}{A \code{tibble} or data frame with one row per patient visit.
 This is the new data for making predictions.
@@ -46,11 +45,11 @@ and confidence intervals of new outcomes.
 }
 \examples{
   set.seed(0L)
-  simulation <- pmrm_simulate_decline(
+  simulation <- pmrm_simulate_decline_proportional(
     visit_times = seq_len(5L) - 1,
     gamma = c(1, 2)
   )
-  fit <- pmrm_model_decline(
+  fit <- pmrm_model_decline_proportional(
     data = simulation,
     outcome = "y",
     time = "t",
@@ -59,7 +58,7 @@ and confidence intervals of new outcomes.
     arm = "arm",
     covariates = ~ w_1 + w_2
   )
-  new_data <- pmrm_simulate_decline(
+  new_data <- pmrm_simulate_decline_proportional(
     patients = 1,
     visit_times = seq_len(5L) - 1,
     gamma = c(1, 2)

@@ -45,7 +45,7 @@
 #' @param beta Treatment effect parameters. Input format and interpretation
 #'   vary from model to model.
 #' @param gamma Numeric vector of model coefficients for covariate adjustment.
-#'   [pmrm_simulate_decline()] simulates `length(gamma)` columns for
+#'   The simulation functions in `pmrm` simulate `length(gamma)` columns for
 #'   the covariate adjustment model matrix `W`.
 #'   Set to `numeric(0)` to omit covariates.
 #' @param sigma A positive numeric vector of visit-level standard deviation
