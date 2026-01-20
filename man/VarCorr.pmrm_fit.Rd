@@ -43,8 +43,7 @@ within patients.
 Other estimates and predictions: 
 \code{\link{coef.pmrm_fit_decline}()},
 \code{\link{coef.pmrm_fit_slowing}()},
-\code{\link{fitted.pmrm_fit_decline}()},
-\code{\link{fitted.pmrm_fit_slowing}()},
+\code{\link{fitted.pmrm_fit}()},
 \code{\link{plot.pmrm_fit}()},
 \code{\link{pmrm_estimates}()},
 \code{\link{pmrm_marginals}()},

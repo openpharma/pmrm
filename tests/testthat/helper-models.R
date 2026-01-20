@@ -10,7 +10,7 @@ fit_decline <- function() {
     visit_times = visit_times,
     gamma = c(1, 2)
   )
-  simulation$w_1 <- simulation$w_1 + 1
+  simulation$w_1 <- simulation$w_1 + 5
   fit <- pmrm_model_decline(
     data = simulation,
     outcome = "y",
@@ -35,6 +35,7 @@ fit_slowing <- function() {
     visit_times = visit_times,
     gamma = c(1, 2)
   )
+  simulation$w_2 <- simulation$w_2 + 5
   fit <- pmrm_model_slowing(
     data = simulation,
     outcome = "y",

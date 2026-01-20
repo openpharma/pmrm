@@ -209,7 +209,7 @@ The model estimates the latent parameters $\theta_{11}, \ldots, \theta_{(K - 1)(
 
 ## The proportional slowing model
 
-The proportional slowing modle is the same as the non-proportional variant except the time shifts are now $\beta_1, \ldots, \beta_K$, which no longer depend on the visit.
+The proportional slowing model is the same as the non-proportional variant except the time shifts are now $\beta_1, \ldots, \beta_K$, which no longer depend on the visit.
 In other words, we assume that the slowing of disease progression due to to treatment is proportional to time.
 We express the expectation $\mu_{ij}$ the same as before:
 

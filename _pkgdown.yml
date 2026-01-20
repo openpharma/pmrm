@@ -16,8 +16,7 @@ reference:
   - coef.pmrm_fit_decline
   - coef.pmrm_fit_slowing
   - confint.pmrm_fit
-  - fitted.pmrm_fit_decline
-  - fitted.pmrm_fit_slowing
+  - fitted.pmrm_fit
   - plot.pmrm_fit
   - pmrm_estimates
   - pmrm_marginals
