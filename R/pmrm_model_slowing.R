@@ -6,8 +6,7 @@
 #' @inheritSection pmrm_model_decline pmrm fit objects
 #' @return A `pmrm` fit object of class `c("pmrm_fit_slowing", "pmrm_fit")`.
 #'   For details, see the "pmrm fit objects" section of this help file.
-#' @inheritParams RTMB::MakeADFun
-#' @inheritParams pmrm_model_decline
+#' @inheritParams pmrm_model
 #' @param initial If `initial` is a named list,
 #'   then `pmrm` uses this list as the initial parameter
 #'   values for the optimization.
