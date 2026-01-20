@@ -5,12 +5,16 @@ template:
 reference:
 - title: Simulations
   contents:
-  - pmrm_simulate_decline
-  - pmrm_simulate_slowing
+  - pmrm_simulate_decline_nonproportional
+  - pmrm_simulate_decline_proportional
+  - pmrm_simulate_slowing_nonproportional
+  - pmrm_simulate_slowing_proportional
 - title: Models
   contents:
-  - pmrm_model_decline
-  - pmrm_model_slowing
+  - pmrm_model_decline_nonproportional
+  - pmrm_model_decline_proportional
+  - pmrm_model_slowing_nonproportional
+  - pmrm_model_slowing_proportional
 - title: Estimates and predictions 
   contents:
   - coef.pmrm_fit
