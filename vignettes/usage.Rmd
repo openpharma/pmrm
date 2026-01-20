@@ -26,7 +26,7 @@ The `pmrm` package has functions to simulate datasets from each supported model.
 ```{r}
 library(pmrm)
 set.seed(0)
-simulation <- pmrm_simulate_decline(
+simulation <- pmrm_simulate_decline_proportional(
   patients = 500,
   visit_times = c(0, 1, 2, 3, 4),
   tau = 0.25,
@@ -55,7 +55,7 @@ The package is powered by the [`RTMB`](https://github.com/kaskr/RTMB) package, s
 
 ```{r}
 system.time(
-  fit <- pmrm_model_decline(
+  fit <- pmrm_model_decline_proportional(
     data = simulation,
     outcome = "y",
     time = "t",
@@ -80,7 +80,7 @@ All estimates:^[See also `fit$standard_errors`.]
 str(fit$estimates)
 ```
 
-Just the estimates of actual parameters, omitting functions of other parameters:^[Can be supplied to the `initial` argument of `pmrm_model_decline()`.]
+Just the estimates of actual parameters, omitting functions of other parameters:^[Can be supplied to the `initial` argument of `pmrm_model_decline_proportional()`.]
 
 ```{r}
 str(fit$final)
@@ -125,7 +125,7 @@ Example:
 initial <- fit$initial
 initial$alpha <- c(0, 0.5, 1, 1.5, 2)
 
-fit2 <- pmrm_model_decline(
+fit2 <- pmrm_model_decline_proportional(
   data = simulation,
   outcome = "y",
   time = "t",
@@ -144,7 +144,7 @@ Alternatively, you can even tweak one or more parameters and then resume the ori
 initial <- fit$final # true parameters from the last fit
 initial$theta[2] <- 0 # reset a scalar parameter that may have diverged
 
-fit3 <- pmrm_model_decline(
+fit3 <- pmrm_model_decline_proportional(
   data = simulation,
   outcome = "y",
   time = "t",
@@ -209,7 +209,7 @@ summary(fit)
 # Marginals
 
 `pmrm_marginals()` returns estimated marginal means for each study arm and visit.
-The continuous time at each visit is given by the `marginals` argument to `pmrm_model_decline()`.
+The continuous time at each visit is given by the `marginals` argument to `pmrm_model_decline_proportional()`.
 
 ```{r}
 pmrm_marginals(fit, type = "outcome")
@@ -229,7 +229,7 @@ pmrm_marginals(fit, type = "effect")
 
 # Predictions
 
-The package supports a `predict()` method for models fit with `pmrm_model_decline()` or `pmrm_model_slowing()`.
+The package supports a `predict()` method for all PMRMs.
 It returns the expected values, standard errors, and confidence intervals for the outcomes given new data.
 All the important columns from the original data need to be part of the new data, except that the outcome column can be entirely absent.
 
