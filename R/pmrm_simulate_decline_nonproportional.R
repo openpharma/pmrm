@@ -1,0 +1,42 @@
+#' @title Simulate non-proportional decline model.
+#' @export
+#' @family simulations
+#' @description Simulate a dataset from the non-proportional decline model.
+#' @details See `vignette("models", package = "pmrm")` for details.
+#' @inheritSection pmrm_simulate Simulated data
+#' @return A `tibble` of clinical data simulated from the model.
+#'   See the "Simulated data" section of this help file for details.
+#' @inheritParams pmrm_simulate
+#' @param beta Numeric matrix with one row for each study arm
+#'   (including the control arm)
+#'   and one column for each study visit (including baseline).
+#'   See `vignette("models", package = "pmrm")` for details on this parameter.
+#' @examples
+#'   pmrm_simulate_decline_nonproportional()
+pmrm_simulate_decline_nonproportional <- function(
+  patients = 300,
+  visit_times = seq(from = 0, to = 4, by = 1),
+  spline_knots = visit_times,
+  spline_method = c("natural", "fmm"),
+  tau = 0,
+  alpha = log(spline_knots + 1),
+  beta = c(0, 0.1, 0.2),
+  gamma = numeric(0L),
+  sigma = rep(1, length(visit_times)),
+  rho = rep(0, length(visit_times) * (length(visit_times) - 1L) / 2L)
+) {
+  pmrm_simulate(
+    patients = patients,
+    visit_times = visit_times,
+    spline_knots = spline_knots,
+    spline_method = match.arg(spline_method),
+    tau = tau,
+    alpha = alpha,
+    beta = beta,
+    gamma = gamma,
+    sigma = sigma,
+    rho = rho,
+    slowing = FALSE,
+    proportional = FALSE
+  )
+}
