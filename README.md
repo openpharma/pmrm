@@ -17,20 +17,6 @@ You can install `pmrm` from GitHub.
 pak::pkg_install("wlandau/pmrm")
 ```
 
-Please make sure the version of `RTMB` is \>= 1.8.
-
-``` r
-packageVersion("RTMB")
-#> [1] '1.8'
-```
-
-If your version of `RTMB` is too low, please install the latest version
-from CRAN.
-
-``` r
-install.packages("RTMB", repos = "https://cloud.r-project.org")
-```
-
 # Citation
 
 ``` r
