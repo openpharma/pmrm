@@ -1,20 +1,20 @@
-test_that("fitted.pmrm_fit_decline()", {
+test_that("fitted.pmrm_fit() proportional decline", {
   for (adjust in c(TRUE, FALSE)) {
     # Computed with independent R code.
-    out <- fitted(fit_decline(), adjust = adjust)
+    out <- fitted(fit_decline_proportional(), adjust = adjust)
     # Reported from the objective function itself.
-    predictions <- predict(fit_decline(), adjust = adjust)
+    predictions <- predict(fit_decline_proportional(), adjust = adjust)
     expect_gt(cor(out, predictions$estimate), 0.999)
     expect_lt(max(abs(out - predictions$estimate)), 0.002)
   }
 })
 
-test_that("fitted.pmrm_fit_slowing()", {
+test_that("fitted.pmrm_fit() non-proportional slowing", {
   for (adjust in c(TRUE, FALSE)) {
     # Computed with independent R code.
-    out <- fitted(fit_slowing(), adjust = adjust)
+    out <- fitted(fit_slowing_nonproportional(), adjust = adjust)
     # Reported from the objective function itself.
-    predictions <- predict(fit_slowing(), adjust = adjust)
+    predictions <- predict(fit_slowing_nonproportional(), adjust = adjust)
     expect_gt(cor(out, predictions$estimate), 0.999)
     expect_lt(max(abs(out - predictions$estimate)), 0.002)
   }
