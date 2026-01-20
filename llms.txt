@@ -65,20 +65,14 @@ in Medicine* 41 (28): 5537–57. <https://doi.org/10.1002/sim.9581>.
 
 ## Estimates and predictions
 
-- [`coef(`*`<pmrm_fit_decline>`*`)`](https://wlandau.github.io/pmrm/reference/coef.pmrm_fit_decline.md)
-  : Nonlinear fixed effects: proportional decline model.
-
-- [`coef(`*`<pmrm_fit_slowing>`*`)`](https://wlandau.github.io/pmrm/reference/coef.pmrm_fit_slowing.md)
-  : Nonlinear fixed effects: non-proportional slowing model.
+- [`coef(`*`<pmrm_fit>`*`)`](https://wlandau.github.io/pmrm/reference/coef.pmrm_fit.md)
+  : Treatment effect parameters
 
 - [`confint(`*`<pmrm_fit>`*`)`](https://wlandau.github.io/pmrm/reference/confint.pmrm_fit.md)
   : Confidence intervals of parameters
 
-- [`fitted(`*`<pmrm_fit_decline>`*`)`](https://wlandau.github.io/pmrm/reference/fitted.pmrm_fit_decline.md)
-  : Fitted values: proportional decline model.
-
-- [`fitted(`*`<pmrm_fit_slowing>`*`)`](https://wlandau.github.io/pmrm/reference/fitted.pmrm_fit_slowing.md)
-  : Fitted values: non-proportional slowing model.
+- [`fitted(`*`<pmrm_fit>`*`)`](https://wlandau.github.io/pmrm/reference/fitted.pmrm_fit.md)
+  : Fitted values
 
 - [`plot(`*`<pmrm_fit>`*`)`](https://wlandau.github.io/pmrm/reference/plot.pmrm_fit.md)
   : Plot a fitted PMRM.
@@ -100,13 +94,8 @@ in Medicine* 41 (28): 5537–57. <https://doi.org/10.1002/sim.9581>.
 - [`VarCorr(`*`<pmrm_fit>`*`)`](https://wlandau.github.io/pmrm/reference/VarCorr.pmrm_fit.md)
   : Estimated covariance matrix
 
-- [`vcov(`*`<pmrm_fit_decline>`*`)`](https://wlandau.github.io/pmrm/reference/vcov.pmrm_fit_decline.md)
-  : Nonlinear fixed effects covariance matrix: proportional decline
-  model
-
-- [`vcov(`*`<pmrm_fit_slowing>`*`)`](https://wlandau.github.io/pmrm/reference/vcov.pmrm_fit_slowing.md)
-  : Nonlinear fixed effects covariance matrix: non-proportional slowing
-  model
+- [`vcov(`*`<pmrm_fit>`*`)`](https://wlandau.github.io/pmrm/reference/vcov.pmrm_fit.md)
+  : Treatment effect parameter covariance matrix
 
 ## Model comparison
 
@@ -126,5 +115,4 @@ in Medicine* 41 (28): 5537–57. <https://doi.org/10.1002/sim.9581>.
 ### All vignettes
 
 - [Models](https://wlandau.github.io/pmrm/articles/models.md):
-- [Simulation](https://wlandau.github.io/pmrm/articles/simulation.md):
 - [Usage](https://wlandau.github.io/pmrm/articles/usage.md):

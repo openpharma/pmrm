@@ -39,7 +39,6 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/models.html">Models</a></li>
-    <li><a class="dropdown-item" href="../articles/simulation.html">Simulation</a></li>
     <li><a class="dropdown-item" href="../articles/usage.html">Usage</a></li>
   </ul>
 </li>
@@ -73,86 +72,119 @@
     
 <p>A progression model for repeated measures (PMRM) is a longitudinal
 continuous-time nonlinear model of a progressive disease. The
-<code>pmrm</code> package implements PMRMs from <span class="citation">Raket (2022)</span>. This vignette defines the specific
-models that the package supports, using the same parameterization as the
-underlying code.</p>
-<p>First, we define a base model to characterize disease progression in
-a one-arm study. Then, we extend the base model to a randomized
-controlled parallel clinical trial with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>
-study arms with different interventions.</p>
+<code>pmrm</code> package implements PMRMs from <span class="citation">Raket (2022)</span>. This vignette defines the models
+in the package.</p>
 <div class="section level2">
-<h2 id="base-model">Base model<a class="anchor" aria-label="anchor" href="#base-model"></a>
+<h2 id="common-elements">Common elements<a class="anchor" aria-label="anchor" href="#common-elements"></a>
 </h2>
-<p>The base model characterizes a progressive disease in a one-arm study
-with at most one clinical intervention:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>y</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>t</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><mi>ξ</mi><mo>,</mo><mi>α</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><msub><mi>W</mi><mi>i</mi></msub><mi>γ</mi><mo>+</mo><msub><mi>e</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mtd></mtr></mtable><annotation encoding="application/x-tex">
-\begin{aligned}
-y_{ij} &amp;= f(t_{ij} | \xi, \alpha) + W_{i}\gamma + e_{ij}
-\end{aligned}
-</annotation></semantics></math></p>
-<p>The following subsections describe the components of the base
-model.</p>
+<p>This section defines the notation and assumptions common to all
+models in the package.</p>
 <div class="section level3">
 <h3 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a>
 </h3>
-<p>For patient
+<p>Let the scalar
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">y_{ij}</annotation></semantics></math>
+be the continuous measure of disease severity of patient
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
 (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">i = 1, \ldots, I</annotation></semantics></math>)
 at clinical visit
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
-(j = 1, , J),
+(j = 1, , J). For a progressive disease, we generally expect
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">y_{ij}</annotation></semantics></math>
-is the observed clinical outcome.
+to worsen from visit to visit. The goal of treatment is usually to
+minimize this worsening over time.</p>
+<p>Some
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">y_{ij}</annotation></semantics></math>
-could be a clinical measure of disease severity or of the patient’s
-health. Since the model accounts for baseline,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">y_{ij}</annotation></semantics></math>
-should not already be a change from baseline. Some clinical outcomes may
-have missing values. However, the baseline outcome
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mrow><mi>i</mi><mn>1</mn></mrow></msub><annotation encoding="application/x-tex">y_{i1}</annotation></semantics></math>
-must be non-missing for all patients
-(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">i = 1, \ldots, I</annotation></semantics></math>).</p>
+values may be missing due to dropout or other intercurrent events. We
+assume these outcomes are missing at random (MAR). Except for the
+outcomes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">y_{ij}</annotation></semantics></math>,
+all values in the data must be non-missing.</p>
 <p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">t_{ij}</annotation></semantics></math>
-is the continuous time since baseline. A continuous time of 0 indicates
-the scheduled time of the baseline visit. Time
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">j = 1</annotation></semantics></math>
-denotes the baseline visit, and so
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mrow><mi>i</mi><mn>1</mn></mrow></msub><annotation encoding="application/x-tex">t_{i1}</annotation></semantics></math>
-should be close to 0 for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">i = 1, \ldots, I</annotation></semantics></math>.
+is continuous time since the baseline visit of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">j = 1</annotation></semantics></math>.
 At baseline, we assume treatment has not been administered yet, so all
 study arms should have the same expected outcome if randomization is
-conducted properly.</p>
-<p>Let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
-be the total number of records in the data, including records with
-missing
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">y_{ij}</annotation></semantics></math>
-values. Records with missing
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">y_{ij}</annotation></semantics></math>
-values are excluded from the model. Other than a subset of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">y_{ij}</annotation></semantics></math>
-values missing at random, no other quantity in the model (data or
-parameters) may be missing.</p>
+conducted properly.<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;This is constrained longitudinal data analysis (cLDA) as
+explained by &lt;span class="citation"&gt;Wang et al. (2022)&lt;/span&gt;.&lt;/p&gt;'><sup>1</sup></a></p>
+<p>The model may include optional covariates such as age and biomarker
+status.</p>
 </div>
 <div class="section level3">
-<h3 id="residuals">Residuals<a class="anchor" aria-label="anchor" href="#residuals"></a>
+<h3 id="likelihood">Likelihood<a class="anchor" aria-label="anchor" href="#likelihood"></a>
 </h3>
-<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>e</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">e_{ij}</annotation></semantics></math>
-is the residual of patient
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
-at visit
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>.
-Residuals from different patients are independent.
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Σ</mi><mo>=</mo><mtext mathvariant="normal">Var</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>e</mi><mrow><mi>i</mi><mn>1</mn></mrow></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>e</mi><mrow><mi>i</mi><mi>J</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\Sigma = \text{Var}(e_{i1}, \ldots, e_{iJ})</annotation></semantics></math>
-is the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo>×</mo><mi>J</mi></mrow><annotation encoding="application/x-tex">J \times J</annotation></semantics></math>
-unstructured covariance matrix of residuals for patient
+<p>Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mi>i</mi></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>y</mi><mrow><mi>i</mi><mn>1</mn></mrow></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>y</mi><mrow><mi>i</mi><mi>J</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">y_i = (y_{i1}, \ldots, y_{iJ})</annotation></semantics></math>
+be the vector of outcomes of patient
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>.
-The model assumes all patients share the same covariance
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Σ</mi><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math>.</p>
-<p>We parameterize
+For each pair of different patients
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>i</mi><mo>*</mo></msup><annotation encoding="application/x-tex">i^*</annotation></semantics></math>,
+we assume
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mi>i</mi></msub><annotation encoding="application/x-tex">y_i</annotation></semantics></math>
+is independent of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><msup><mi>i</mi><mo>*</mo></msup></msub><annotation encoding="application/x-tex">y_{i^*}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">Var</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>y</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mtext mathvariant="normal">Var</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msup><mi>y</mi><mo>*</mo></msup><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\text{Var}(y_i) = \text{Var}(y^*)</annotation></semantics></math>
+. For each
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>,
+define
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>μ</mi><mi>i</mi></msub><mo>=</mo><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>y</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>μ</mi><mrow><mi>i</mi><mn>1</mn></mrow></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>μ</mi><mrow><mi>i</mi><mi>J</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mu_i = E(y_i) = (\mu_{i1}, \ldots, \mu_{iJ})</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Σ</mi><mo>=</mo><mtext mathvariant="normal">Var</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>y</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\Sigma = \text{Var}(y_i)</annotation></semantics></math>.</p>
+<p>If there were no missing outcomes, we would assign a multivariate
+normal likelihood to each patient:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>y</mi><mi>i</mi></msub><mo>∼</mo><mtext mathvariant="normal">MVN</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>μ</mi><mi>i</mi></msub><mo>,</mo><mi>Σ</mi><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr></mtable><annotation encoding="application/x-tex">
+\begin{aligned}
+y_i \sim \text{MVN}(\mu_i, \Sigma)
+\end{aligned}
+</annotation></semantics></math></p>
+<p>But to account for intercurrent events such as dropout, we instead
+assign patient-level marginal likelihoods with missing outcomes
+integrated out.</p>
+<p>Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Q</mi><mi>i</mi></msub><annotation encoding="application/x-tex">Q_i</annotation></semantics></math>
+be the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>×</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">q \times I</annotation></semantics></math>
+matrix such that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Q</mi><mi>i</mi></msub><msub><mi>y</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">Q_i y_i</annotation></semantics></math>
+is the chronologically ordered vector of all
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
+non-missing values of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mi>i</mi></msub><annotation encoding="application/x-tex">y_i</annotation></semantics></math>.
+Then the marginal likelihood for patient
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+is:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>Q</mi><mi>i</mi></msub><msub><mi>y</mi><mi>i</mi></msub><mo>∼</mo><mtext mathvariant="normal">MVN</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>Q</mi><mi>i</mi></msub><msub><mi>μ</mi><mi>i</mi></msub><mo>,</mo><msub><mi>Q</mi><mi>i</mi></msub><mi>Σ</mi><msubsup><mi>Q</mi><mi>i</mi><mi>T</mi></msubsup><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr></mtable><annotation encoding="application/x-tex">
+\begin{aligned}
+Q_i y_i \sim \text{MVN}(Q_i \mu_i, Q_i \Sigma Q_i^T)
+\end{aligned}
+</annotation></semantics></math></p>
+<p>The model is fit by maximizing the product of these independent
+marginal likelihoods over the parameters that define
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>μ</mi><mi>i</mi></msub><annotation encoding="application/x-tex">\mu_i</annotation></semantics></math>
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">i = 1, \ldots, I</annotation></semantics></math>)
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Σ</mi><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math>.
+These parameters are
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>γ</mi><annotation encoding="application/x-tex">\gamma</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>,
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math>,
+and they are all defined in subsequent sections of this vignette.</p>
+</div>
+<div class="section level3">
+<h3 id="variance">Variance<a class="anchor" aria-label="anchor" href="#variance"></a>
+</h3>
+<p>Recall that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Σ</mi><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math>
+is defined as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">Var</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>y</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\text{Var}(y_i)</annotation></semantics></math>
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">i = 1, \ldots, I</annotation></semantics></math>).
+We parameterize
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Σ</mi><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math>
 as follows:</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mi>Σ</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mi>D</mi><mi>Λ</mi><mi>D</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">
@@ -166,14 +198,16 @@ is a
 diagonal matrix with diagonal
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>σ</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>σ</mi><mi>J</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\sigma = (\sigma_1, \ldots, \sigma_J)</annotation></semantics></math>
 (the visit-specific standard deviation parameters). To constrain
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mi>j</mi></msub><mo>&gt;</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\sigma_j &gt;= 0</annotation></semantics></math>
-during maximum likelihood estimation, we define a latent parameter
-vector
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mi>j</mi></msub><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\sigma_j \ge 0</annotation></semantics></math>,
+we define a latent parameter vector
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ϕ</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>ϕ</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>ϕ</mi><mi>J</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\phi = (\phi_1, \ldots, \phi_J)</annotation></semantics></math>
 such that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ϕ</mi><mi>j</mi></msub><mo>=</mo><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>σ</mi><mi>j</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\phi_j = \log(\sigma_j)</annotation></semantics></math>
 for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>J</mi></mrow><annotation encoding="application/x-tex">j = 1, \ldots, J</annotation></semantics></math>.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>J</mi></mrow><annotation encoding="application/x-tex">j = 1, \ldots, J</annotation></semantics></math>.
+The model estimates
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>
+with maximum likelihood.</p>
 <p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Λ</mi><annotation encoding="application/x-tex">\Lambda</annotation></semantics></math>
 is the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo>×</mo><mi>J</mi></mrow><annotation encoding="application/x-tex">J \times J</annotation></semantics></math>
@@ -191,268 +225,112 @@ and it is expressed in terms of a vector
 of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mfrac><mrow><mi>J</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mn>2</mn></mfrac><annotation encoding="application/x-tex">\frac{J (J - 1)}{2}</annotation></semantics></math>
 latent parameters.<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;In R, &lt;code&gt;RTMB::unstructured(J)$corr(rho)&lt;/code&gt; maps
-latent parameter vector &lt;code&gt;rho&lt;/code&gt; to the
+latent parameter vector
+&lt;math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"&gt;&lt;semantics&gt;&lt;mi&gt;ρ&lt;/mi&gt;&lt;annotation encoding="application/x-tex"&gt;\rho&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;
+to the
 &lt;math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;J&lt;/mi&gt;&lt;mo&gt;×&lt;/mo&gt;&lt;mi&gt;J&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding="application/x-tex"&gt;J \times J&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;
 correlation matrix
-&lt;math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;L&lt;/mi&gt;&lt;msup&gt;&lt;mi&gt;L&lt;/mi&gt;&lt;mi&gt;T&lt;/mi&gt;&lt;/msup&gt;&lt;/mrow&gt;&lt;annotation encoding="application/x-tex"&gt;L L^T&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;.&lt;/p&gt;'><sup>1</sup></a></p>
-<p>The model estimates parameter vectors
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>
-and
+&lt;math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;L&lt;/mi&gt;&lt;msup&gt;&lt;mi&gt;L&lt;/mi&gt;&lt;mi&gt;T&lt;/mi&gt;&lt;/msup&gt;&lt;/mrow&gt;&lt;annotation encoding="application/x-tex"&gt;L L^T&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;.&lt;/p&gt;'><sup>2</sup></a> The model estimates
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math>
 with maximum likelihood.</p>
 </div>
 <div class="section level3">
-<h3 id="handling-missing-outcomes">Handling missing outcomes<a class="anchor" aria-label="anchor" href="#handling-missing-outcomes"></a>
+<h3 id="expected-value-of-the-control-group">Expected value of the control group<a class="anchor" aria-label="anchor" href="#expected-value-of-the-control-group"></a>
 </h3>
-<p>Let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mi>i</mi></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>y</mi><mrow><mi>i</mi><mn>1</mn></mrow></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>y</mi><mrow><mi>i</mi><mi>J</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">y_i = (y_{i1}, \ldots, y_{iJ})</annotation></semantics></math>
-be the vector of outcomes of patient
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>.
-Suppose
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
-outcomes in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mi>i</mi></msub><annotation encoding="application/x-tex">y_i</annotation></semantics></math>
-are missing, and let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>
-be an
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>I</mi><mo>−</mo><mi>q</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>×</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">(I - q) \times I</annotation></semantics></math>
-subsetting matrix such that
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><msub><mi>y</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">Qy_i</annotation></semantics></math>
-is the vector of observed values in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mi>i</mi></msub><annotation encoding="application/x-tex">y_i</annotation></semantics></math>.
-Then, a simple linear transformation shows:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mi>Q</mi><msub><mi>y</mi><mi>i</mi></msub><mo>∼</mo><mtext mathvariant="normal">MVN</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mi>Q</mi><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>y</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mi>Q</mi><mi>Σ</mi><msup><mi>Q</mi><mi>T</mi></msup><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr></mtable><annotation encoding="application/x-tex">
+<p>Recall that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>μ</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">\mu_{ij}</annotation></semantics></math>
+is the expected mean outcome of patient
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+at visit
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>.
+If patient
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+is part of the control group, then we define:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>μ</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>=</mo><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>t</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><mi>ξ</mi><mo>,</mo><mi>α</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><msub><mi>W</mi><mi>i</mi></msub><mi>γ</mi><mo>−</mo><mo stretchy="false" form="prefix">⟨</mo><msub><mover><mi>W</mi><mo accent="true">¯</mo></mover><mi>i</mi></msub><mo>,</mo><mi>γ</mi><mo stretchy="false" form="postfix">⟩</mo></mtd></mtr></mtable><annotation encoding="application/x-tex">
 \begin{aligned}
-Qy_i \sim \text{MVN}(Q E(y_i), Q \Sigma Q^T)
+\mu_{ij} = f(t_{ij} | \xi, \alpha) + W_i \gamma - \langle \overline{W}_i, \gamma \rangle
 \end{aligned}
-</annotation></semantics></math> The modeling code estimates the
-parameters that maximize the sum of the above marginal likelihoods
-across all patients
-(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">i = 1, \ldots, I</annotation></semantics></math>).
-The remainder of this vignette parameterizes the expectation
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">E(y)</annotation></semantics></math>.</p>
-</div>
-<div class="section level3">
-<h3 id="covariate-adjustment">Covariate adjustment<a class="anchor" aria-label="anchor" href="#covariate-adjustment"></a>
-</h3>
-<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>γ</mi><annotation encoding="application/x-tex">\gamma</annotation></semantics></math>
-is a vector of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math>
-fixed effect parameters for concomitant covariates, and
+</annotation></semantics></math></p>
+<p>Each model expresses the expected outcomes differently, but all
+models reduce to the above equation for the control arm.</p>
+<p>Above,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>W</mi><mi>i</mi></msub><annotation encoding="application/x-tex">W_i</annotation></semantics></math>
-is a constant model matrix for the covariates for patient
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>.
-Define:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mi>W</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>W</mi><mn>1</mn></msub></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mi>⋮</mi></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>W</mi><mi>I</mi></msub></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow></mtd></mtr></mtable><annotation encoding="application/x-tex">
-\begin{aligned}
-W = \begin{bmatrix}
-W_1 \\
-\vdots \\
-W_I
-\end{bmatrix}
-\end{aligned}
-</annotation></semantics></math></p>
-<p>Matrix
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>W</mi><annotation encoding="application/x-tex">W</annotation></semantics></math>
-has
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>
-columns, and each column is centered so that its mean is 0. That way,
-the reference level at
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>γ</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><mi>…</mi><mo>,</mo><mn>0</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\gamma = (0, \ldots, 0)</annotation></semantics></math>
-represents the means of the covariate values in the data. To help
-initial value specification, columns with positive variance are also
-divided by their respective standard deviations.</p>
-</div>
-<div class="section level3">
-<h3 id="mean-function">Mean function<a class="anchor" aria-label="anchor" href="#mean-function"></a>
-</h3>
-<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="prefix">|</mo><mi>ξ</mi><mo>,</mo><mi>α</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">f(t | \xi, \alpha)</annotation></semantics></math>
-is the expected clinical outcome at continuous time
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>
-given
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>γ</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><mi>…</mi><mo>,</mo><mn>0</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\gamma = (0, \ldots, 0)</annotation></semantics></math>
-(without intervention (from an active treatment arm) or covariate
-adjustment). We compute
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="prefix">|</mo><mi>ξ</mi><mo>,</mo><mi>α</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">f(t | \xi, \alpha)</annotation></semantics></math>
-by interpolating a spline at time
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>.<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;The user can select the specific method for fitting the
-spline.&lt;/p&gt;"><sup>2</sup></a> We
-construct the spline using
-<code>RTMB::splinefun(x = xi, y = alpha)</code>. This fitted spline is
-uniquely determined by the knot vector
+is the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo>×</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">J \times V</annotation></semantics></math>
+sparse model matrix of constant non-missing covariates from the data,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mover><mi>W</mi><mo accent="true">¯</mo></mover><mi>i</mi></msub><annotation encoding="application/x-tex">\overline{W}_i</annotation></semantics></math>
+is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>-length
+vector of the column means of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>W</mi><mi>i</mi></msub><annotation encoding="application/x-tex">W_i</annotation></semantics></math>,
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">⟨</mo><msub><mover><mi>W</mi><mo accent="true">¯</mo></mover><mi>i</mi></msub><mo>,</mo><mi>γ</mi><mo stretchy="false" form="postfix">⟩</mo></mrow><annotation encoding="application/x-tex">\langle \overline{W}_i, \gamma \rangle</annotation></semantics></math>
+is the inner product of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mover><mi>W</mi><mo accent="true">¯</mo></mover><mi>i</mi></msub><annotation encoding="application/x-tex">\overline{W}_i</annotation></semantics></math>
+with model coefficient parameter vector
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>γ</mi><annotation encoding="application/x-tex">\gamma</annotation></semantics></math>.<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;We express the covariate adjustment terms as
+&lt;math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;msub&gt;&lt;mi&gt;W&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;/msub&gt;&lt;mi&gt;γ&lt;/mi&gt;&lt;mo&gt;−&lt;/mo&gt;&lt;mo stretchy="false" form="prefix"&gt;⟨&lt;/mo&gt;&lt;msub&gt;&lt;mover&gt;&lt;mi&gt;W&lt;/mi&gt;&lt;mo accent="true"&gt;¯&lt;/mo&gt;&lt;/mover&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;/msub&gt;&lt;mo&gt;,&lt;/mo&gt;&lt;mi&gt;γ&lt;/mi&gt;&lt;mo stretchy="false" form="postfix"&gt;⟩&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding="application/x-tex"&gt;W_i \gamma - \langle \overline{W}_i, \gamma \rangle&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;
+to improve computational efficiency when dealing with sparse matrices.&lt;/p&gt;'><sup>3</sup></a> The model
+estimates
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>γ</mi><annotation encoding="application/x-tex">\gamma</annotation></semantics></math>
+with maximum likelihood.</p>
+<p>The mean function
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>t</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><mi>ξ</mi><mo>,</mo><mi>α</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">f(t_{ij} | \xi, \alpha)</annotation></semantics></math>
+is the expected clinical outcome at time
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">t_{ij}</annotation></semantics></math>
+of the control arm prior to covariate adjustment. It is a spline with
+knots
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ξ</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>ξ</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>ξ</mi><mi>S</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\xi = (\xi_1, \ldots, \xi_S)</annotation></semantics></math>
-and the corresponding vector
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>α</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>α</mi><mi>S</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\alpha = (\alpha_1, \ldots, \alpha_S)</annotation></semantics></math>
-of values on the outcome scale. Specifically, for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">s = 1, \ldots, S</annotation></semantics></math>:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>ξ</mi><mi>s</mi></msub><mo stretchy="false" form="prefix">|</mo><mi>ξ</mi><mo>,</mo><mi>α</mi><mo stretchy="true" form="postfix">)</mo></mrow></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><msub><mi>α</mi><mi>s</mi></msub></mtd></mtr></mtable><annotation encoding="application/x-tex">
-\begin{aligned}
-f(\xi_s | \xi, \alpha) &amp;= \alpha_s
-\end{aligned}
-</annotation></semantics></math></p>
-<p>The parameter vector
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>
-is estimated with maximum likelihood.</p>
-<p>The knots in
+and vertical anchor points
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>α</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>α</mi><mi>S</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\alpha = (\alpha_1, \ldots, \alpha_S)</annotation></semantics></math>.<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;In other words,
+&lt;math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;f&lt;/mi&gt;&lt;mrow&gt;&lt;mo stretchy="true" form="prefix"&gt;(&lt;/mo&gt;&lt;msub&gt;&lt;mi&gt;ξ&lt;/mi&gt;&lt;mi&gt;s&lt;/mi&gt;&lt;/msub&gt;&lt;mo stretchy="false" form="prefix"&gt;|&lt;/mo&gt;&lt;mi&gt;ξ&lt;/mi&gt;&lt;mo&gt;,&lt;/mo&gt;&lt;mi&gt;α&lt;/mi&gt;&lt;mo stretchy="true" form="postfix"&gt;)&lt;/mo&gt;&lt;/mrow&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;msub&gt;&lt;mi&gt;α&lt;/mi&gt;&lt;mi&gt;s&lt;/mi&gt;&lt;/msub&gt;&lt;/mrow&gt;&lt;annotation encoding="application/x-tex"&gt;f(\xi_s | \xi, \alpha) = \alpha_s&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;
+for
+&lt;math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;s&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;mo&gt;,&lt;/mo&gt;&lt;mi&gt;…&lt;/mi&gt;&lt;mo&gt;,&lt;/mo&gt;&lt;mi&gt;S&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding="application/x-tex"&gt;s = 1, \ldots, S&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;.&lt;/p&gt;'><sup>4</sup></a> The knots
+in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ξ</mi><annotation encoding="application/x-tex">\xi</annotation></semantics></math>
-are fixed and supplied by the user. The knot values are usually the
-scheduled visit times specified in the study protocol.<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;However, both the discrete visit designations in the
+are fixed and supplied by the user, and they are usually the scheduled
+visit times specified in the study protocol.<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;However, both the discrete visit designations in the
 data and the spline knots in the model may need adjustment if many
 visits occurred off-schedule, as was the case for neurodegeneration
-studies during the COVID-19 pandemic. (See &lt;span class="citation"&gt;Donohue et al. (2023)&lt;/span&gt;).&lt;/p&gt;'><sup>3</sup></a></p>
+studies during the COVID-19 pandemic. (See &lt;span class="citation"&gt;Donohue et al. (2023)&lt;/span&gt;).&lt;/p&gt;'><sup>5</sup></a> The model estimates
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>
+with maximum likelihood.</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="proportional-decline-model">Proportional decline model<a class="anchor" aria-label="anchor" href="#proportional-decline-model"></a>
+<h2 id="the-decline-models">The decline models<a class="anchor" aria-label="anchor" href="#the-decline-models"></a>
 </h2>
-<p>The proportional decline model characterizes therapeutic benefit (or
-worsening) as a pointwise reduction (or increase) in severity on the
-clinical outcome scale. The expected amount of therapeutic change is
-assumed to be proportional to the amount of time elapsed since
-baseline.</p>
+<p>In progressive disease, we usually expect patient health to decline
+after baseline. The models in this section measure how well treatment
+reduces this decline. Therapeutic benefit is expressed as a pointwise
+reduction on the clinical outcome scale.</p>
 <div class="section level3">
-<h3 id="definition">Definition<a class="anchor" aria-label="anchor" href="#definition"></a>
+<h3 id="the-non-proportional-decline-model">The non-proportional decline model<a class="anchor" aria-label="anchor" href="#the-non-proportional-decline-model"></a>
 </h3>
-<p>Define scalar
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>β</mi><mi>k</mi></msub><annotation encoding="application/x-tex">\beta_{k}</annotation></semantics></math>
-for each study arm
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
-(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">k = 1, \ldots, K</annotation></semantics></math>).
-Let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k = 1</annotation></semantics></math>
-denote the control arm, and let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>K</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">b(i) \in \{1, \ldots, K\}</annotation></semantics></math>
-indicate the study arm of patient
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>.
-The proportional decline model is defined as:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>y</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><msub><mi>μ</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>+</mo><msub><mi>e</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mtd></mtr></mtable><annotation encoding="application/x-tex">
+<p>We express the expected value
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>μ</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">\mu_{ij}</annotation></semantics></math>
+as follows:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>μ</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>β</mi><mrow><mi>b</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>j</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>t</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><mi>ξ</mi><mo>,</mo><mi>α</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="prefix">|</mo><mi>ξ</mi><mo>,</mo><mi>α</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="prefix">|</mo><mi>ξ</mi><mo>,</mo><mi>α</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><msub><mi>W</mi><mi>i</mi></msub><mi>γ</mi><mo>−</mo><mo stretchy="false" form="prefix">⟨</mo><msub><mover><mi>W</mi><mo accent="true">¯</mo></mover><mi>i</mi></msub><mo>,</mo><mi>γ</mi><mo stretchy="false" form="postfix">⟩</mo></mtd></mtr></mtable><annotation encoding="application/x-tex">
 \begin{aligned}
-y_{ij} &amp;= \mu_{ij} + e_{ij}
+\mu_{ij} &amp;= (1 - \beta_{b(i)j}) \left ( f(t_{ij} | \xi, \alpha) - f(0 | \xi, \alpha) \right ) + f(0 | \xi, \alpha) + W_i \gamma - \langle \overline{W}_i, \gamma \rangle
 \end{aligned}
 </annotation></semantics></math></p>
-<p>where:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>μ</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>β</mi><mrow><mi>b</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>t</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><mi>ξ</mi><mo>,</mo><mi>α</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="prefix">|</mo><mi>ξ</mi><mo>,</mo><mi>α</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="prefix">|</mo><mi>ξ</mi><mo>,</mo><mi>α</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><msub><mi>W</mi><mi>i</mi></msub><mi>γ</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">
-\begin{aligned}
-\mu_{ij} &amp;= (1 - \beta_{b(i)}) \left ( f(t_{ij} | \xi, \alpha) - f(0 | \xi, \alpha) \right ) + f(0 | \xi, \alpha) + W_{i}\gamma
-\end{aligned}
-</annotation></semantics></math></p>
-</div>
-<div class="section level3">
-<h3 id="constraints">Constraints<a class="anchor" aria-label="anchor" href="#constraints"></a>
-</h3>
-<p>The model imposes a constraint so that the control arm
-(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k = 1</annotation></semantics></math>)
-is the reference arm:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>β</mi><mi>k</mi></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="left" style="text-align: left"><mn>0</mn></mtd><mtd columnalign="left" style="text-align: left"><mi>k</mi><mo>=</mo><mn>1</mn></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><msub><mi>θ</mi><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow></msub></mtd><mtd columnalign="left" style="text-align: left"><mi>k</mi><mo>=</mo><mn>2</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>K</mi></mtd></mtr></mtable></mrow></mtd></mtr></mtable><annotation encoding="application/x-tex">
-\begin{aligned}
-\beta_k = \begin{cases}
-0 &amp; k = 1 \\
-\theta_{k - 1} &amp; k = 2, \ldots, K
-\end{cases}
-\end{aligned}
-</annotation></semantics></math></p>
-<p>The model estimates latent parameters
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>θ</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>θ</mi><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">\theta_1, \dots, \theta_{K - 1}</annotation></semantics></math>
-using maximum likelihood.</p>
-</div>
-<div class="section level3">
-<h3 id="interpretation">Interpretation<a class="anchor" aria-label="anchor" href="#interpretation"></a>
-</h3>
-<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>t</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><mi>ξ</mi><mo>,</mo><mi>α</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="prefix">|</mo><mi>ξ</mi><mo>,</mo><mi>α</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">f(t_{ij} | \xi, \alpha) - f(0 | \xi, \alpha)</annotation></semantics></math>
-quantifies the decline from baseline to visit
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
-in the health of patient
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
-due to the progression of the disease. For
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k &gt; 1</annotation></semantics></math>,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><msub><mi>β</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">1 - \beta_k</annotation></semantics></math>
-is the ratio of the decline of arm
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
-to the decline of the control arm. Thus,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>β</mi><mi>k</mi></msub><annotation encoding="application/x-tex">\beta_k</annotation></semantics></math>
-is the <em>reduction in proportional decline</em> due to the therapy in
-study arm
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>.</p>
-</div>
-<div class="section level3">
-<h3 id="baseline">Baseline<a class="anchor" aria-label="anchor" href="#baseline"></a>
-</h3>
-<p>At the baseline visit
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">j = 1</annotation></semantics></math>,
-we have
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mrow><mi>i</mi><mn>1</mn></mrow></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">t_{i1} = 0</annotation></semantics></math>
-for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">i = 1, \ldots, I</annotation></semantics></math>,
-and thus:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>y</mi><mrow><mi>i</mi><mn>1</mn></mrow></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="prefix">|</mo><mi>ξ</mi><mo>,</mo><mi>α</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><msub><mi>W</mi><mi>i</mi></msub><mi>γ</mi><mo>+</mo><msub><mi>e</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mtd></mtr></mtable><annotation encoding="application/x-tex">
-\begin{aligned}
-y_{i1} &amp;= f(0 | \xi, \alpha) + W_{i}\gamma + e_{ij}
-\end{aligned}
-</annotation></semantics></math></p>
-<p>This property constrains the expected outcomes of all study arms to
-be equal at baseline. This is known as constrained longitudinal data
-analysis (cLDA) <span class="citation">(Wang et al. 2022)</span>.</p>
-</div>
-</div>
-<div class="section level2">
-<h2 id="non-proportional-slowing-model">Non-proportional slowing model<a class="anchor" aria-label="anchor" href="#non-proportional-slowing-model"></a>
-</h2>
-<p>The non-proportional slowing model characterizes the benefit from
-treatment as a slowing in the disease progression trajectory. Whereas
-the proportional decline model expresses treatment effects on the
-clinical outcome scale, the non-proportional slowing model expresses
-treatment effects on the continuous time scale. As explained in the
-“Interpretation” section, this model assumes each treatment does not
-noticeably accelerate the rate of disease progression.</p>
-<div class="section level3">
-<h3 id="definition-1">Definition<a class="anchor" aria-label="anchor" href="#definition-1"></a>
-</h3>
-<p>Define scalar
+<p>where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">b(i)</annotation></semantics></math>
+is the study arm of patient
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>,
+and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>β</mi><mrow><mi>k</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">\beta_{kj}</annotation></semantics></math>
-for each study arm
+is the reduction in decline of study arm
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
 (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">k = 1, \ldots, K</annotation></semantics></math>)
-and visit
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
-(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>J</mi></mrow><annotation encoding="application/x-tex">j = 1, \ldots, J</annotation></semantics></math>).
-Let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k = 1</annotation></semantics></math>
-denote the control arm, and let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>K</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">b(i) \in \{1, \ldots, K\}</annotation></semantics></math>
-indicate the study arm of patient
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>.
-Define
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>u</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">u_{ij}</annotation></semantics></math>
-as follows:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>u</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>β</mi><mrow><mi>b</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>j</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><msub><mi>t</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mtd></mtr></mtable><annotation encoding="application/x-tex">
-\begin{aligned}
-u_{ij} = (1 - \beta_{b(i)j}) t_{ij}
-\end{aligned}
-</annotation></semantics></math></p>
-<p>The non-proportional slowing model is defined as:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>y</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><msub><mi>μ</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>+</mo><msub><mi>e</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mtd></mtr></mtable><annotation encoding="application/x-tex">
-\begin{aligned}
-y_{ij} &amp;= \mu_{ij} + e_{ij}
-\end{aligned}
-</annotation></semantics></math></p>
-<p>where:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>μ</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>u</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><mi>ξ</mi><mo>,</mo><mi>α</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><msub><mi>W</mi><mi>i</mi></msub><mi>γ</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">
-\begin{aligned}
-\mu_{ij} &amp;= f \left ( u_{ij} | \xi, \alpha \right) + W_{i}\gamma
-\end{aligned}
-</annotation></semantics></math></p>
-</div>
-<div class="section level3">
-<h3 id="constraints-1">Constraints<a class="anchor" aria-label="anchor" href="#constraints-1"></a>
-</h3>
-<p>The model imposes constraints on the
+relative to the control arm
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k = 1</annotation></semantics></math>.</p>
+<p>To appropriately constrain the parameter space, we express the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>β</mi><mrow><mi>k</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">\beta_{kj}</annotation></semantics></math>
-parameters. The purpose is to preserve identifiability at baseline, with
-the control arm as the reference arm. We impose these constraints by
-expressing each non-constant
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>β</mi><mrow><mi>k</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">\beta_{kj}</annotation></semantics></math>
-in terms of a latent scalar parameter
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>k</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow></msub><annotation encoding="application/x-tex">\theta_{(k-1)(j-1)}</annotation></semantics></math>:</p>
+parameters in terms of latent
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>k</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow></msub><annotation encoding="application/x-tex">\theta_{(k - 1)(j - 1)}</annotation></semantics></math>
+parameters as follows:</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>β</mi><mrow><mi>k</mi><mi>j</mi></mrow></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="left" style="text-align: left"><mn>0</mn></mtd><mtd columnalign="left" style="text-align: left"><mi>k</mi><mo>=</mo><mn>1</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> or </mtext><mspace width="0.333em"></mspace></mrow><mi>j</mi><mo>=</mo><mn>1</mn></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><msub><mi>θ</mi><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>k</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow></msub></mtd><mtd columnalign="left" style="text-align: left"><mi>k</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>K</mi><mo stretchy="false" form="postfix">}</mo><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> and </mtext><mspace width="0.333em"></mspace></mrow><mi>j</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>J</mi><mo stretchy="false" form="postfix">}</mo></mtd></mtr></mtable></mrow></mtd></mtr></mtable><annotation encoding="application/x-tex">
 \begin{aligned}
 \beta_{kj} = \begin{cases}
@@ -466,75 +344,124 @@ in terms of a latent scalar parameter
 with maximum likelihood.</p>
 </div>
 <div class="section level3">
-<h3 id="interpretation-1">Interpretation<a class="anchor" aria-label="anchor" href="#interpretation-1"></a>
+<h3 id="the-proportional-decline-model">The proportional decline model<a class="anchor" aria-label="anchor" href="#the-proportional-decline-model"></a>
 </h3>
-<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>β</mi><mrow><mi>k</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">\beta_{kj}</annotation></semantics></math>
-is a span of time: it is the relative slowing of the disease progression
-trajectory. In other words,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>β</mi><mrow><mi>k</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">\beta_{kj}</annotation></semantics></math>
-is the expected amount of time (or quality time) that patients gain in
-their lives due to therapy
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>.</p>
-<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>u</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">u_{ij}</annotation></semantics></math>
-is the <em>effective</em> time along the disease progression trajectory
-of patient
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
-at visit
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>.
-If the active therapy of patient
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
-is efficacious, then the patient will experience disease progression
-more slowly than they would have in the control group, and the values of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>u</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">u_{ij}</annotation></semantics></math>
-will be less than the corresponding values of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">t_{ij}</annotation></semantics></math>.
-In other words, the treatment effect is a time shift.</p>
-<p>If the treatment slows disease, then the fitted response
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>u</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><mi>ξ</mi><mo>,</mo><mi>α</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">f \left ( u_{ij} | \xi, \alpha \right)</annotation></semantics></math>
-is an interpolation of the control arm at an earlier time point. But if
-the treatment <em>accelerates</em> disease, then the fitted response is
-a significant extrapolation, and the model will not fit well. Thus, the
-non-proportional slowing model assumes that no treatment is noticeably
-worse than control.</p>
-</div>
-<div class="section level3">
-<h3 id="baseline-1">Baseline<a class="anchor" aria-label="anchor" href="#baseline-1"></a>
-</h3>
-<p>At the baseline visit
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">j = 1</annotation></semantics></math>,
-we have
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mrow><mi>i</mi><mn>1</mn></mrow></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">t_{i1} = 0</annotation></semantics></math>
-for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">i = 1, \ldots, I</annotation></semantics></math>,
-and thus
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mrow><mi>i</mi><mn>1</mn></mrow></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">u_{i1} = 0</annotation></semantics></math>.
-The outcome for patient
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
-becomes:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>y</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="prefix">|</mo><mi>ξ</mi><mo>,</mo><mi>α</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><msub><mi>W</mi><mi>i</mi></msub><mi>γ</mi><mo>+</mo><msub><mi>e</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mtd></mtr></mtable><annotation encoding="application/x-tex">
+<p>The proportional decline model is the same as the non-proportional
+variant except the treatment effects are now
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>β</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>β</mi><mi>K</mi></msub></mrow><annotation encoding="application/x-tex">\beta_1, \ldots, \beta_K</annotation></semantics></math>,
+which no longer depend on the visit. In other words, we assume that the
+reduction in decline due to treatment is proportional to time. We
+express the expectation
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>μ</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">\mu_{ij}</annotation></semantics></math>
+as:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>μ</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>β</mi><mrow><mi>b</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>t</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><mi>ξ</mi><mo>,</mo><mi>α</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="prefix">|</mo><mi>ξ</mi><mo>,</mo><mi>α</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="prefix">|</mo><mi>ξ</mi><mo>,</mo><mi>α</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><msub><mi>W</mi><mi>i</mi></msub><mi>γ</mi><mo>−</mo><mo stretchy="false" form="prefix">⟨</mo><msub><mover><mi>W</mi><mo accent="true">¯</mo></mover><mi>i</mi></msub><mo>,</mo><mi>γ</mi><mo stretchy="false" form="postfix">⟩</mo></mtd></mtr></mtable><annotation encoding="application/x-tex">
 \begin{aligned}
-y_{ij} &amp;= f \left (0 | \xi, \alpha \right) + W_{i}\gamma + e_{ij}
+\mu_{ij} &amp;= (1 - \beta_{b(i)}) \left ( f(t_{ij} | \xi, \alpha) - f(0 | \xi, \alpha) \right ) + f(0 | \xi, \alpha) + W_i \gamma - \langle \overline{W}_i, \gamma \rangle
 \end{aligned}
 </annotation></semantics></math></p>
-<p>As with the proportional decline model, this property constrains the
-expected outcomes of all study arms to be equal at baseline. In other
-words, the model uses constrained longitudinal data analysis (cLDA)
-<span class="citation">(Wang et al. 2022)</span>.</p>
+<p>To appropriately constrain the parameter space, we introduce latent
+parameters
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>θ</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>θ</mi><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">\theta_1, \ldots, \theta_{k - 1}</annotation></semantics></math>
+as follows:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>β</mi><mi>k</mi></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="left" style="text-align: left"><mn>0</mn></mtd><mtd columnalign="left" style="text-align: left"><mi>k</mi><mo>=</mo><mn>1</mn></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><msub><mi>θ</mi><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow></msub></mtd><mtd columnalign="left" style="text-align: left"><mi>k</mi><mo>=</mo><mn>2</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>K</mi></mtd></mtr></mtable></mrow></mtd></mtr></mtable><annotation encoding="application/x-tex">
+\begin{aligned}
+\beta_k = \begin{cases}
+0 &amp; k = 1 \\
+\theta_{k - 1} &amp; k = 2, \ldots, K
+\end{cases}
+\end{aligned}
+</annotation></semantics></math></p>
+<p>The latent parameters
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>θ</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>θ</mi><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">\theta_1, \dots, \theta_{K - 1}</annotation></semantics></math>
+are estimated with maximum likelihood.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="the-slowing-models">The slowing models<a class="anchor" aria-label="anchor" href="#the-slowing-models"></a>
+</h2>
+<p>In these models, we assume that treatment slows the passage of time
+along the disease progression trajectory. All study arms share a common
+disease trajectory, and treated patients may progress more slowly on
+that same path than control patients. The treatment effect is on the
+time scale, not the clinical outcome scale.</p>
+<div class="section level3">
+<h3 id="the-non-proportional-slowing-model">The non-proportional slowing model<a class="anchor" aria-label="anchor" href="#the-non-proportional-slowing-model"></a>
+</h3>
+<p>The expected value is:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>μ</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>u</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><mi>ξ</mi><mo>,</mo><mi>α</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><msub><mi>W</mi><mi>i</mi></msub><mi>γ</mi><mo>−</mo><mo stretchy="false" form="prefix">⟨</mo><msub><mover><mi>W</mi><mo accent="true">¯</mo></mover><mi>i</mi></msub><mo>,</mo><mi>γ</mi><mo stretchy="false" form="postfix">⟩</mo></mtd></mtr></mtable><annotation encoding="application/x-tex">
+\begin{aligned}
+\mu_{ij} &amp;= f \left ( u_{ij} | \xi, \alpha \right) + W_{i}\gamma - \langle \overline{W}_i, \gamma \rangle
+\end{aligned}
+</annotation></semantics></math></p>
+<p>where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>u</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">u_{ij}</annotation></semantics></math>
+is shifted time along the disease progression trajectory:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>u</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>β</mi><mrow><mi>b</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>j</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><msub><mi>t</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mtd></mtr></mtable><annotation encoding="application/x-tex">
+\begin{aligned}
+u_{ij} = (1 - \beta_{b(i)j}) t_{ij}
+\end{aligned}
+</annotation></semantics></math></p>
+<p>and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>β</mi><mrow><mi>k</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">\beta_{kj}</annotation></semantics></math>
+is the relative time shift due treatment
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+at visit
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>.</p>
+<p>To appropriately constrain the parameter space, we express the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>β</mi><mrow><mi>k</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">\beta_{kj}</annotation></semantics></math>
+parameters in terms of latent
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>k</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow></msub><annotation encoding="application/x-tex">\theta_{(k - 1)(j - 1)}</annotation></semantics></math>
+parameters as follows:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>β</mi><mrow><mi>k</mi><mi>j</mi></mrow></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="left" style="text-align: left"><mn>0</mn></mtd><mtd columnalign="left" style="text-align: left"><mi>k</mi><mo>=</mo><mn>1</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> or </mtext><mspace width="0.333em"></mspace></mrow><mi>j</mi><mo>=</mo><mn>1</mn></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><msub><mi>θ</mi><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>k</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow></msub></mtd><mtd columnalign="left" style="text-align: left"><mi>k</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>K</mi><mo stretchy="false" form="postfix">}</mo><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> and </mtext><mspace width="0.333em"></mspace></mrow><mi>j</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>J</mi><mo stretchy="false" form="postfix">}</mo></mtd></mtr></mtable></mrow></mtd></mtr></mtable><annotation encoding="application/x-tex">
+\begin{aligned}
+\beta_{kj} = \begin{cases}
+0 &amp; k = 1 \text{ or } j = 1 \\
+\theta_{(k-1)(j-1)} &amp; k \in \{2, \ldots, K\} \text{ and } j \in \{2, \ldots, J\}
+\end{cases}
+\end{aligned}
+</annotation></semantics></math></p>
+<p>The model estimates the latent parameters
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>θ</mi><mn>11</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>θ</mi><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>K</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow></msub></mrow><annotation encoding="application/x-tex">\theta_{11}, \ldots, \theta_{(K - 1)(J - 1)}</annotation></semantics></math>
+with maximum likelihood.</p>
 </div>
 <div class="section level3">
-<h3 id="prediction">Prediction<a class="anchor" aria-label="anchor" href="#prediction"></a>
+<h3 id="the-proportional-slowing-model">The proportional slowing model<a class="anchor" aria-label="anchor" href="#the-proportional-slowing-model"></a>
 </h3>
-<p>The modeling functions in <code>pmrm</code> report the estimate and
-standard error of each parameter, along wit the mean outcome for each
-study arm at each of a set of user-defined time points. The covariate
-adjustment term
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mi>i</mi></msub><mi>γ</mi></mrow><annotation encoding="application/x-tex">W_i \gamma</annotation></semantics></math>
-is omitted.</p>
-<p>The <code>RTMB</code> package facilitates predictions using the
-<code>ADVECTOR()</code> function, which leverages the gradient and the
-delta method to calculate an estimate and standard error of user-defined
-quantities. This happens during the model-fitting, so the
-<code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> method cannot accept new ad hoc data.</p>
+<p>The proportional slowing model is the same as the non-proportional
+variant except the time shifts are now
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>β</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>β</mi><mi>K</mi></msub></mrow><annotation encoding="application/x-tex">\beta_1, \ldots, \beta_K</annotation></semantics></math>,
+which no longer depend on the visit. In other words, we assume that the
+slowing of disease progression due to to treatment is proportional to
+time. We express the expectation
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>μ</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">\mu_{ij}</annotation></semantics></math>
+the same as before:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>μ</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>u</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><mi>ξ</mi><mo>,</mo><mi>α</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><msub><mi>W</mi><mi>i</mi></msub><mi>γ</mi><mo>−</mo><mo stretchy="false" form="prefix">⟨</mo><msub><mover><mi>W</mi><mo accent="true">¯</mo></mover><mi>i</mi></msub><mo>,</mo><mi>γ</mi><mo stretchy="false" form="postfix">⟩</mo></mtd></mtr></mtable><annotation encoding="application/x-tex">
+\begin{aligned}
+\mu_{ij} &amp;= f \left ( u_{ij} | \xi, \alpha \right) + W_{i}\gamma - \langle \overline{W}_i, \gamma \rangle
+\end{aligned}
+</annotation></semantics></math></p>
+<p>but the time shift uses
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>β</mi><mrow><mi>b</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow></msub><annotation encoding="application/x-tex">\beta_{b(i)}</annotation></semantics></math>:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>u</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>β</mi><mrow><mi>b</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><msub><mi>t</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mtd></mtr></mtable><annotation encoding="application/x-tex">
+\begin{aligned}
+u_{ij} = (1 - \beta_{b(i)}) t_{ij}
+\end{aligned}
+</annotation></semantics></math></p>
+<p>To appropriately constrain the parameter space, we introduce latent
+parameters
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>θ</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>θ</mi><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">\theta_1, \ldots, \theta_{k - 1}</annotation></semantics></math>
+as follows:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>β</mi><mi>k</mi></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="left" style="text-align: left"><mn>0</mn></mtd><mtd columnalign="left" style="text-align: left"><mi>k</mi><mo>=</mo><mn>1</mn></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><msub><mi>θ</mi><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow></msub></mtd><mtd columnalign="left" style="text-align: left"><mi>k</mi><mo>=</mo><mn>2</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>K</mi></mtd></mtr></mtable></mrow></mtd></mtr></mtable><annotation encoding="application/x-tex">
+\begin{aligned}
+\beta_k = \begin{cases}
+0 &amp; k = 1 \\
+\theta_{k - 1} &amp; k = 2, \ldots, K
+\end{cases}
+\end{aligned}
+</annotation></semantics></math></p>
+<p>The latent parameters
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>θ</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>θ</mi><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">\theta_1, \dots, \theta_{K - 1}</annotation></semantics></math>
+are estimated with maximum likelihood.</p>
 </div>
 </div>
 <div class="section level2">

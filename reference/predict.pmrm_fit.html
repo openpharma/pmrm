@@ -21,7 +21,6 @@ and confidence intervals of new outcomes."><meta property="og:image" content="ht
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/models.html">Models</a></li>
-    <li><a class="dropdown-item" href="../articles/simulation.html">Simulation</a></li>
     <li><a class="dropdown-item" href="../articles/usage.html">Usage</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -103,16 +102,13 @@ because they do not include variability from residuals.)</p>
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other estimates and predictions:
 <code><a href="VarCorr.pmrm_fit.html">VarCorr.pmrm_fit()</a></code>,
-<code><a href="coef.pmrm_fit_decline.html">coef.pmrm_fit_decline()</a></code>,
-<code><a href="coef.pmrm_fit_slowing.html">coef.pmrm_fit_slowing()</a></code>,
-<code><a href="fitted.pmrm_fit_decline.html">fitted.pmrm_fit_decline()</a></code>,
-<code><a href="fitted.pmrm_fit_slowing.html">fitted.pmrm_fit_slowing()</a></code>,
+<code><a href="coef.pmrm_fit.html">coef.pmrm_fit()</a></code>,
+<code><a href="fitted.pmrm_fit.html">fitted.pmrm_fit()</a></code>,
 <code><a href="plot.pmrm_fit.html">plot.pmrm_fit()</a></code>,
 <code><a href="pmrm_estimates.html">pmrm_estimates()</a></code>,
 <code><a href="pmrm_marginals.html">pmrm_marginals()</a></code>,
 <code><a href="residuals.pmrm_fit.html">residuals.pmrm_fit()</a></code>,
-<code><a href="vcov.pmrm_fit_decline.html">vcov.pmrm_fit_decline()</a></code>,
-<code><a href="vcov.pmrm_fit_slowing.html">vcov.pmrm_fit_slowing()</a></code></p></div>
+<code><a href="vcov.pmrm_fit.html">vcov.pmrm_fit()</a></code></p></div>
     </div>
 
     <div class="section level2">
@@ -139,13 +135,13 @@ because they do not include variability from residuals.)</p>
 <span class="r-in"><span>  <span class="va">new_data</span><span class="op">$</span><span class="va">y</span> <span class="op">&lt;-</span> <span class="cn">NULL</span> <span class="co"># Permitted but not strictly necessary.</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">fit</span>, <span class="va">new_data</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 7</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   arm   visit    time estimate standard_error  lower  upper</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span> <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> arm_1 visit_1     0   -<span style="color: #BB0000;">2.52</span>          0.067<span style="text-decoration: underline;">0</span> -<span style="color: #BB0000;">2.65</span>  -<span style="color: #BB0000;">2.39</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> arm_1 visit_2     1    1.74          0.070<span style="text-decoration: underline;">5</span>  1.60   1.88 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> arm_1 visit_3     2    4.12          0.082<span style="text-decoration: underline;">4</span>  3.96   4.28 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> arm_1 visit_4     3   -<span style="color: #BB0000;">0.432</span>         0.080<span style="text-decoration: underline;">4</span> -<span style="color: #BB0000;">0.589</span> -<span style="color: #BB0000;">0.274</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> arm_1 visit_5     4    1.86          0.083<span style="text-decoration: underline;">5</span>  1.70   2.03 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   arm   visit    time estimate standard_error lower  upper</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span> <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> arm_1 visit_1     0    -<span style="color: #BB0000;">3.12</span>         0.070<span style="text-decoration: underline;">4</span> -<span style="color: #BB0000;">3.26</span> -<span style="color: #BB0000;">2.98</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> arm_1 visit_2     1     1.15         0.069<span style="text-decoration: underline;">8</span>  1.01  1.28 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> arm_1 visit_3     2     3.52         0.079<span style="text-decoration: underline;">5</span>  3.37  3.68 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> arm_1 visit_4     3    -<span style="color: #BB0000;">1.03</span>         0.082<span style="text-decoration: underline;">7</span> -<span style="color: #BB0000;">1.19</span> -<span style="color: #BB0000;">0.865</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> arm_1 visit_5     4     1.27         0.083<span style="text-decoration: underline;">6</span>  1.10  1.43 </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

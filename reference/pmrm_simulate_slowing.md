@@ -125,9 +125,11 @@ from
 - `beta`: the scalar component of the treatment effect parameter `beta`
   defined for patient `i`.
 
-- `e`: residuals.
+- `mu`: expected clinical outcome at the given patient visit.
 
 - `w_*`: columns of the covariate adjustment model matrix `W`.
+
+- `e`: residuals.
 
 ## See also
 

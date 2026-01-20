@@ -89,10 +89,9 @@ model. See the "Simulated data" section of this help file for details.
 
 ## Details
 
-Please see the vignettes for details. The "Models" vignette explains the
-underlying models and notation, and the "Simulation" vignette explains
-how `pmrm_simulate_decline()` simulates datasets from the proportional
-decline model.
+See
+[`vignette("models", package = "pmrm")`](https://wlandau.github.io/pmrm/articles/models.md)
+for details.
 
 ## Simulated data
 
@@ -123,9 +122,11 @@ from
 - `beta`: the scalar component of the treatment effect parameter `beta`
   defined for patient `i`.
 
-- `e`: residuals.
+- `mu`: expected clinical outcome at the given patient visit.
 
 - `w_*`: columns of the covariate adjustment model matrix `W`.
+
+- `e`: residuals.
 
 ## See also
 

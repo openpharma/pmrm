@@ -1,26 +1,23 @@
-# Estimated covariance matrix
+# Treatment effect parameters
 
-Extract estimated covariance matrix among visits within patients.
+Extract the `theta` parameter from a progression model for repeated
+measures.
 
 ## Usage
 
 ``` r
 # S3 method for class 'pmrm_fit'
-VarCorr(x, sigma = NA, ...)
+coef(object, ...)
 ```
 
 ## Arguments
 
-- x:
+- object:
 
   A fitted model object of class `"pmrm_fit"` produced by
   [`pmrm_model_decline()`](https://wlandau.github.io/pmrm/reference/pmrm_model_decline.md)
   or
   [`pmrm_model_slowing()`](https://wlandau.github.io/pmrm/reference/pmrm_model_slowing.md).
-
-- sigma:
-
-  Not used for `pmrm`.
 
 - ...:
 
@@ -28,13 +25,22 @@ VarCorr(x, sigma = NA, ...)
 
 ## Value
 
-A matrix `J` rows and `J` columns, where `J` is the number of scheduled
-visits in the clinical trial.
+For proportional models, a named vector of `theta` estimates with one
+element for each active study arm. For non-proportional models, a named
+matrix of `theta` with one row for each active study arm and one column
+for each post-baseline scheduled visit. Elements, rows, and columns are
+named with arm/visit names as appropriate.
+
+## Details
+
+See
+[`vignette("models", package = "pmrm")`](https://wlandau.github.io/pmrm/articles/models.md)
+for details.
 
 ## See also
 
 Other estimates and predictions:
-[`coef.pmrm_fit()`](https://wlandau.github.io/pmrm/reference/coef.pmrm_fit.md),
+[`VarCorr.pmrm_fit()`](https://wlandau.github.io/pmrm/reference/VarCorr.pmrm_fit.md),
 [`fitted.pmrm_fit()`](https://wlandau.github.io/pmrm/reference/fitted.pmrm_fit.md),
 [`plot.pmrm_fit()`](https://wlandau.github.io/pmrm/reference/plot.pmrm_fit.md),
 [`pmrm_estimates()`](https://wlandau.github.io/pmrm/reference/pmrm_estimates.md),
@@ -60,11 +66,7 @@ Other estimates and predictions:
     arm = "arm",
     covariates = ~ w_1 + w_2
   )
-  VarCorr(fit)
-#>              visit_1      visit_2     visit_3      visit_4      visit_5
-#> visit_1  1.014197254 -0.005377564 -0.06587390  0.029608749 -0.100061354
-#> visit_2 -0.005377564  0.944702148 -0.08021265 -0.073493333  0.056003869
-#> visit_3 -0.065873896 -0.080212654  1.04399327 -0.045969231  0.148149051
-#> visit_4  0.029608749 -0.073493333 -0.04596923  0.946986875  0.001358265
-#> visit_5 -0.100061354  0.056003869  0.14814905  0.001358265  1.015609461
+  coef(fit)
+#>     arm_2     arm_3 
+#> 0.1549676 0.2221882 
 ```

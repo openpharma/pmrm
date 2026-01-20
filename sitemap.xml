@@ -4,7 +4,6 @@
 <url><loc>https://wlandau.github.io/pmrm/LICENSE.html</loc></url>
 <url><loc>https://wlandau.github.io/pmrm/articles/index.html</loc></url>
 <url><loc>https://wlandau.github.io/pmrm/articles/models.html</loc></url>
-<url><loc>https://wlandau.github.io/pmrm/articles/simulation.html</loc></url>
 <url><loc>https://wlandau.github.io/pmrm/articles/usage.html</loc></url>
 <url><loc>https://wlandau.github.io/pmrm/authors.html</loc></url>
 <url><loc>https://wlandau.github.io/pmrm/index.html</loc></url>
@@ -12,12 +11,10 @@
 <url><loc>https://wlandau.github.io/pmrm/reference/AIC.pmrm_fit.html</loc></url>
 <url><loc>https://wlandau.github.io/pmrm/reference/BIC.pmrm_fit.html</loc></url>
 <url><loc>https://wlandau.github.io/pmrm/reference/VarCorr.pmrm_fit.html</loc></url>
-<url><loc>https://wlandau.github.io/pmrm/reference/coef.pmrm_fit_decline.html</loc></url>
-<url><loc>https://wlandau.github.io/pmrm/reference/coef.pmrm_fit_slowing.html</loc></url>
+<url><loc>https://wlandau.github.io/pmrm/reference/coef.pmrm_fit.html</loc></url>
 <url><loc>https://wlandau.github.io/pmrm/reference/confint.pmrm_fit.html</loc></url>
 <url><loc>https://wlandau.github.io/pmrm/reference/deviance.pmrm_fit.html</loc></url>
-<url><loc>https://wlandau.github.io/pmrm/reference/fitted.pmrm_fit_decline.html</loc></url>
-<url><loc>https://wlandau.github.io/pmrm/reference/fitted.pmrm_fit_slowing.html</loc></url>
+<url><loc>https://wlandau.github.io/pmrm/reference/fitted.pmrm_fit.html</loc></url>
 <url><loc>https://wlandau.github.io/pmrm/reference/index.html</loc></url>
 <url><loc>https://wlandau.github.io/pmrm/reference/logLik.pmrm_fit.html</loc></url>
 <url><loc>https://wlandau.github.io/pmrm/reference/plot.pmrm_fit.html</loc></url>
@@ -32,7 +29,6 @@
 <url><loc>https://wlandau.github.io/pmrm/reference/reexports.html</loc></url>
 <url><loc>https://wlandau.github.io/pmrm/reference/residuals.pmrm_fit.html</loc></url>
 <url><loc>https://wlandau.github.io/pmrm/reference/summary.pmrm_fit.html</loc></url>
-<url><loc>https://wlandau.github.io/pmrm/reference/vcov.pmrm_fit_decline.html</loc></url>
-<url><loc>https://wlandau.github.io/pmrm/reference/vcov.pmrm_fit_slowing.html</loc></url>
+<url><loc>https://wlandau.github.io/pmrm/reference/vcov.pmrm_fit.html</loc></url>
 </urlset>
 

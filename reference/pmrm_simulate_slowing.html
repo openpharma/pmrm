@@ -19,7 +19,6 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/models.html">Models</a></li>
-    <li><a class="dropdown-item" href="../articles/simulation.html">Simulation</a></li>
     <li><a class="dropdown-item" href="../articles/usage.html">Usage</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -159,8 +158,9 @@ which conform to the notation from <code><a href="../articles/models.html">vigne
 <li><p><code>t</code>: observed continuous time since baseline.</p></li>
 <li><p><code>beta</code>: the scalar component of the treatment effect parameter
 <code>beta</code> defined for patient <code>i</code>.</p></li>
-<li><p><code>e</code>: residuals.</p></li>
+<li><p><code>mu</code>: expected clinical outcome at the given patient visit.</p></li>
 <li><p><code>w_*</code>: columns of the covariate adjustment model matrix <code>W</code>.</p></li>
+<li><p><code>e</code>: residuals.</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
