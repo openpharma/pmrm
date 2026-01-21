@@ -13,10 +13,10 @@ in the package.
 ### Data
 
 Let the scalar $y_{ij}$ be the continuous measure of disease severity of
-patient $i$ ($i = 1,\ldots,I$) at clinical visit $j$ (j = 1, , J). For a
-progressive disease, we generally expect $y_{ij}$ to worsen from visit
-to visit. The goal of treatment is usually to minimize this worsening
-over time.
+patient $i$ ($i = 1,\ldots,I$) at clinical visit $j$ ($j = 1,\ldots,J$).
+For a progressive disease, we generally expect $y_{ij}$ to worsen from
+visit to visit. The goal of treatment is usually to minimize this
+worsening over time.
 
 Some $y_{ij}$ values may be missing due to dropout or other intercurrent
 events. We assume these outcomes are missing at random (MAR). Except for
