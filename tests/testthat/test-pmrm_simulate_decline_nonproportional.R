@@ -71,12 +71,17 @@ test_that("pmrm_simulate_decline_nonproportional() with covariates", {
   baseline <- seq(from = 1L, to = nrow(data), by = J)
   expect_true(all(abs(data$t[baseline]) < sqrt(.Machine$double.eps)))
   expect_true(all(abs(data$beta[data$k == 1L]) < sqrt(.Machine$double.eps)))
-  for (k in c(2L, 3L)) {
-    expect_true(
-      all(
-        abs(data$beta[data$k == k] - beta[k]) < sqrt(.Machine$double.eps)
-      )
+  expect_true(
+    all(
+      abs(data$beta[data$k == 1L | data$j == 0L]) < sqrt(.Machine$double.eps)
     )
+  )
+  for (k in c(2L, 3L)) {
+    for (j in seq(from = 2L, to = J, by = 1L)) {
+      expect_true(
+        all(data$beta[data$k == k & data$j == j] == beta[k, j])
+      )
+    }
   }
   w <- as.matrix(data[, c("w_1", "w_2")])
   expect_true(abs(mean(data$e)) < 0.05)
@@ -85,9 +90,9 @@ test_that("pmrm_simulate_decline_nonproportional() with covariates", {
   f <- pmrm_spline(x = visit_times, y = alpha, method = "natural")
   i <- rep(seq_len(I), each = length(visit_times))
   j <- rep(seq_along(visit_times), times = I)
-  K <- length(beta)
+  K <- nrow(beta)
   k <- (i - 1L) %% K + 1L
-  beta_fitted <- beta[k]
+  beta_fitted <- beta[cbind(k, j)]
   mu_unadjusted <- pmrm_mu_unadjusted(beta_fitted, f, data$t, FALSE)
   W <- as.matrix(data[, c("w_1", "w_2")])
   mu <- mu_unadjusted + W %*% gamma - sum(Matrix::colMeans(W) * gamma)
