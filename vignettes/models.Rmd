@@ -37,7 +37,7 @@ The model may include optional covariates such as age and biomarker status.
 ## Likelihood
 
 Let $y_i = (y_{i1}, \ldots, y_{iJ})$ be the vector of outcomes of patient $i$.
-For each pair of different patients $i$ and $i^*$, we assume $y_i$ is independent of $y_{i^*}$ and $\text{Var}(y_i) = \text{Var}(y^*)$ .
+For each pair of different patients $i$ and $i^*$, we assume $y_i$ is independent of $y_{i^*}$ and $\text{Var}(y_i) = \text{Var}(y_{i^*})$ .
 For each $i$, define $\mu_i = E(y_i) = (\mu_{i1}, \ldots, \mu_{iJ})$ and $\Sigma = \text{Var}(y_i)$.
 
 If there were no missing outcomes, we would assign a multivariate normal likelihood to each patient:
