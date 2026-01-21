@@ -40,20 +40,20 @@ For each $i$, define
 $\mu_{i} = E\left( y_{i} \right) = \left( \mu_{i1},\ldots,\mu_{iJ} \right)$
 and $\Sigma = \text{Var}\left( y_{i} \right)$.
 
-If there were no missing outcomes, we would assign a multivariate normal
-likelihood to each patient:
+We assign a multivariate normal likelihood to each whole patient:
 
 $$\begin{array}{r}
 {y_{i} \sim \text{MVN}\left( \mu_{i},\Sigma \right)}
 \end{array}$$
 
-But to account for intercurrent events such as dropout, we instead
-assign patient-level marginal likelihoods with missing outcomes
-integrated out.
-
-Let $Q_{i}$ be the $q \times I$ matrix such that $Q_{i}y_{i}$ is the
-chronologically ordered vector of all $q$ non-missing values of $y_{i}$.
-Then the marginal likelihood for patient $i$ is:
+To account for intercurrent events such as dropout, we integrate out
+missing outcomes. This gives us marginal likelihoods for patients whose
+outcomes are partially missing. To construct the marginal likelihood for
+patient $i$, let $Q_{i}$ be the $q \times I$ matrix such that
+$Q_{i}y_{i}$ is the chronologically ordered vector of all $q$
+non-missing values of $y_{i}$. The marginal likelihood of the observed
+values $Q_{i}y_{i}$ is just a multivariate normal on a subset of
+$\mu_{i}$ and $\Sigma$:
 
 $$\begin{array}{r}
 {Q_{i}y_{i} \sim \text{MVN}\left( Q_{i}\mu_{i},Q_{i}\Sigma Q_{i}^{T} \right)}
