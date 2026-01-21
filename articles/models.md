@@ -35,8 +35,8 @@ status.
 Let $y_{i} = \left( y_{i1},\ldots,y_{iJ} \right)$ be the vector of
 outcomes of patient $i$. For each pair of different patients $i$ and
 $i^{*}$, we assume $y_{i}$ is independent of $y_{i^{*}}$ and
-$\text{Var}\left( y_{i} \right) = \text{Var}\left( y^{*} \right)$ . For
-each $i$, define
+$\text{Var}\left( y_{i} \right) = \text{Var}\left( y_{i^{*}} \right)$ .
+For each $i$, define
 $\mu_{i} = E\left( y_{i} \right) = \left( \mu_{i1},\ldots,\mu_{iJ} \right)$
 and $\Sigma = \text{Var}\left( y_{i} \right)$.
 
