@@ -63,11 +63,11 @@ Other estimates and predictions:
 
 ``` r
   set.seed(0L)
-  simulation <- pmrm_simulate_decline_proportional(
+  simulation <- pmrm_simulate_decline_nonproportional(
     visit_times = seq_len(5L) - 1,
     gamma = c(1, 2)
   )
-  fit <- pmrm_model_decline_proportional(
+  fit <- pmrm_model_decline_nonproportional(
     data = simulation,
     outcome = "y",
     time = "t",
@@ -77,19 +77,31 @@ Other estimates and predictions:
     covariates = ~ w_1 + w_2
   )
   pmrm_estimates(fit, parameter = "beta")
-#> # A tibble: 3 × 6
-#>   parameter arm   estimate standard_error   lower  upper
-#>   <chr>     <ord>    <dbl>          <dbl>   <dbl>  <dbl>
-#> 1 beta      arm_1    0            NA      NA      NA    
-#> 2 beta      arm_2    0.155         0.0540  0.0492  0.261
-#> 3 beta      arm_3    0.222         0.0526  0.119   0.325
+#> # A tibble: 15 × 7
+#>    parameter arm   visit   estimate standard_error   lower  upper
+#>    <chr>     <ord> <ord>      <dbl>          <dbl>   <dbl>  <dbl>
+#>  1 beta      arm_1 visit_1   0             NA      NA      NA    
+#>  2 beta      arm_1 visit_2   0             NA      NA      NA    
+#>  3 beta      arm_1 visit_3   0             NA      NA      NA    
+#>  4 beta      arm_1 visit_4   0             NA      NA      NA    
+#>  5 beta      arm_1 visit_5   0             NA      NA      NA    
+#>  6 beta      arm_2 visit_1   0             NA      NA      NA    
+#>  7 beta      arm_2 visit_2   0.431          0.141   0.154   0.708
+#>  8 beta      arm_2 visit_3   0.0280         0.156  -0.278   0.334
+#>  9 beta      arm_2 visit_4   0.260          0.0887  0.0865  0.434
+#> 10 beta      arm_2 visit_5   0.281          0.0755  0.133   0.428
+#> 11 beta      arm_3 visit_1   0             NA      NA      NA    
+#> 12 beta      arm_3 visit_2   0.514          0.138   0.242   0.785
+#> 13 beta      arm_3 visit_3   0.197          0.144  -0.0860  0.480
+#> 14 beta      arm_3 visit_4   0.315          0.0867  0.145   0.485
+#> 15 beta      arm_3 visit_5   0.319          0.0744  0.173   0.465
   pmrm_estimates(fit, parameter = "alpha")
 #> # A tibble: 5 × 6
 #>   parameter index estimate standard_error  lower upper
 #>   <chr>     <int>    <dbl>          <dbl>  <dbl> <dbl>
-#> 1 alpha         1 0.000599         0.0580 -0.113 0.114
-#> 2 alpha         2 0.700            0.0683  0.566 0.834
-#> 3 alpha         3 1.04             0.0732  0.893 1.18 
-#> 4 alpha         4 1.39             0.0769  1.24  1.54 
-#> 5 alpha         5 1.64             0.0834  1.48  1.81 
+#> 1 alpha         1  0.00245         0.0582 -0.112 0.117
+#> 2 alpha         2  0.811           0.0968  0.622 1.00 
+#> 3 alpha         3  0.910           0.102   0.711 1.11 
+#> 4 alpha         4  1.39            0.0975  1.19  1.58 
+#> 5 alpha         5  1.66            0.101   1.46  1.86 
 ```
