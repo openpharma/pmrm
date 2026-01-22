@@ -18,7 +18,18 @@ test_that("pmrm_marginals() proportional decline", {
     )
     for (column in c("time", "estimate", "standard_error", "lower", "upper")) {
       expect_true(is.numeric(out[[column]]))
-      expect_false(anyNA(out[[column]]))
+    }
+    for (column in c("estimate", "standard_error", "lower", "upper")) {
+      if (type == "outcome") {
+        expect_false(anyNA(out[[column]]))
+      } else if (type == "change") {
+        expect_equal(is.na(out[[column]]), out$visit == min(out$visit))
+      } else {
+        expect_equal(
+          is.na(out[[column]]),
+          out$arm == min(out$arm) | out$visit == min(out$visit)
+        )
+      }
     }
     for (column in c("arm", "visit")) {
       expect_true(is.ordered(out[[column]]))
@@ -35,6 +46,10 @@ test_that("pmrm_marginals() proportional decline", {
   outcome <- pmrm_marginals(fit, type = "outcome")
   change <- pmrm_marginals(fit, type = "change")
   effect <- pmrm_marginals(fit, type = "effect")
+  for (column in c("estimate", "standard_error", "lower", "upper")) {
+    change[[column]][is.na(change[[column]])] <- 0
+    effect[[column]][is.na(effect[[column]])] <- 0
+  }
   baseline <- outcome$estimate[outcome$visit == min(outcome$visit)]
   baseline <- rep(baseline, each = 5L)
   expect_equal(change$estimate, outcome$estimate - baseline)
@@ -63,7 +78,18 @@ test_that("pmrm_marginals() non-proportional slowing", {
     )
     for (column in c("time", "estimate", "standard_error", "lower", "upper")) {
       expect_true(is.numeric(out[[column]]))
-      expect_false(anyNA(out[[column]]))
+    }
+    for (column in c("estimate", "standard_error", "lower", "upper")) {
+      if (type == "outcome") {
+        expect_false(anyNA(out[[column]]))
+      } else if (type == "change") {
+        expect_equal(is.na(out[[column]]), out$visit == min(out$visit))
+      } else {
+        expect_equal(
+          is.na(out[[column]]),
+          out$arm == min(out$arm) | out$visit == min(out$visit)
+        )
+      }
     }
     for (column in c("arm", "visit")) {
       expect_true(is.ordered(out[[column]]))
@@ -80,6 +106,10 @@ test_that("pmrm_marginals() non-proportional slowing", {
   outcome <- pmrm_marginals(fit, type = "outcome")
   change <- pmrm_marginals(fit, type = "change")
   effect <- pmrm_marginals(fit, type = "effect")
+  for (column in c("estimate", "standard_error", "lower", "upper")) {
+    change[[column]][is.na(change[[column]])] <- 0
+    effect[[column]][is.na(effect[[column]])] <- 0
+  }
   baseline <- outcome$estimate[outcome$visit == min(outcome$visit)]
   baseline <- rep(baseline, each = 5L)
   expect_equal(change$estimate, outcome$estimate - baseline)

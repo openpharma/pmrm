@@ -23,6 +23,9 @@ for confidence intervals.}
 A \code{tibble} with one row per marginal mean and columns with the
 estimate, standard error, 2-sided confidence bounds, and indicator
 columns.
+Some estimates, standard errors, and confidence bounds may be \code{NA_real_}
+if they correspond to the reference level subtracted out in
+change-from-baseline or treatment effect calculations.
 }
 \description{
 Report the estimates and standard errors of marginal means

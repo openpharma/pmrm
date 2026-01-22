@@ -10,6 +10,9 @@
 #' @return A `tibble` with one row per marginal mean and columns with the
 #'   estimate, standard error, 2-sided confidence bounds, and indicator
 #'   columns.
+#'   Some estimates, standard errors, and confidence bounds may be `NA_real_`
+#'   if they correspond to the reference level subtracted out in
+#'   change-from-baseline or treatment effect calculations.
 #' @param fit A `pmrm` fitted model object returned by a model-fitting
 #'   function.
 #' @param type Character string.
@@ -82,5 +85,16 @@ pmrm_marginals <- function(
     "lower",
     "upper"
   )
-  marginals[, columns]
+  marginals <- marginals[, columns]
+  which_na <- rep(FALSE, nrow(marginals))
+  if (type != "outcome") {
+    which_na <- which_na | (marginals$visit == min(marginals$visit))
+  }
+  if (type == "effect") {
+    which_na <- which_na | (marginals$arm == min(marginals$arm))
+  }
+  for (name in c("estimate", "standard_error", "lower", "upper")) {
+    marginals[[name]][which_na] <- NA_real_
+  }
+  marginals
 }
