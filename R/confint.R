@@ -4,12 +4,10 @@
 #' @description Compute confidence intervals of the family of model
 #'   parameters specified in `parm`.
 #' @details See `vignette("models", package = "pmrm")` for details.
-#' @return The `tibble` returned by [pmrm_estimates()], except
-#'   without the columns with point estimates or standard errors.
-#' @inheritParams summary.pmrm_fit
-#' @param parm Character string, name of a family of parameters
-#'   to compute confidence intervals.
-#' @param level Numeric scalar between 0 and 1, confidence level.
+#' @return A numeric matrix with one row for each treatment effect
+#'   parameter (`theta`) and named columns with the lower and upper
+#'   bounds of 2-sided confidence intervals on the parameters.
+#' @inheritParams stats::confint
 #' @examples
 #'   set.seed(0L)
 #'   simulation <- pmrm_simulate_decline_proportional(
@@ -26,25 +24,34 @@
 #'     covariates = ~ w_1 + w_2
 #'   )
 #'   confint(fit)
-confint.pmrm_fit <- function(
-  object,
-  parm = c(
-    "theta",
-    "beta",
-    "alpha",
-    "gamma",
-    "sigma",
-    "phi",
-    "rho",
-    "Sigma",
-    "Lambda"
-  ),
-  level = 0.95,
-  ...
-) {
-  parm <- match.arg(parm)
-  pmrm_estimates(fit = object, parameter = parm, confidence = level) |>
-    dplyr::select(-tidyselect::any_of(c("estimate", "standard_error")))
+confint.pmrm_fit <- function(object, parm = NULL, level = 0.95, ...) {
+  estimates <- pmrm_estimates(
+    fit = object,
+    parameter = "theta",
+    confidence = level
+  )
+  out <- as.matrix(estimates[, c("lower", "upper"), drop = FALSE])
+  bounds <- c((1 - level) / 2, 1 - (1 - level) / 2)
+  colnames(out) <- paste(
+    format(100 * bounds, trim = TRUE, scientific = FALSE, digits = 3),
+    "%"
+  )
+  if (object$constants$proportional) {
+    rownames(out) <- estimates$arm
+  } else {
+    rownames(out) <- paste(estimates$arm, estimates$visit, sep = ":")
+  }
+  if (!is.null(parm)) {
+    assert(
+      parm %in% rownames(out),
+      message = paste(
+        "In confint.pmrm_fit(), all elements of parm must be in",
+        "names(coef()) on the fitted model object."
+      )
+    )
+    out <- out[parm, , drop = FALSE]
+  }
+  out
 }
 
 #' @export

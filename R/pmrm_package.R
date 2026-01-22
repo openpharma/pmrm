@@ -1,4 +1,5 @@
 #' @importFrom dplyr bind_rows group_by mutate n select summarize
+#' @importFrom generics glance tidy
 #' @importFrom ggplot2 aes facet_wrap geom_crossbar geom_errorbar
 #'   geom_point ggplot position_dodge
 #' @importFrom Matrix Matrix

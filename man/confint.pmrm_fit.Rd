@@ -4,26 +4,23 @@
 \alias{confint.pmrm_fit}
 \title{Confidence intervals of parameters}
 \usage{
-\method{confint}{pmrm_fit}(
-  object,
-  parm = c("theta", "beta", "alpha", "gamma", "sigma", "phi", "rho", "Sigma", "Lambda"),
-  level = 0.95,
-  ...
-)
+\method{confint}{pmrm_fit}(object, parm = NULL, level = 0.95, ...)
 }
 \arguments{
-\item{object}{A fitted model object of class \code{"pmrm_fit"}.}
+\item{object}{a fitted model object.}
 
-\item{parm}{Character string, name of a family of parameters
-to compute confidence intervals.}
+\item{parm}{a specification of which parameters are to be given
+    confidence intervals, either a vector of numbers or a vector of
+    names.  If missing, all parameters are considered.}
 
-\item{level}{Numeric scalar between 0 and 1, confidence level.}
+\item{level}{the confidence level required.}
 
-\item{...}{Not used.}
+\item{...}{additional argument(s) for methods.}
 }
 \value{
-The \code{tibble} returned by \code{\link[=pmrm_estimates]{pmrm_estimates()}}, except
-without the columns with point estimates or standard errors.
+A numeric matrix with one row for each treatment effect
+parameter (\code{theta}) and named columns with the lower and upper
+bounds of 2-sided confidence intervals on the parameters.
 }
 \description{
 Compute confidence intervals of the family of model

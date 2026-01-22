@@ -25,6 +25,7 @@ reference:
   - pmrm_marginals
   - predict.pmrm_fit
   - residuals.pmrm_fit
+  - tidy.pmrm_fit
   - VarCorr.pmrm_fit
   - vcov.pmrm_fit
 - title: Model comparison
