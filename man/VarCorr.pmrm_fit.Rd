@@ -39,14 +39,11 @@ within patients.
   VarCorr(fit)
 }
 \seealso{
-Other estimates and predictions: 
+Other estimates: 
 \code{\link{coef.pmrm_fit}()},
-\code{\link{fitted.pmrm_fit}()},
 \code{\link{plot.pmrm_fit}()},
-\code{\link{pmrm_estimates}()},
 \code{\link{pmrm_marginals}()},
-\code{\link{predict.pmrm_fit}()},
-\code{\link{residuals.pmrm_fit}()},
+\code{\link{tidy.pmrm_fit}()},
 \code{\link{vcov.pmrm_fit}()}
 }
-\concept{estimates and predictions}
+\concept{estimates}

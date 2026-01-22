@@ -1,6 +1,6 @@
 #' @title `pmrm` residuals.
 #' @export
-#' @family estimates and predictions
+#' @family predictions
 #' @description Compute the residuals (responses minus fitted values)
 #'   of a fitted progression model for repeated measures.
 #' @return A numeric vector of residuals corresponding to the

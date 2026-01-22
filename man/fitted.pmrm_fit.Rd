@@ -59,14 +59,8 @@ for large datasets, but the output only includes the estimates
   str(fitted(fit))
 }
 \seealso{
-Other estimates and predictions: 
-\code{\link{VarCorr.pmrm_fit}()},
-\code{\link{coef.pmrm_fit}()},
-\code{\link{plot.pmrm_fit}()},
-\code{\link{pmrm_estimates}()},
-\code{\link{pmrm_marginals}()},
+Other predictions: 
 \code{\link{predict.pmrm_fit}()},
-\code{\link{residuals.pmrm_fit}()},
-\code{\link{vcov.pmrm_fit}()}
+\code{\link{residuals.pmrm_fit}()}
 }
-\concept{estimates and predictions}
+\concept{predictions}

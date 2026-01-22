@@ -1,6 +1,6 @@
 #' @title Predict new outcomes
 #' @export
-#' @family estimates and predictions
+#' @family predictions
 #' @description Return the expected values, standard errors,
 #'   and confidence intervals of new outcomes.
 #' @return A `tibble` with one row for each row in the `data` argument and

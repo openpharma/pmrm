@@ -1,6 +1,6 @@
 #' @title Treatment effect parameters
 #' @export
-#' @family estimates and predictions
+#' @family estimates
 #' @description Extract the `theta` parameter
 #'   from a progression model for repeated measures.
 #' @details See `vignette("models", package = "pmrm")` for details.

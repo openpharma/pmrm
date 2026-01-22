@@ -1,6 +1,6 @@
 #' @title Fitted values
 #' @export
-#' @family estimates and predictions
+#' @family predictions
 #' @description Compute the fitted values of a fitted
 #'   progression model for repeated measures.
 #' @details For `pmrm`, `fitted()` is much faster than `predict()`

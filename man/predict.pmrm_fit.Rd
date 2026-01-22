@@ -67,14 +67,8 @@ and confidence intervals of new outcomes.
   predict(fit, new_data)
 }
 \seealso{
-Other estimates and predictions: 
-\code{\link{VarCorr.pmrm_fit}()},
-\code{\link{coef.pmrm_fit}()},
+Other predictions: 
 \code{\link{fitted.pmrm_fit}()},
-\code{\link{plot.pmrm_fit}()},
-\code{\link{pmrm_estimates}()},
-\code{\link{pmrm_marginals}()},
-\code{\link{residuals.pmrm_fit}()},
-\code{\link{vcov.pmrm_fit}()}
+\code{\link{residuals.pmrm_fit}()}
 }
-\concept{estimates and predictions}
+\concept{predictions}

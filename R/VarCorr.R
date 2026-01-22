@@ -1,6 +1,6 @@
 #' @title Estimated covariance matrix
 #' @export
-#' @family estimates and predictions
+#' @family estimates
 #' @description Extract estimated covariance matrix among visits
 #'   within patients.
 #' @return A matrix `J` rows and `J` columns, where `J` is the number

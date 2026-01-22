@@ -62,15 +62,4 @@ a progression model for repeated measures (PMRM).
   pmrm_estimates(fit, parameter = "beta")
   pmrm_estimates(fit, parameter = "alpha")
 }
-\seealso{
-Other estimates and predictions: 
-\code{\link{VarCorr.pmrm_fit}()},
-\code{\link{coef.pmrm_fit}()},
-\code{\link{fitted.pmrm_fit}()},
-\code{\link{plot.pmrm_fit}()},
-\code{\link{pmrm_marginals}()},
-\code{\link{predict.pmrm_fit}()},
-\code{\link{residuals.pmrm_fit}()},
-\code{\link{vcov.pmrm_fit}()}
-}
 \concept{estimates and predictions}

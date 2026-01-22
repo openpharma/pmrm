@@ -1,5 +1,6 @@
 #' @title Tidy a fitted PMRM.
 #' @export
+#' @family estimates
 #' @description Return tidy parameter summaries of a progression model
 #'   for repeated measures (PMRM).
 #' @return A tidy `tibble` with one row for each treatment effect

@@ -1,6 +1,6 @@
 #' @title Marginal means
 #' @export
-#' @family estimates and predictions
+#' @family estimates
 #' @description Report the estimates and standard errors of marginal means
 #'   at each study arm and visit. The assumed visit times should have been
 #'   given in the `marginals` argument of the model-fitting function.

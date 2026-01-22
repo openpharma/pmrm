@@ -54,14 +54,8 @@ of a fitted progression model for repeated measures.
   str(residuals(fit))
 }
 \seealso{
-Other estimates and predictions: 
-\code{\link{VarCorr.pmrm_fit}()},
-\code{\link{coef.pmrm_fit}()},
+Other predictions: 
 \code{\link{fitted.pmrm_fit}()},
-\code{\link{plot.pmrm_fit}()},
-\code{\link{pmrm_estimates}()},
-\code{\link{pmrm_marginals}()},
-\code{\link{predict.pmrm_fit}()},
-\code{\link{vcov.pmrm_fit}()}
+\code{\link{predict.pmrm_fit}()}
 }
-\concept{estimates and predictions}
+\concept{predictions}

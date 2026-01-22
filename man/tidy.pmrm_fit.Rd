@@ -39,3 +39,12 @@ for repeated measures (PMRM).
   )
   tidy(fit)
 }
+\seealso{
+Other estimates: 
+\code{\link{VarCorr.pmrm_fit}()},
+\code{\link{coef.pmrm_fit}()},
+\code{\link{plot.pmrm_fit}()},
+\code{\link{pmrm_marginals}()},
+\code{\link{vcov.pmrm_fit}()}
+}
+\concept{estimates}

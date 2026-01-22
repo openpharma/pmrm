@@ -1,6 +1,6 @@
 #' @title Treatment effect parameter covariance matrix
 #' @export
-#' @family estimates and predictions
+#' @family estimates
 #' @description Extract the covariance matrix of the treatment effect
 #'   parameters of a progression model for repeated measures.
 #' @return A matrix with covariance of each pair of `theta` parameters.
