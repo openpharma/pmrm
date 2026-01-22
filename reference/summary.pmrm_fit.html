@@ -63,9 +63,11 @@
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A <code>tibble</code> with one row and columns with the following columns:</p><ul><li><p><code>model</code>: <code>"decline"</code> or <code>"slowing"</code>.</p></li>
 <li><p><code>parameterization</code>: <code>"proportional"</code> or <code>"nonproportional"</code>.</p></li>
-<li><p><code>log_likelihood</code>: maximized log likelihood of the model fit.</p></li>
 <li><p><code>n_observations</code>: number of non-missing observations in the data.</p></li>
 <li><p><code>n_parameters</code>: number of true model parameters.</p></li>
+<li><p><code>log_likelihood</code>: maximized log likelihood of the model fit.</p></li>
+<li><p><code>deviance</code>: deviance of the fitted model, defined here as
+<code>-2 * log_likelihood</code>.</p></li>
 <li><p><code>aic</code>: Akaike information criterion.</p></li>
 <li><p><code>bic</code>: Bayesian information criterion.</p></li>
 </ul><p>This format is designed for easy comparison of multiple fitted models.</p>
@@ -77,6 +79,7 @@
 <code><a href="BIC.pmrm_fit.html">BIC.pmrm_fit()</a></code>,
 <code><a href="confint.pmrm_fit.html">confint.pmrm_fit()</a></code>,
 <code><a href="deviance.pmrm_fit.html">deviance.pmrm_fit()</a></code>,
+<code><a href="glance.pmrm_fit.html">glance.pmrm_fit()</a></code>,
 <code><a href="logLik.pmrm_fit.html">logLik.pmrm_fit()</a></code></p></div>
     </div>
 
@@ -97,10 +100,11 @@
 <span class="r-in"><span>    covariates <span class="op">=</span> <span class="op">~</span> <span class="va">w_1</span> <span class="op">+</span> <span class="va">w_2</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 7</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   model  parameterization log_likelihood n_observations n_parameters   aic   bic</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> decli… proportional             -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">114.</span>           <span style="text-decoration: underline;">1</span>500           24 <span style="text-decoration: underline;">4</span>277. <span style="text-decoration: underline;">4</span>404.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 8</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   model   parameterization n_observations n_parameters log_likelihood deviance</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> decline proportional               <span style="text-decoration: underline;">1</span>500           24         -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">114.</span>    <span style="text-decoration: underline;">4</span>229.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 2 more variables: aic &lt;dbl&gt;, bic &lt;dbl&gt;</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

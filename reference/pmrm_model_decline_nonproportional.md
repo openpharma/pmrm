@@ -281,6 +281,9 @@ It has the following named elements:
   - `log_likelihood`: numeric scalar, the maximized log likelihood of
     the fitted model.
 
+  - `deviance`: deviance of the fitted model, defined here as
+    `-2 * log_likelihood`.
+
   - `aic`: numeric scalar, the Akaike information criterion of the
     fitted model.
 

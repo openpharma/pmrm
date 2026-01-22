@@ -72,7 +72,7 @@ system.time(
   )
 )
 #>    user  system elapsed 
-#>   0.448   0.013   0.459
+#>   0.452   0.018   0.470
 ```
 
 The fitted model object has parameter estimates, standard errors, model
@@ -290,10 +290,11 @@ high-level metrics for model comparison.
 
 ``` r
 summary(fit)
-#> # A tibble: 1 × 7
-#>   model  parameterization log_likelihood n_observations n_parameters   aic   bic
-#>   <chr>  <chr>                     <dbl>          <int>        <int> <dbl> <dbl>
-#> 1 decli… proportional             -3556.           2494           24 7159. 7299.
+#> # A tibble: 1 × 8
+#>   model   parameterization n_observations n_parameters log_likelihood deviance
+#>   <chr>   <chr>                     <int>        <int>          <dbl>    <dbl>
+#> 1 decline proportional               2494           24         -3556.    7111.
+#> # ℹ 2 more variables: aic <dbl>, bic <dbl>
 ```
 
 ## Marginals

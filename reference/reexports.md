@@ -5,6 +5,7 @@ to see their documentation.
 
 - generics:
 
+  [`glance`](https://generics.r-lib.org/reference/glance.html),
   [`tidy`](https://generics.r-lib.org/reference/tidy.html)
 
 - nlme:

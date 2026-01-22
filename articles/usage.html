@@ -134,7 +134,7 @@ the model fitting process runs fast.</p>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;    user  system elapsed </span></span>
-<span><span class="co">#&gt;   0.448   0.013   0.459</span></span></code></pre></div>
+<span><span class="co">#&gt;   0.452   0.018   0.470</span></span></code></pre></div>
 <p>The fitted model object has parameter estimates, standard errors,
 model constants, the convergence status, raw <a href="https://github.com/kaskr/RTMB" class="external-link"><code>RTMB</code></a> objects, and
 other information.</p>
@@ -317,10 +317,11 @@ residuals:</p>
 model comparison.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 7</span></span></span>
-<span><span class="co">#&gt;   model  parameterization log_likelihood n_observations n_parameters   aic   bic</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> decli… proportional             -<span style="color: #BB0000; text-decoration: underline;">3</span><span style="color: #BB0000;">556.</span>           <span style="text-decoration: underline;">2</span>494           24 <span style="text-decoration: underline;">7</span>159. <span style="text-decoration: underline;">7</span>299.</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 8</span></span></span>
+<span><span class="co">#&gt;   model   parameterization n_observations n_parameters log_likelihood deviance</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> decline proportional               <span style="text-decoration: underline;">2</span>494           24         -<span style="color: #BB0000; text-decoration: underline;">3</span><span style="color: #BB0000;">556.</span>    <span style="text-decoration: underline;">7</span>111.</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 2 more variables: aic &lt;dbl&gt;, bic &lt;dbl&gt;</span></span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="marginals">Marginals<a class="anchor" aria-label="anchor" href="#marginals"></a>

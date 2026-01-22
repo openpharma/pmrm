@@ -1,19 +1,19 @@
-# Summarize a PMRM.
+# Glance at a PMRM.
 
-Summarize a progression model for repeated measures (PMRM).
+Return a one-row `tibble` of model comparison metrics for a fitted PMRM.
 
 ## Usage
 
 ``` r
 # S3 method for class 'pmrm_fit'
-summary(object, ...)
+glance(x, ...)
 ```
 
 ## Arguments
 
-- object:
+- x:
 
-  A fitted model object of class `"pmrm_fit"`.
+  A fitted model x of class `"pmrm_fit"`.
 
 - ...:
 
@@ -49,8 +49,8 @@ Other model comparison:
 [`BIC.pmrm_fit()`](https://wlandau.github.io/pmrm/reference/BIC.pmrm_fit.md),
 [`confint.pmrm_fit()`](https://wlandau.github.io/pmrm/reference/confint.pmrm_fit.md),
 [`deviance.pmrm_fit()`](https://wlandau.github.io/pmrm/reference/deviance.pmrm_fit.md),
-[`glance.pmrm_fit()`](https://wlandau.github.io/pmrm/reference/glance.pmrm_fit.md),
-[`logLik.pmrm_fit()`](https://wlandau.github.io/pmrm/reference/logLik.pmrm_fit.md)
+[`logLik.pmrm_fit()`](https://wlandau.github.io/pmrm/reference/logLik.pmrm_fit.md),
+[`summary.pmrm_fit()`](https://wlandau.github.io/pmrm/reference/summary.pmrm_fit.md)
 
 ## Examples
 
@@ -69,7 +69,7 @@ Other model comparison:
     arm = "arm",
     covariates = ~ w_1 + w_2
   )
-  summary(fit)
+  glance(fit)
 #> # A tibble: 1 × 8
 #>   model   parameterization n_observations n_parameters log_likelihood deviance
 #>   <chr>   <chr>                     <int>        <int>          <dbl>    <dbl>
