@@ -33,7 +33,10 @@ pmrm_marginals(fit, type = c("outcome", "change", "effect"), confidence = 0.95)
 ## Value
 
 A `tibble` with one row per marginal mean and columns with the estimate,
-standard error, 2-sided confidence bounds, and indicator columns.
+standard error, 2-sided confidence bounds, and indicator columns. Some
+estimates, standard errors, and confidence bounds may be `NA_real_` if
+they correspond to the reference level subtracted out in
+change-from-baseline or treatment effect calculations.
 
 ## See also
 

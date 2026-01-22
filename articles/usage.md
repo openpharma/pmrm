@@ -72,7 +72,7 @@ system.time(
   )
 )
 #>    user  system elapsed 
-#>   0.432   0.013   0.445
+#>   0.436   0.008   0.446
 ```
 
 The fitted model object has parameter estimates, standard errors, model
@@ -331,23 +331,23 @@ Select `type = "change"` for estimates of change from baseline.
 ``` r
 pmrm_marginals(fit, type = "change")
 #> # A tibble: 15 × 7
-#>    arm   visit    time estimate standard_error lower upper
-#>    <ord> <ord>   <dbl>    <dbl>          <dbl> <dbl> <dbl>
-#>  1 arm_1 visit_1     0    0             0      0     0    
-#>  2 arm_1 visit_2     1    0.736         0.0825 0.574 0.898
-#>  3 arm_1 visit_3     2    0.929         0.0793 0.773 1.08 
-#>  4 arm_1 visit_4     3    1.38          0.0757 1.23  1.53 
-#>  5 arm_1 visit_5     4    1.60          0.0782 1.44  1.75 
-#>  6 arm_2 visit_1     0    0             0      0     0    
-#>  7 arm_2 visit_2     1    0.553         0.0684 0.419 0.687
-#>  8 arm_2 visit_3     2    0.697         0.0696 0.561 0.833
-#>  9 arm_2 visit_4     3    1.04          0.0697 0.899 1.17 
-#> 10 arm_2 visit_5     4    1.20          0.0770 1.05  1.35 
-#> 11 arm_3 visit_1     0    0             0      0     0    
-#> 12 arm_3 visit_2     1    0.460         0.0612 0.340 0.580
-#> 13 arm_3 visit_3     2    0.580         0.0639 0.455 0.706
-#> 14 arm_3 visit_4     3    0.862         0.0685 0.728 0.996
-#> 15 arm_3 visit_5     4    0.999         0.0762 0.849 1.15
+#>    arm   visit    time estimate standard_error  lower  upper
+#>    <ord> <ord>   <dbl>    <dbl>          <dbl>  <dbl>  <dbl>
+#>  1 arm_1 visit_1     0   NA            NA      NA     NA    
+#>  2 arm_1 visit_2     1    0.736         0.0825  0.574  0.898
+#>  3 arm_1 visit_3     2    0.929         0.0793  0.773  1.08 
+#>  4 arm_1 visit_4     3    1.38          0.0757  1.23   1.53 
+#>  5 arm_1 visit_5     4    1.60          0.0782  1.44   1.75 
+#>  6 arm_2 visit_1     0   NA            NA      NA     NA    
+#>  7 arm_2 visit_2     1    0.553         0.0684  0.419  0.687
+#>  8 arm_2 visit_3     2    0.697         0.0696  0.561  0.833
+#>  9 arm_2 visit_4     3    1.04          0.0697  0.899  1.17 
+#> 10 arm_2 visit_5     4    1.20          0.0770  1.05   1.35 
+#> 11 arm_3 visit_1     0   NA            NA      NA     NA    
+#> 12 arm_3 visit_2     1    0.460         0.0612  0.340  0.580
+#> 13 arm_3 visit_3     2    0.580         0.0639  0.455  0.706
+#> 14 arm_3 visit_4     3    0.862         0.0685  0.728  0.996
+#> 15 arm_3 visit_5     4    0.999         0.0762  0.849  1.15
 ```
 
 Select `type = "effect"` for estimates of the treatment effect (change
@@ -358,17 +358,17 @@ pmrm_marginals(fit, type = "effect")
 #> # A tibble: 15 × 7
 #>    arm   visit    time estimate standard_error  lower  upper
 #>    <ord> <ord>   <dbl>    <dbl>          <dbl>  <dbl>  <dbl>
-#>  1 arm_1 visit_1     0    0             0       0      0    
-#>  2 arm_1 visit_2     1    0             0       0      0    
-#>  3 arm_1 visit_3     2    0             0       0      0    
-#>  4 arm_1 visit_4     3    0             0       0      0    
-#>  5 arm_1 visit_5     4    0             0       0      0    
-#>  6 arm_2 visit_1     0    0             0       0      0    
+#>  1 arm_1 visit_1     0   NA            NA      NA     NA    
+#>  2 arm_1 visit_2     1   NA            NA      NA     NA    
+#>  3 arm_1 visit_3     2   NA            NA      NA     NA    
+#>  4 arm_1 visit_4     3   NA            NA      NA     NA    
+#>  5 arm_1 visit_5     4   NA            NA      NA     NA    
+#>  6 arm_2 visit_1     0   NA            NA      NA     NA    
 #>  7 arm_2 visit_2     1   -0.184         0.0370 -0.256 -0.111
 #>  8 arm_2 visit_3     2   -0.232         0.0437 -0.317 -0.146
 #>  9 arm_2 visit_4     3   -0.344         0.0641 -0.469 -0.218
 #> 10 arm_2 visit_5     4   -0.398         0.0729 -0.541 -0.255
-#> 11 arm_3 visit_1     0    0             0       0      0    
+#> 11 arm_3 visit_1     0   NA            NA      NA     NA    
 #> 12 arm_3 visit_2     1   -0.276         0.0413 -0.357 -0.195
 #> 13 arm_3 visit_3     2   -0.348         0.0463 -0.439 -0.257
 #> 14 arm_3 visit_4     3   -0.517         0.0652 -0.645 -0.389

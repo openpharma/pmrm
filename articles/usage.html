@@ -134,7 +134,7 @@ the model fitting process runs fast.</p>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;    user  system elapsed </span></span>
-<span><span class="co">#&gt;   0.432   0.013   0.445</span></span></code></pre></div>
+<span><span class="co">#&gt;   0.436   0.008   0.446</span></span></code></pre></div>
 <p>The fitted model object has parameter estimates, standard errors,
 model constants, the convergence status, raw <a href="https://github.com/kaskr/RTMB" class="external-link"><code>RTMB</code></a> objects, and
 other information.</p>
@@ -355,23 +355,23 @@ baseline.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/pmrm_marginals.html">pmrm_marginals</a></span><span class="op">(</span><span class="va">fit</span>, type <span class="op">=</span> <span class="st">"change"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 15 × 7</span></span></span>
-<span><span class="co">#&gt;    arm   visit    time estimate standard_error lower upper</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span> <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> arm_1 visit_1     0    0             0      0     0    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> arm_1 visit_2     1    0.736         0.082<span style="text-decoration: underline;">5</span> 0.574 0.898</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> arm_1 visit_3     2    0.929         0.079<span style="text-decoration: underline;">3</span> 0.773 1.08 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> arm_1 visit_4     3    1.38          0.075<span style="text-decoration: underline;">7</span> 1.23  1.53 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> arm_1 visit_5     4    1.60          0.078<span style="text-decoration: underline;">2</span> 1.44  1.75 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> arm_2 visit_1     0    0             0      0     0    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> arm_2 visit_2     1    0.553         0.068<span style="text-decoration: underline;">4</span> 0.419 0.687</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> arm_2 visit_3     2    0.697         0.069<span style="text-decoration: underline;">6</span> 0.561 0.833</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> arm_2 visit_4     3    1.04          0.069<span style="text-decoration: underline;">7</span> 0.899 1.17 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> arm_2 visit_5     4    1.20          0.077<span style="text-decoration: underline;">0</span> 1.05  1.35 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> arm_3 visit_1     0    0             0      0     0    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> arm_3 visit_2     1    0.460         0.061<span style="text-decoration: underline;">2</span> 0.340 0.580</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> arm_3 visit_3     2    0.580         0.063<span style="text-decoration: underline;">9</span> 0.455 0.706</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span> arm_3 visit_4     3    0.862         0.068<span style="text-decoration: underline;">5</span> 0.728 0.996</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">15</span> arm_3 visit_5     4    0.999         0.076<span style="text-decoration: underline;">2</span> 0.849 1.15</span></span></code></pre></div>
+<span><span class="co">#&gt;    arm   visit    time estimate standard_error  lower  upper</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span> <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> arm_1 visit_1     0   <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> arm_1 visit_2     1    0.736         0.082<span style="text-decoration: underline;">5</span>  0.574  0.898</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> arm_1 visit_3     2    0.929         0.079<span style="text-decoration: underline;">3</span>  0.773  1.08 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> arm_1 visit_4     3    1.38          0.075<span style="text-decoration: underline;">7</span>  1.23   1.53 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> arm_1 visit_5     4    1.60          0.078<span style="text-decoration: underline;">2</span>  1.44   1.75 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> arm_2 visit_1     0   <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> arm_2 visit_2     1    0.553         0.068<span style="text-decoration: underline;">4</span>  0.419  0.687</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> arm_2 visit_3     2    0.697         0.069<span style="text-decoration: underline;">6</span>  0.561  0.833</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> arm_2 visit_4     3    1.04          0.069<span style="text-decoration: underline;">7</span>  0.899  1.17 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> arm_2 visit_5     4    1.20          0.077<span style="text-decoration: underline;">0</span>  1.05   1.35 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> arm_3 visit_1     0   <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> arm_3 visit_2     1    0.460         0.061<span style="text-decoration: underline;">2</span>  0.340  0.580</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> arm_3 visit_3     2    0.580         0.063<span style="text-decoration: underline;">9</span>  0.455  0.706</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span> arm_3 visit_4     3    0.862         0.068<span style="text-decoration: underline;">5</span>  0.728  0.996</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">15</span> arm_3 visit_5     4    0.999         0.076<span style="text-decoration: underline;">2</span>  0.849  1.15</span></span></code></pre></div>
 <p>Select <code>type = "effect"</code> for estimates of the treatment
 effect (change from baseline of each active arm minus that of the
 control arm).</p>
@@ -380,17 +380,17 @@ control arm).</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 15 × 7</span></span></span>
 <span><span class="co">#&gt;    arm   visit    time estimate standard_error  lower  upper</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span> <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> arm_1 visit_1     0    0             0       0      0    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> arm_1 visit_2     1    0             0       0      0    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> arm_1 visit_3     2    0             0       0      0    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> arm_1 visit_4     3    0             0       0      0    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> arm_1 visit_5     4    0             0       0      0    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> arm_2 visit_1     0    0             0       0      0    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> arm_1 visit_1     0   <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> arm_1 visit_2     1   <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> arm_1 visit_3     2   <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> arm_1 visit_4     3   <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> arm_1 visit_5     4   <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> arm_2 visit_1     0   <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>    </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> arm_2 visit_2     1   -<span style="color: #BB0000;">0.184</span>         0.037<span style="text-decoration: underline;">0</span> -<span style="color: #BB0000;">0.256</span> -<span style="color: #BB0000;">0.111</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> arm_2 visit_3     2   -<span style="color: #BB0000;">0.232</span>         0.043<span style="text-decoration: underline;">7</span> -<span style="color: #BB0000;">0.317</span> -<span style="color: #BB0000;">0.146</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> arm_2 visit_4     3   -<span style="color: #BB0000;">0.344</span>         0.064<span style="text-decoration: underline;">1</span> -<span style="color: #BB0000;">0.469</span> -<span style="color: #BB0000;">0.218</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> arm_2 visit_5     4   -<span style="color: #BB0000;">0.398</span>         0.072<span style="text-decoration: underline;">9</span> -<span style="color: #BB0000;">0.541</span> -<span style="color: #BB0000;">0.255</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> arm_3 visit_1     0    0             0       0      0    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> arm_3 visit_1     0   <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>    </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> arm_3 visit_2     1   -<span style="color: #BB0000;">0.276</span>         0.041<span style="text-decoration: underline;">3</span> -<span style="color: #BB0000;">0.357</span> -<span style="color: #BB0000;">0.195</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> arm_3 visit_3     2   -<span style="color: #BB0000;">0.348</span>         0.046<span style="text-decoration: underline;">3</span> -<span style="color: #BB0000;">0.439</span> -<span style="color: #BB0000;">0.257</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span> arm_3 visit_4     3   -<span style="color: #BB0000;">0.517</span>         0.065<span style="text-decoration: underline;">2</span> -<span style="color: #BB0000;">0.645</span> -<span style="color: #BB0000;">0.389</span></span></span>
