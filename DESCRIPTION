@@ -17,7 +17,7 @@ Description: A progression model for repeated measures (PMRM)
 Version: 0.0.1
 License: MIT + file LICENSE
 URL: https://github.com/openpharma/pmrm,
-  https://openpharma.github.io/pmrm
+  https://openpharma.github.io/pmrm/
 BugReports: https://github.com/openpharma/pmrm/issues
 Authors@R: c(
   person(

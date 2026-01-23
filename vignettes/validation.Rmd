@@ -36,7 +36,7 @@ library(readr)
 library(scales)
 ```
 
-This simulation study is a [`targets`](htttps://docs.ropensci.org/targets) pipeline in the `vignettes/validation/` directory of the source code of `pmrm`.
+This simulation study is a `targets` pipeline in the `vignettes/validation/` directory of the source code of `pmrm`.
 To run the pipeline, change to that working directory and call `targets::tar_make()`.
 Due to the computational cost, we only run this pipeline once per release.
 

@@ -27,7 +27,7 @@ bibentry(
   title = "Progression models for repeated measures: Estimating novel treatment effects in progressive diseases",
   year = 2026L,
   note = paste("R package version ", packageVersion("pmrm")),
-  url = "https://openpharma.github.io/pmrm",
+  url = "https://openpharma.github.io/pmrm/",
 )
 
 bibentry(
