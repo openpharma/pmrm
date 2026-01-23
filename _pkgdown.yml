@@ -1,5 +1,5 @@
 destination: docs/
-url: https://wlandau.github.io/pmrm
+url: https://openpharma.github.io/pmrm
 template:
   bootstrap: 5
 reference:

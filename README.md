@@ -1,5 +1,5 @@
 
-# pmrm <a href="https://wlandau.github.io/pmrm/"><img src="man/figures/logo.png" align="right" height="139"/></a>
+# pmrm <a href="https://openpharma.github.io/pmrm/"><img src="man/figures/logo.png" align="right" height="139"/></a>
 
 A progression model for repeated measures (PMRM) is a longitudinal
 continuous-time nonlinear model of a progressive disease. Some PMRMs are
@@ -14,7 +14,7 @@ frequentist PMRMs by Raket (2022) using
 You can install `pmrm` from GitHub.
 
 ``` r
-pak::pkg_install("wlandau/pmrm")
+pak::pkg_install("openpharma/pmrm")
 ```
 
 # Citation
@@ -25,7 +25,7 @@ citation("pmrm")
 #> 
 #>   Landau WM, Raket LL, Kristensen K (????). _pmrm: Progression Models
 #>   for Repeated Measures_. R package version 0.0.1,
-#>   <https://github.com/wlandau/pmrm>.
+#>   <https://github.com/openpharma/pmrm>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
@@ -33,7 +33,7 @@ citation("pmrm")
 #>     title = {pmrm: Progression Models for Repeated Measures},
 #>     author = {William Michael Landau and Lars Lau Raket and Kasper Kristensen},
 #>     note = {R package version 0.0.1},
-#>     url = {https://github.com/wlandau/pmrm},
+#>     url = {https://github.com/openpharma/pmrm},
 #>   }
 ```
 

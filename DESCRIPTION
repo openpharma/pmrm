@@ -10,9 +10,9 @@ Description: A progression model for repeated measures (PMRM)
   'RTMB' by Kristensen (2016) <doi:10.18637/jss.v070.i05>.
 Version: 0.0.1
 License: MIT + file LICENSE
-URL: https://github.com/wlandau/pmrm,
-  https://wlandau.github.io/pmrm
-BugReports: https://github.com/wlandau/pmrm/issues
+URL: https://github.com/openpharma/pmrm,
+  https://openpharma.github.io/pmrm
+BugReports: https://github.com/openpharma/pmrm/issues
 Authors@R: c(
   person(
     given = c("William", "Michael"),

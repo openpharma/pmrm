@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# pmrm <a href="https://wlandau.github.io/pmrm/"><img src="man/figures/logo.png" align="right" height="139"/></a>
+# pmrm <a href="https://openpharma.github.io/pmrm/"><img src="man/figures/logo.png" align="right" height="139"/></a>
 
 A progression model for repeated measures (PMRM) is a longitudinal continuous-time nonlinear model of a progressive disease.
 Some PMRMs are designed to estimate the treatment effect on the time scale, which is often more appropriate and more intuitive than the more typical treatment effect on the outcome scale.
@@ -24,7 +24,7 @@ This package implements frequentist PMRMs by @raket2022 using
 You can install `pmrm` from GitHub.
 
 ```{r, eval = FALSE}
-pak::pkg_install("wlandau/pmrm")
+pak::pkg_install("openpharma/pmrm")
 ```
 
 # Citation
