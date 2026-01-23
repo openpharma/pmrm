@@ -29,8 +29,8 @@ pak::pkg_install("openpharma/pmrm")
 
 # Citation
 
-```{r, warning = FALSE}
-citation("pmrm")
+```{r, warning = FALSE, echo = FALSE, comment = ""}
+print(citation("pmrm"), bibtex = TRUE)
 ```
 
 # References
