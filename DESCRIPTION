@@ -64,6 +64,8 @@ Suggests:
   knitr,
   markdown,
   rmarkdown,
+  readr,
+  scales,
   testthat (>= 3.0.0)
 Encoding: UTF-8
 Language: en-US
