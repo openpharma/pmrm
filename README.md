@@ -22,12 +22,11 @@ automatic differentiation via [RTMB](https://github.com/kaskr/RTMB)
 
 There are multiple ways to install `pmrm`.
 
-| Type | Source | Command |
-|----|----|----|
-| Release | CRAN | `install.packages("pmrm")` |
-| Release | GitHub | `pak::pkg_install("openpharma/pmrm@*release")` |
-| Development | GitHub | `pak::pkg_install("openpharma/pmrm")` |
-| Development | R-universe | `install.packages("pmrm", repos = c("https://openpharma.r-universe.dev"), getOption("repos")))` |
+| Type        | Source | Command                                        |
+|-------------|--------|------------------------------------------------|
+| Release     | CRAN   | `install.packages("pmrm")`                     |
+| Release     | GitHub | `pak::pkg_install("openpharma/pmrm@*release")` |
+| Development | GitHub | `pak::pkg_install("openpharma/pmrm")`          |
 
 # Citation
 
