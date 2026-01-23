@@ -18,22 +18,44 @@ pak::pkg_install("openpharma/pmrm")
 
 # Citation
 
-``` r
-citation("pmrm")
-#> To cite package 'pmrm' in publications use:
-#> 
-#>   Landau WM, Raket LL, Kristensen K (????). _pmrm: Progression Models
-#>   for Repeated Measures_. R package version 0.0.1,
-#>   <https://github.com/openpharma/pmrm>.
-#> 
-#> A BibTeX entry for LaTeX users is
-#> 
-#>   @Manual{,
-#>     title = {pmrm: Progression Models for Repeated Measures},
-#>     author = {William Michael Landau and Lars Lau Raket and Kasper Kristensen},
-#>     note = {R package version 0.0.1},
-#>     url = {https://github.com/openpharma/pmrm},
-#>   }
+``` R
+To cite pmrm in publications, please use:
+
+  Landau WM, Raket LL, Kristensen K (2026). "Progression models for
+  repeated measures: Estimating novel treatment effects in progressive
+  diseases." R package version 0.0.1,
+  <https://openpharma.github.io/pmrm>.
+
+A BibTeX entry for LaTeX users is
+
+  @Misc{,
+    author = {William Michael Landau and Lars Lau Raket and Kasper Kristensen},
+    title = {Progression models for repeated measures: Estimating novel treatment effects in progressive diseases},
+    year = {2026},
+    note = {R package version  0.0.1},
+    url = {https://openpharma.github.io/pmrm},
+  }
+
+Please also cite the underlying methods paper:
+
+  Raket, Lars Lau (2022). Progression Models for Repeated Measures:
+  Estimating Novel Treatment Effects in Progressive Diseases.
+  Statistics in Medicine, 41(28), 5537–57,
+  https://doi.org/10.1002/sim.9581.
+
+A BibTeX entry for LaTeX users is
+
+  @Article{,
+    author = {Lars Lau Raket},
+    title = {Progression models for repeated measures: Estimating novel treatment effects in progressive diseases},
+    journal = {Statistics in {M}edicine},
+    year = {2022},
+    volume = {41},
+    number = {28},
+    pages = {5537-5557},
+    doi = {10.1002/sim.9581},
+    url = {https://doi.org/10.1002/sim.9581},
+  }
 ```
 
 # References
