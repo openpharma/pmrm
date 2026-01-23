@@ -48,7 +48,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/wlandau/pmrm/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/openpharma/pmrm/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -64,7 +64,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Usage</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/wlandau/pmrm/blob/main/vignettes/usage.Rmd" class="external-link"><code>vignettes/usage.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/openpharma/pmrm/blob/main/vignettes/usage.Rmd" class="external-link"><code>vignettes/usage.Rmd</code></a></small>
       <div class="d-none name"><code>usage.Rmd</code></div>
     </div>
 
@@ -80,7 +80,7 @@ indicator variables, and optional covariates. The <code>pmrm</code>
 package has functions to simulate datasets from each supported
 model.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/wlandau/pmrm" class="external-link">pmrm</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/openpharma/pmrm" class="external-link">pmrm</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">simulation</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/pmrm_simulate_decline_proportional.html">pmrm_simulate_decline_proportional</a></span><span class="op">(</span></span>
 <span>  patients <span class="op">=</span> <span class="fl">500</span>,</span>
@@ -134,7 +134,7 @@ the model fitting process runs fast.</p>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;    user  system elapsed </span></span>
-<span><span class="co">#&gt;   0.434   0.010   0.445</span></span></code></pre></div>
+<span><span class="co">#&gt;   0.456   0.013   0.470</span></span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Model:</span></span>

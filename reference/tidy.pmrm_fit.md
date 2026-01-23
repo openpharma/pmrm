@@ -31,10 +31,10 @@ similar fitted models in R.
 ## See also
 
 Other estimates:
-[`VarCorr.pmrm_fit()`](https://wlandau.github.io/pmrm/reference/VarCorr.pmrm_fit.md),
-[`coef.pmrm_fit()`](https://wlandau.github.io/pmrm/reference/coef.pmrm_fit.md),
-[`pmrm_marginals()`](https://wlandau.github.io/pmrm/reference/pmrm_marginals.md),
-[`vcov.pmrm_fit()`](https://wlandau.github.io/pmrm/reference/vcov.pmrm_fit.md)
+[`VarCorr.pmrm_fit()`](https://openpharma.github.io/pmrm/reference/VarCorr.pmrm_fit.md),
+[`coef.pmrm_fit()`](https://openpharma.github.io/pmrm/reference/coef.pmrm_fit.md),
+[`pmrm_marginals()`](https://openpharma.github.io/pmrm/reference/pmrm_marginals.md),
+[`vcov.pmrm_fit()`](https://openpharma.github.io/pmrm/reference/vcov.pmrm_fit.md)
 
 ## Examples
 

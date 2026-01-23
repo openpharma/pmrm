@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   models: models.html
   usage: usage.html
-last_built: 2026-01-22T21:36Z
+last_built: 2026-01-23T14:06Z
 urls:
-  reference: https://wlandau.github.io/pmrm/reference
-  article: https://wlandau.github.io/pmrm/articles
+  reference: https://openpharma.github.io/pmrm/reference
+  article: https://openpharma.github.io/pmrm/articles

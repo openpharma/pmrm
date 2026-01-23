@@ -171,7 +171,7 @@ pmrm_model(
 
   If `initial` is a list, then it must have the following named finite
   numeric elements conforming to all the true parameters defined in
-  [`vignette("models", package = "pmrm")`](https://wlandau.github.io/pmrm/articles/models.md):
+  [`vignette("models", package = "pmrm")`](https://openpharma.github.io/pmrm/articles/models.md):
 
   - `alpha`: a vector with the same length as `spline_knots`.
 

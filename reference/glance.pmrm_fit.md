@@ -45,12 +45,12 @@ This format is designed for easy comparison of multiple fitted models.
 ## See also
 
 Other model comparison:
-[`AIC.pmrm_fit()`](https://wlandau.github.io/pmrm/reference/AIC.pmrm_fit.md),
-[`BIC.pmrm_fit()`](https://wlandau.github.io/pmrm/reference/BIC.pmrm_fit.md),
-[`confint.pmrm_fit()`](https://wlandau.github.io/pmrm/reference/confint.pmrm_fit.md),
-[`deviance.pmrm_fit()`](https://wlandau.github.io/pmrm/reference/deviance.pmrm_fit.md),
-[`logLik.pmrm_fit()`](https://wlandau.github.io/pmrm/reference/logLik.pmrm_fit.md),
-[`summary.pmrm_fit()`](https://wlandau.github.io/pmrm/reference/summary.pmrm_fit.md)
+[`AIC.pmrm_fit()`](https://openpharma.github.io/pmrm/reference/AIC.pmrm_fit.md),
+[`BIC.pmrm_fit()`](https://openpharma.github.io/pmrm/reference/BIC.pmrm_fit.md),
+[`confint.pmrm_fit()`](https://openpharma.github.io/pmrm/reference/confint.pmrm_fit.md),
+[`deviance.pmrm_fit()`](https://openpharma.github.io/pmrm/reference/deviance.pmrm_fit.md),
+[`logLik.pmrm_fit()`](https://openpharma.github.io/pmrm/reference/logLik.pmrm_fit.md),
+[`summary.pmrm_fit()`](https://openpharma.github.io/pmrm/reference/summary.pmrm_fit.md)
 
 ## Examples
 

@@ -50,14 +50,14 @@ plot(
   `TRUE` to plot model-based confidence intervals and estimates of
   marginal means as boxes and horizontal lines within those boxes,
   respectively. Uses
-  [`pmrm_marginals()`](https://wlandau.github.io/pmrm/reference/pmrm_marginals.md)
+  [`pmrm_marginals()`](https://openpharma.github.io/pmrm/reference/pmrm_marginals.md)
   with the given level of confidence. `FALSE` to omit.
 
 - show_predictions:
 
   `TRUE` to plot expected outcomes and confidence bands with lines and
   shaded regions, respectively. Uses
-  [`predict.pmrm_fit()`](https://wlandau.github.io/pmrm/reference/predict.pmrm_fit.md)
+  [`predict.pmrm_fit()`](https://openpharma.github.io/pmrm/reference/predict.pmrm_fit.md)
   with `adjust = FALSE` and the given level of confidence on the
   original dataset used to fit the model. Predictions on a full dataset
   are generally slow, so the default is `FALSE`.
@@ -92,7 +92,7 @@ The plot shows the following elements:
 ## See also
 
 Other visualization:
-[`print.pmrm_fit()`](https://wlandau.github.io/pmrm/reference/print.pmrm_fit.md)
+[`print.pmrm_fit()`](https://openpharma.github.io/pmrm/reference/print.pmrm_fit.md)
 
 ## Examples
 

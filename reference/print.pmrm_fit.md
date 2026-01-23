@@ -30,7 +30,7 @@ print(x, digits = 3L, ...)
 ## See also
 
 Other visualization:
-[`plot.pmrm_fit()`](https://wlandau.github.io/pmrm/reference/plot.pmrm_fit.md)
+[`plot.pmrm_fit()`](https://openpharma.github.io/pmrm/reference/plot.pmrm_fit.md)
 
 ## Examples
 

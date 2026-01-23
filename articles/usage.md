@@ -72,7 +72,7 @@ system.time(
   )
 )
 #>    user  system elapsed 
-#>   0.434   0.010   0.445
+#>   0.456   0.013   0.470
 ```
 
 ``` r
@@ -280,7 +280,7 @@ hist(correlations)
 ## Summaries
 
 Use
-[`pmrm_estimates()`](https://wlandau.github.io/pmrm/reference/pmrm_estimates.md)
+[`pmrm_estimates()`](https://openpharma.github.io/pmrm/reference/pmrm_estimates.md)
 to compute estimates, standard errors, and confidence intervals of model
 parameters and standard downstream functions of parameters. For example,
 here are the active-arm post-baseline treatment effect parameters:
@@ -323,10 +323,10 @@ summary(fit)
 
 ## Marginals
 
-[`pmrm_marginals()`](https://wlandau.github.io/pmrm/reference/pmrm_marginals.md)
+[`pmrm_marginals()`](https://openpharma.github.io/pmrm/reference/pmrm_marginals.md)
 returns estimated marginal means for each study arm and visit. The
 continuous time at each visit is given by the `marginals` argument to
-[`pmrm_model_decline_proportional()`](https://wlandau.github.io/pmrm/reference/pmrm_model_decline_proportional.md).
+[`pmrm_model_decline_proportional()`](https://openpharma.github.io/pmrm/reference/pmrm_model_decline_proportional.md).
 
 ``` r
 pmrm_marginals(fit, type = "outcome")
@@ -425,7 +425,7 @@ predict(fit, data = head(simulation, 5))
 `pmrm` supports an S3 method for the
 [`plot()`](https://rdrr.io/r/graphics/plot.default.html) generic. This
 method
-[`plot.pmrm_fit()`](https://wlandau.github.io/pmrm/reference/plot.pmrm_fit.md)
+[`plot.pmrm_fit()`](https://openpharma.github.io/pmrm/reference/plot.pmrm_fit.md)
 visually compares the model to the data. The default plot shows:
 
 - Raw estimates and confidence intervals on the data, as points and
@@ -467,4 +467,4 @@ plot(
 2.  See also `fit$standard_errors`.
 
 3.  Can be supplied to the `initial` argument of
-    [`pmrm_model_decline_proportional()`](https://wlandau.github.io/pmrm/reference/pmrm_model_decline_proportional.md).
+    [`pmrm_model_decline_proportional()`](https://openpharma.github.io/pmrm/reference/pmrm_model_decline_proportional.md).

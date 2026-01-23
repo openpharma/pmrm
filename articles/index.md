@@ -2,5 +2,5 @@
 
 ### All vignettes
 
-- [Models](https://wlandau.github.io/pmrm/articles/models.md):
-- [Usage](https://wlandau.github.io/pmrm/articles/usage.md):
+- [Models](https://openpharma.github.io/pmrm/articles/models.md):
+- [Usage](https://openpharma.github.io/pmrm/articles/usage.md):

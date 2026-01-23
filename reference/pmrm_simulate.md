@@ -92,7 +92,7 @@ section).
 The datasets returned from the simulation functions have one row per
 patient visit and the following columns which conform to the notation
 from
-[`vignette("models", package = "pmrm")`](https://wlandau.github.io/pmrm/articles/models.md):
+[`vignette("models", package = "pmrm")`](https://openpharma.github.io/pmrm/articles/models.md):
 
 - `patient`: Character vector of patient ID labels.
 

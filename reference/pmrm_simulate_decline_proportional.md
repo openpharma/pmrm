@@ -60,7 +60,7 @@ pmrm_simulate_decline_proportional(
 
   Numeric vector with one element per study arm (including the control
   arm). See
-  [`vignette("models", package = "pmrm")`](https://wlandau.github.io/pmrm/articles/models.md)
+  [`vignette("models", package = "pmrm")`](https://openpharma.github.io/pmrm/articles/models.md)
   for details on this parameter.
 
 - gamma:
@@ -90,7 +90,7 @@ data" section of this help file for details.
 ## Details
 
 See
-[`vignette("models", package = "pmrm")`](https://wlandau.github.io/pmrm/articles/models.md)
+[`vignette("models", package = "pmrm")`](https://openpharma.github.io/pmrm/articles/models.md)
 for details.
 
 ## Simulated data
@@ -98,7 +98,7 @@ for details.
 The datasets returned from the simulation functions have one row per
 patient visit and the following columns which conform to the notation
 from
-[`vignette("models", package = "pmrm")`](https://wlandau.github.io/pmrm/articles/models.md):
+[`vignette("models", package = "pmrm")`](https://openpharma.github.io/pmrm/articles/models.md):
 
 - `patient`: Character vector of patient ID labels.
 
@@ -131,9 +131,9 @@ from
 ## See also
 
 Other simulations:
-[`pmrm_simulate_decline_nonproportional()`](https://wlandau.github.io/pmrm/reference/pmrm_simulate_decline_nonproportional.md),
-[`pmrm_simulate_slowing_nonproportional()`](https://wlandau.github.io/pmrm/reference/pmrm_simulate_slowing_nonproportional.md),
-[`pmrm_simulate_slowing_proportional()`](https://wlandau.github.io/pmrm/reference/pmrm_simulate_slowing_proportional.md)
+[`pmrm_simulate_decline_nonproportional()`](https://openpharma.github.io/pmrm/reference/pmrm_simulate_decline_nonproportional.md),
+[`pmrm_simulate_slowing_nonproportional()`](https://openpharma.github.io/pmrm/reference/pmrm_simulate_slowing_nonproportional.md),
+[`pmrm_simulate_slowing_proportional()`](https://openpharma.github.io/pmrm/reference/pmrm_simulate_slowing_proportional.md)
 
 ## Examples
 

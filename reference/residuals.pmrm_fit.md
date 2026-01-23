@@ -34,11 +34,11 @@ residuals(object, ..., data = object$data, adjust = TRUE)
 
   `TRUE` or `FALSE`. `adjust = TRUE` returns estimates and inference for
   covariate-adjusted `mu_ij` values (defined in
-  [`vignette("models", package = "pmrm")`](https://wlandau.github.io/pmrm/articles/models.md))
+  [`vignette("models", package = "pmrm")`](https://openpharma.github.io/pmrm/articles/models.md))
   for new data. `adjust = FALSE` instead returns inference on
   `mu_ij - W %*% gamma`, the non-covariate-adjusted predictions useful
   in plotting a continuous disease progression trajectory in
-  [`plot.pmrm_fit()`](https://wlandau.github.io/pmrm/reference/plot.pmrm_fit.md).
+  [`plot.pmrm_fit()`](https://openpharma.github.io/pmrm/reference/plot.pmrm_fit.md).
 
 ## Value
 
@@ -48,8 +48,8 @@ supplied in the `data` argument.
 ## See also
 
 Other predictions:
-[`fitted.pmrm_fit()`](https://wlandau.github.io/pmrm/reference/fitted.pmrm_fit.md),
-[`predict.pmrm_fit()`](https://wlandau.github.io/pmrm/reference/predict.pmrm_fit.md)
+[`fitted.pmrm_fit()`](https://openpharma.github.io/pmrm/reference/fitted.pmrm_fit.md),
+[`predict.pmrm_fit()`](https://openpharma.github.io/pmrm/reference/predict.pmrm_fit.md)
 
 ## Examples
 

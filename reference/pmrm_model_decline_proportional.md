@@ -170,7 +170,7 @@ pmrm_model_decline_proportional(
 
   If `initial` is a list, then it must have the following named finite
   numeric elements conforming to all the true parameters defined in
-  [`vignette("models", package = "pmrm")`](https://wlandau.github.io/pmrm/articles/models.md):
+  [`vignette("models", package = "pmrm")`](https://openpharma.github.io/pmrm/articles/models.md):
 
   - `alpha`: a vector with the same length as `spline_knots`.
 
@@ -205,7 +205,7 @@ details, see the "pmrm fit objects" section of this help file.
 ## Details
 
 See
-[`vignette("models", package = "pmrm")`](https://wlandau.github.io/pmrm/articles/models.md)
+[`vignette("models", package = "pmrm")`](https://openpharma.github.io/pmrm/articles/models.md)
 for details.
 
 ## pmrm fit objects
@@ -302,9 +302,9 @@ It has the following named elements:
 ## See also
 
 Other models:
-[`pmrm_model_decline_nonproportional()`](https://wlandau.github.io/pmrm/reference/pmrm_model_decline_nonproportional.md),
-[`pmrm_model_slowing_nonproportional()`](https://wlandau.github.io/pmrm/reference/pmrm_model_slowing_nonproportional.md),
-[`pmrm_model_slowing_proportional()`](https://wlandau.github.io/pmrm/reference/pmrm_model_slowing_proportional.md)
+[`pmrm_model_decline_nonproportional()`](https://openpharma.github.io/pmrm/reference/pmrm_model_decline_nonproportional.md),
+[`pmrm_model_slowing_nonproportional()`](https://openpharma.github.io/pmrm/reference/pmrm_model_slowing_nonproportional.md),
+[`pmrm_model_slowing_proportional()`](https://openpharma.github.io/pmrm/reference/pmrm_model_slowing_proportional.md)
 
 ## Examples
 

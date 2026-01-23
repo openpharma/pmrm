@@ -31,16 +31,16 @@ named with arm/visit names as appropriate.
 ## Details
 
 See
-[`vignette("models", package = "pmrm")`](https://wlandau.github.io/pmrm/articles/models.md)
+[`vignette("models", package = "pmrm")`](https://openpharma.github.io/pmrm/articles/models.md)
 for details.
 
 ## See also
 
 Other estimates:
-[`VarCorr.pmrm_fit()`](https://wlandau.github.io/pmrm/reference/VarCorr.pmrm_fit.md),
-[`pmrm_marginals()`](https://wlandau.github.io/pmrm/reference/pmrm_marginals.md),
-[`tidy.pmrm_fit()`](https://wlandau.github.io/pmrm/reference/tidy.pmrm_fit.md),
-[`vcov.pmrm_fit()`](https://wlandau.github.io/pmrm/reference/vcov.pmrm_fit.md)
+[`VarCorr.pmrm_fit()`](https://openpharma.github.io/pmrm/reference/VarCorr.pmrm_fit.md),
+[`pmrm_marginals()`](https://openpharma.github.io/pmrm/reference/pmrm_marginals.md),
+[`tidy.pmrm_fit()`](https://openpharma.github.io/pmrm/reference/tidy.pmrm_fit.md),
+[`vcov.pmrm_fit()`](https://openpharma.github.io/pmrm/reference/vcov.pmrm_fit.md)
 
 ## Examples
 

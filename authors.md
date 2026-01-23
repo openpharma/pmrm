@@ -15,16 +15,16 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/wlandau/pmrm/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/openpharma/pmrm/blob/main/DESCRIPTION)
 
 Landau WM, Raket LL, Kristensen K (2026). *pmrm: Progression Models for
 Repeated Measures*. R package version 0.0.1,
-<https://github.com/wlandau/pmrm>.
+<https://github.com/openpharma/pmrm>.
 
     @Manual{,
       title = {pmrm: Progression Models for Repeated Measures},
       author = {William Michael Landau and Lars Lau Raket and Kasper Kristensen},
       year = {2026},
       note = {R package version 0.0.1},
-      url = {https://github.com/wlandau/pmrm},
+      url = {https://github.com/openpharma/pmrm},
     }
