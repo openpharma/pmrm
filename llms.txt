@@ -1,5 +1,10 @@
 # pmrm
 
+[![CRAN](https://www.r-pkg.org/badges/version/pmrm)](https://CRAN.R-project.org/package=pmrm)
+[![status](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![check](https://github.com/openpharma/pmrm/actions/workflows/check.yaml/badge.svg)](https://github.com/ropensci/pmrm/actions?query=workflow%3Acheck)
+[![codecov](https://codecov.io/gh/openpharma/pmrm/branch/main/graph/badge.svg?token=3T5DlLwUVl)](https://app.codecov.io/gh/openpharma/pmrm)
+
 A progression model for repeated measures (PMRM) is a continuous-time
 nonlinear mixed-effects model for longitudinal clinical trials in
 progressive diseases. Unlike mixed models for repeated measures (MMRMs),
@@ -14,11 +19,14 @@ automatic differentiation via [RTMB](https://github.com/kaskr/RTMB)
 
 # Installation
 
-You can install `pmrm` from GitHub.
+There are multiple ways to install `pmrm`.
 
-``` r
-pak::pkg_install("openpharma/pmrm")
-```
+| Type        | Source     | Command                                                                                         |
+|-------------|------------|-------------------------------------------------------------------------------------------------|
+| Release     | CRAN       | `install.packages("pmrm")`                                                                      |
+| Release     | GitHub     | `pak::pkg_install("openpharma/pmrm@*release")`                                                  |
+| Development | GitHub     | `pak::pkg_install("openpharma/pmrm")`                                                           |
+| Development | R-universe | `install.packages("pmrm", repos = c("https://openpharma.r-universe.dev"), getOption("repos")))` |
 
 # Citation
 
