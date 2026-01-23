@@ -1,13 +1,17 @@
 
 # pmrm <a href="https://openpharma.github.io/pmrm/"><img src="man/figures/logo.png" align="right" height="139"/></a>
 
-A progression model for repeated measures (PMRM) is a longitudinal
-continuous-time nonlinear model of a progressive disease. Some PMRMs are
-designed to estimate the treatment effect on the time scale, which is
-often more appropriate and more intuitive than the more typical
-treatment effect on the outcome scale. This package implements
-frequentist PMRMs by Raket (2022) using
-[TMB](https://github.com/kaskr/adcomp) by Kristensen et al. (2016).
+A progression model for repeated measures (PMRM) is a continuous-time
+nonlinear mixed-effects model for longitudinal clinical trials in
+progressive diseases. Unlike mixed models for repeated measures (MMRMs),
+which estimate treatment effects as linear combinations of additive
+effects on the outcome scale, PMRMs characterize treatment effects in
+terms of the underlying disease trajectory. This framing yields
+clinically interpretable quantities such as average time saved and
+percent reduction in decline due to treatment. The pmrm package
+implements the frequentist PMRM framework of Raket (2022) using
+automatic differentiation via [RTMB](https://github.com/kaskr/RTMB)
+(Kristensen et al. 2016).
 
 # Installation
 

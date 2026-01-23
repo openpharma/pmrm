@@ -1,0 +1,58 @@
+bibentry(
+  header = "To cite pmrm in publications, please use:",
+  bibtype = "Misc",
+  author = c(
+    person(
+      given = c("William", "Michael"),
+      family = "Landau",
+      email = "will.landau.oss@gmail.com",
+      comment = c(ORCID = "0000-0003-1878-3253"),
+      role = c("aut", "cre")
+    ),
+    person(
+      given = c("Lars", "Lau"),
+      family = "Raket",
+      email = "larslau.raket@lilly.com",
+      comment = c(ORCID = "0000-0001-7099-2314"),
+      role = "aut"
+    ),
+    person(
+      given = "Kasper",
+      family = "Kristensen",
+      role = "aut",
+      email = "kaskr@dtu.dk",
+      comment = c(ORCID = "0000-0003-3425-3762")
+    )
+  ),
+  title = "Progression models for repeated measures: Estimating novel treatment effects in progressive diseases",
+  year = 2026L,
+  note = paste("R package version ", packageVersion("pmrm")),
+  url = "https://openpharma.github.io/pmrm",
+)
+
+bibentry(
+  header = "Please also cite the underlying methods paper:",
+  bibtype = "Article",
+  author = person(
+    given = c("Lars", "Lau"),
+    family = "Raket",
+    email = "larslau.raket@lilly.com",
+    comment = c(ORCID = "0000-0001-7099-2314"),
+    role = "aut"
+  ),
+  title = "Progression models for repeated measures: Estimating novel treatment effects in progressive diseases",
+  journal = "Statistics in {M}edicine",
+  year = 2022L,
+  volume = 41L,
+  number = 28L,
+  pages = "5537-5557",
+  doi = "10.1002/sim.9581",
+  url = "https://doi.org/10.1002/sim.9581",
+  textVersion = paste(
+    "Raket, Lars Lau (2022).",
+    "Progression Models for Repeated Measures:",
+    "Estimating Novel Treatment Effects in Progressive Diseases.",
+    "Statistics in Medicine,",
+    "41(28), 5537–57, https://doi.org/10.1002/sim.9581."
+  )
+)
