@@ -162,3 +162,4 @@ in Medicine* 41 (28): 5537–57. <https://doi.org/10.1002/sim.9581>.
 
 - [Models](https://openpharma.github.io/pmrm/articles/models.md):
 - [Usage](https://openpharma.github.io/pmrm/articles/usage.md):
+- [Validation](https://openpharma.github.io/pmrm/articles/validation.md):
