@@ -17,6 +17,11 @@ implements the frequentist PMRM framework of Raket (2022) using
 automatic differentiation via [RTMB](https://github.com/kaskr/RTMB)
 (Kristensen et al. 2016).
 
+# Documentation
+
+Please see <https://openpharma.github.io/pmrm/> for model definitions, a
+usage tutorial, and a function reference.
+
 # Installation
 
 There are multiple ways to install `pmrm`.
