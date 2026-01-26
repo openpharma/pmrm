@@ -32,19 +32,17 @@ There are multiple ways to install `pmrm`.
 
     To cite pmrm in publications, please use:
 
-      Landau WM, Raket LL, Kristensen K (2026). "Progression models for
-      repeated measures: Estimating novel treatment effects in progressive
-      diseases." R package version 0.0.1,
-      <https://openpharma.github.io/pmrm>.
+      Landau WM, Raket LL, Kristensen K (2026). "Progression Models for
+      Repeated Measures." R package, <https://openpharma.github.io/pmrm/>.
 
     A BibTeX entry for LaTeX users is
 
       @Misc{,
         author = {William Michael Landau and Lars Lau Raket and Kasper Kristensen},
-        title = {Progression models for repeated measures: Estimating novel treatment effects in progressive diseases},
+        title = {Progression Models for Repeated Measures},
         year = {2026},
-        note = {R package version  0.0.1},
-        url = {https://openpharma.github.io/pmrm},
+        note = {R package},
+        url = {https://openpharma.github.io/pmrm/},
       }
 
     Please also cite the underlying methods paper:
