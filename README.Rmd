@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 [![CRAN](https://www.r-pkg.org/badges/version/pmrm)](https://CRAN.R-project.org/package=pmrm)
 [![status](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![check](https://github.com/openpharma/pmrm/actions/workflows/check.yaml/badge.svg)](https://github.com/ropensci/pmrm/actions?query=workflow%3Acheck)
+[![check](https://github.com/openpharma/pmrm/actions/workflows/check.yaml/badge.svg)](https://github.com/openpharma/pmrm/actions?query=workflow%3Acheck)
 [![codecov](https://codecov.io/gh/openpharma/pmrm/branch/main/graph/badge.svg?token=3T5DlLwUVl)](https://app.codecov.io/gh/openpharma/pmrm)
 
 A progression model for repeated measures (PMRM) is a continuous-time nonlinear mixed-effects model for longitudinal clinical trials in progressive diseases.

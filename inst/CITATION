@@ -24,9 +24,9 @@ bibentry(
       comment = c(ORCID = "0000-0003-3425-3762")
     )
   ),
-  title = "Progression models for repeated measures: Estimating novel treatment effects in progressive diseases",
+  title = "Progression Models for Repeated Measures",
   year = 2026L,
-  note = paste("R package version ", packageVersion("pmrm")),
+  note = "R package",
   url = "https://openpharma.github.io/pmrm/",
 )
 
