@@ -27,6 +27,7 @@ bibentry(
   title = "Progression Models for Repeated Measures",
   year = 2026L,
   note = "R package",
+  doi = "10.32614/CRAN.package.pmrm",
   url = "https://openpharma.github.io/pmrm/",
 )
 

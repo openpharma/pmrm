@@ -14,7 +14,7 @@ Description: A progression model for repeated measures (PMRM)
   This package implements frequentist PMRMs by
   Raket (2022) <doi:10.1002/sim.9581> using
   'RTMB' by Kristensen (2016) <doi:10.18637/jss.v070.i05>.
-Version: 0.0.2
+Version: 0.0.2.9000
 License: MIT + file LICENSE
 URL: https://github.com/openpharma/pmrm,
   https://openpharma.github.io/pmrm/

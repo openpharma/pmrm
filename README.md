@@ -38,7 +38,9 @@ There are multiple ways to install `pmrm`.
     To cite pmrm in publications, please use:
 
       Landau WM, Raket LL, Kristensen K (2026). "Progression Models for
-      Repeated Measures." R package, <https://openpharma.github.io/pmrm/>.
+      Repeated Measures." doi:10.32614/CRAN.package.pmrm
+      <https://doi.org/10.32614/CRAN.package.pmrm>, R package,
+      <https://openpharma.github.io/pmrm/>.
 
     A BibTeX entry for LaTeX users is
 
@@ -47,6 +49,7 @@ There are multiple ways to install `pmrm`.
         title = {Progression Models for Repeated Measures},
         year = {2026},
         note = {R package},
+        doi = {10.32614/CRAN.package.pmrm},
         url = {https://openpharma.github.io/pmrm/},
       }
 
