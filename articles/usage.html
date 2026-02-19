@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">pmrm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.2.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.2.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -135,7 +135,7 @@ the model fitting process runs fast.</p>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;    user  system elapsed </span></span>
-<span><span class="co">#&gt;   0.435   0.009   0.444</span></span></code></pre></div>
+<span><span class="co">#&gt;   0.434   0.012   0.446</span></span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Model:</span></span>
@@ -429,14 +429,14 @@ from the original data need to be part of the new data, except that the
 outcome column can be entirely absent.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">fit</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">simulation</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 7</span></span></span>
-<span><span class="co">#&gt;   arm   visit    time estimate standard_error  lower  upper</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span> <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> arm_1 visit_1  0       0.939         0.047<span style="text-decoration: underline;">6</span>  0.846  1.03 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> arm_1 visit_2  1.47    1.69          0.052<span style="text-decoration: underline;">1</span>  1.59   1.80 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> arm_1 visit_3  1.90   -<span style="color: #BB0000;">1.39</span>          0.069<span style="text-decoration: underline;">7</span> -<span style="color: #BB0000;">1.52</span>  -<span style="color: #BB0000;">1.25</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> arm_1 visit_4  2.73    0.622         0.060<span style="text-decoration: underline;">9</span>  0.503  0.742</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> arm_1 visit_5  4.04    2.92          0.069<span style="text-decoration: underline;">0</span>  2.79   3.06</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 8</span></span></span>
+<span><span class="co">#&gt;   patient   arm   visit    time estimate standard_error  lower  upper</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span> <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> patient_1 arm_1 visit_1  0       0.939         0.047<span style="text-decoration: underline;">6</span>  0.846  1.03 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> patient_1 arm_1 visit_2  1.47    1.69          0.052<span style="text-decoration: underline;">1</span>  1.59   1.80 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> patient_1 arm_1 visit_3  1.90   -<span style="color: #BB0000;">1.39</span>          0.069<span style="text-decoration: underline;">7</span> -<span style="color: #BB0000;">1.52</span>  -<span style="color: #BB0000;">1.25</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> patient_1 arm_1 visit_4  2.73    0.622         0.060<span style="text-decoration: underline;">9</span>  0.503  0.742</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> patient_1 arm_1 visit_5  4.04    2.92          0.069<span style="text-decoration: underline;">0</span>  2.79   3.06</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="plots">Plots<a class="anchor" aria-label="anchor" href="#plots"></a>

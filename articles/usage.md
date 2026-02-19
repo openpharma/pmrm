@@ -72,7 +72,7 @@ system.time(
   )
 )
 #>    user  system elapsed 
-#>   0.435   0.009   0.444
+#>   0.434   0.012   0.446
 ```
 
 ``` r
@@ -410,14 +410,14 @@ outcome column can be entirely absent.
 
 ``` r
 predict(fit, data = head(simulation, 5))
-#> # A tibble: 5 × 7
-#>   arm   visit    time estimate standard_error  lower  upper
-#>   <ord> <ord>   <dbl>    <dbl>          <dbl>  <dbl>  <dbl>
-#> 1 arm_1 visit_1  0       0.939         0.0476  0.846  1.03 
-#> 2 arm_1 visit_2  1.47    1.69          0.0521  1.59   1.80 
-#> 3 arm_1 visit_3  1.90   -1.39          0.0697 -1.52  -1.25 
-#> 4 arm_1 visit_4  2.73    0.622         0.0609  0.503  0.742
-#> 5 arm_1 visit_5  4.04    2.92          0.0690  2.79   3.06
+#> # A tibble: 5 × 8
+#>   patient   arm   visit    time estimate standard_error  lower  upper
+#>   <fct>     <ord> <ord>   <dbl>    <dbl>          <dbl>  <dbl>  <dbl>
+#> 1 patient_1 arm_1 visit_1  0       0.939         0.0476  0.846  1.03 
+#> 2 patient_1 arm_1 visit_2  1.47    1.69          0.0521  1.59   1.80 
+#> 3 patient_1 arm_1 visit_3  1.90   -1.39          0.0697 -1.52  -1.25 
+#> 4 patient_1 arm_1 visit_4  2.73    0.622         0.0609  0.503  0.742
+#> 5 patient_1 arm_1 visit_5  4.04    2.92          0.0690  2.79   3.06
 ```
 
 ## Plots

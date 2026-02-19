@@ -5,7 +5,16 @@ Clean and annotate the data to prepare it for modeling.
 ## Usage
 
 ``` r
-pmrm_data(data, outcome, time, patient, visit, arm, covariates = ~0)
+pmrm_data(
+  data,
+  outcome,
+  time,
+  patient,
+  visit,
+  arm,
+  covariates = ~0,
+  subset = FALSE
+)
 ```
 
 ## Arguments
@@ -64,6 +73,11 @@ pmrm_data(data, outcome, time, patient, visit, arm, covariates = ~0)
   Set `covariates` to `~ 0` (default) to opt out of covariate
   adjustment. The intercept term is removed from the model matrix `W`
   whether or not the formula begins with \`~ 0.
+
+- subset:
+
+  `TRUE` if `data` is a subset of data without all levels of `visit` or
+  `arm`, `FALSE` to expect a full dataset when validating.
 
 ## Value
 

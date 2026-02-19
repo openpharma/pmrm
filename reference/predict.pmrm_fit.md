@@ -84,12 +84,12 @@ Other predictions:
   )
   new_data$y <- NULL # Permitted but not strictly necessary.
   predict(fit, new_data)
-#> # A tibble: 5 × 7
-#>   arm   visit    time estimate standard_error lower  upper
-#>   <ord> <ord>   <dbl>    <dbl>          <dbl> <dbl>  <dbl>
-#> 1 arm_1 visit_1     0    -3.12         0.0704 -3.26 -2.98 
-#> 2 arm_1 visit_2     1     1.15         0.0698  1.01  1.28 
-#> 3 arm_1 visit_3     2     3.52         0.0795  3.37  3.68 
-#> 4 arm_1 visit_4     3    -1.03         0.0827 -1.19 -0.865
-#> 5 arm_1 visit_5     4     1.27         0.0836  1.10  1.43 
+#> # A tibble: 5 × 8
+#>   patient   arm   visit    time estimate standard_error lower  upper
+#>   <fct>     <ord> <ord>   <dbl>    <dbl>          <dbl> <dbl>  <dbl>
+#> 1 patient_1 arm_1 visit_1     0    -3.12         0.0704 -3.26 -2.98 
+#> 2 patient_1 arm_1 visit_2     1     1.15         0.0698  1.01  1.28 
+#> 3 patient_1 arm_1 visit_3     2     3.52         0.0795  3.37  3.68 
+#> 4 patient_1 arm_1 visit_4     3    -1.03         0.0827 -1.19 -0.865
+#> 5 patient_1 arm_1 visit_5     4     1.27         0.0836  1.10  1.43 
 ```
