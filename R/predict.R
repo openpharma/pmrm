@@ -70,19 +70,9 @@ predict.pmrm_fit <- function(
     . <= 1,
     message = "confidence must have length 1 and be between 0 and 1."
   )
-  labels <- pmrm_data_labels(object$data)
-  data_new <- pmrm_data_new(data = data, labels = labels)
-  pmrm_predictors_validate(data_new)
-  data_new[[labels$outcome]] <- NA_real_
+  data_new <- pmrm_predict_data_new(object, data)
   data_old <- object$data
-  patient <- labels$patient
-  data_new[[patient]] <- paste0("new_", data_new[[patient]])
-  data_old[[patient]] <- paste0("old_", data_old[[patient]])
-  data_combined <- dplyr::bind_rows(data_old, data_new)
-  data_combined[[patient]] <- factor(
-    data_combined[[patient]],
-    levels = unique(data_combined[[patient]])
-  )
+  data_combined <- pmrm_predict_data_combined(object, data_new, data_old)
   constants <- pmrm_constants(
     data = data_combined,
     visit_times = object$constants$visit_times,
@@ -114,7 +104,9 @@ predict.pmrm_fit <- function(
   summary <- tibble::as_tibble(summary[rownames(summary) == name, ])
   summary <- summary[-seq_len(nrow(data_old)), , drop = FALSE] # nolint
   z <- stats::qnorm(p = (1 - confidence) / 2, lower.tail = FALSE)
+  labels <- pmrm_data_labels(object$data)
   tibble::tibble(
+    patient = data_new[[labels$patient]],
     arm = data[[labels$arm]],
     visit = data[[labels$visit]],
     time = data[[labels$time]],
@@ -123,6 +115,52 @@ predict.pmrm_fit <- function(
     lower = estimate - z * standard_error,
     upper = estimate + z * standard_error
   )
+}
+
+pmrm_predict_data_combined <- function(object, data_new, data_old) {
+  labels <- pmrm_data_labels(object$data)
+  patient <- labels$patient
+  data_new[[patient]] <- paste0("new_", data_new[[patient]])
+  data_old[[patient]] <- paste0("old_", data_old[[patient]])
+  data_combined <- dplyr::bind_rows(data_old, data_new)
+  data_combined[[patient]] <- factor(
+    data_combined[[patient]],
+    levels = unique(data_combined[[patient]])
+  )
+  data_combined
+}
+
+pmrm_predict_data_new <- function(object, data) {
+  labels <- pmrm_data_labels(object$data)
+  data[[labels$outcome]] <- 0
+  data <- pmrm_data(
+    data = data,
+    outcome = labels$outcome,
+    time = labels$time,
+    patient = labels$patient,
+    visit = labels$visit,
+    arm = labels$arm,
+    covariates = labels$covariates,
+    subset = TRUE
+  )
+  data[[labels$outcome]] <- NA_real_
+  assert(
+    all(levels(data[[labels$visit]]) %in% levels(object$data[[labels$visit]])),
+    message = paste(
+      "visit levels in new data must be a subset",
+      "of visit levels in original data."
+    )
+  )
+  assert(
+    all(levels(data[[labels$arm]]) %in% levels(object$data[[labels$arm]])),
+    message = paste(
+      "arm levels in new data must be a subset",
+      "of arm levels in original data."
+    )
+  )
+  levels(data[[labels$visit]]) <- levels(object$data[[labels$visit]])
+  levels(data[[labels$arm]]) <- levels(object$data[[labels$arm]])
+  data
 }
 
 #' @export

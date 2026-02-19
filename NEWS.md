@@ -1,6 +1,6 @@
-# pmrm 0.0.2.9000 (development)
+# pmrm development version
 
-
+* Use all of `pmrm_data()` and rebuild all ordered factors in `predict()` (#5, @lbenz-lilly).
 
 # pmrm 0.0.2
 

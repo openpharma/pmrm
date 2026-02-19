@@ -4,7 +4,16 @@
 \alias{pmrm_data}
 \title{Internal function to prepare data}
 \usage{
-pmrm_data(data, outcome, time, patient, visit, arm, covariates = ~0)
+pmrm_data(
+  data,
+  outcome,
+  time,
+  patient,
+  visit,
+  arm,
+  covariates = ~0,
+  subset = FALSE
+)
 }
 \arguments{
 \item{data}{A \code{tibble} or data frame with one row per patient visit.
@@ -53,6 +62,10 @@ any missing values.
 Set \code{covariates} to \code{~ 0} (default) to opt out of covariate adjustment.
 The intercept term is removed from the model matrix \code{W}
 whether or not the formula begins with `~ 0.}
+
+\item{subset}{\code{TRUE} if \code{data} is a subset of data without
+all levels of \code{visit} or \code{arm}, \code{FALSE} to expect a full dataset
+when validating.}
 }
 \value{
 A \code{tibble} of class \code{"pmrm_data"}
