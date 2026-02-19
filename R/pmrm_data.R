@@ -49,6 +49,9 @@
 #'   Set `covariates` to `~ 0` (default) to opt out of covariate adjustment.
 #'   The intercept term is removed from the model matrix `W`
 #'   whether or not the formula begins with `~ 0.
+#' @param subset `TRUE` if `data` is a subset of data without
+#'   all levels of `visit` or `arm`, `FALSE` to expect a full dataset
+#'   when validating.
 pmrm_data <- function(
   data,
   outcome,
@@ -56,7 +59,8 @@ pmrm_data <- function(
   patient,
   visit,
   arm,
-  covariates = ~0
+  covariates = ~0,
+  subset = FALSE
 ) {
   assert(is.data.frame(data), message = "data must be a data frame.")
   labels <- list(
@@ -68,7 +72,7 @@ pmrm_data <- function(
     covariates = covariates
   )
   data <- pmrm_data_new(data = data, labels = labels)
-  pmrm_data_validate(data)
+  pmrm_data_validate(data, subset = subset)
   pmrm_data_clean(data)
 }
 
@@ -82,7 +86,7 @@ pmrm_data_labels <- function(data) {
   attr(data, "pmrm_data_labels")
 }
 
-pmrm_data_validate <- function(data) {
+pmrm_data_validate <- function(data, subset = FALSE) {
   pmrm_predictors_validate(data)
   labels <- pmrm_data_labels(data)
   assert(
@@ -97,14 +101,16 @@ pmrm_data_validate <- function(data) {
       "In addition, all non-missing values must be finite."
     )
   )
-  assert(
-    length(unique(data[[labels$arm]])) > 1L,
-    message = "data[[arm]] must have more than one unique element."
-  )
-  assert(
-    length(unique(data[[labels$visit]])) > 1L,
-    message = "data[[visit]] must have more than one unique element."
-  )
+  if (!subset) {
+    assert(
+      length(unique(data[[labels$arm]])) > 1L,
+      message = "data[[arm]] must have more than one unique element."
+    )
+    assert(
+      length(unique(data[[labels$visit]])) > 1L,
+      message = "data[[visit]] must have more than one unique element."
+    )
+  }
 }
 
 pmrm_predictors_validate <- function(data) {
@@ -204,6 +210,12 @@ pmrm_predictors_validate <- function(data) {
 pmrm_data_clean <- function(data) {
   labels <- pmrm_data_labels(data)
   data <- data[!is.na(data[[labels$outcome]]), , drop = FALSE] # nolint
+  data <- pmrm_data_clean_factors(data)
+  data[order(data[[labels$patient]], data[[labels$visit]]), , drop = FALSE] # nolint
+}
+
+pmrm_data_clean_factors <- function(data) {
+  labels <- pmrm_data_labels(data)
   data[[labels$patient]] <- factor(data[[labels$patient]], ordered = FALSE)
   for (name in c(labels$visit, labels$arm)) {
     value <- data[[name]]
@@ -218,5 +230,5 @@ pmrm_data_clean <- function(data) {
       data[[name]] <- ordered(value, levels = sort(levels(value)))
     }
   }
-  data[order(data[[labels$patient]], data[[labels$visit]]), , drop = FALSE] # nolint
+  data
 }

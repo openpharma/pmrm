@@ -37,6 +37,7 @@ test_that("predict() on small data with proportional decline model", {
       sort(colnames(out)),
       sort(
         c(
+          "patient",
           "estimate",
           "standard_error",
           "lower",
@@ -89,6 +90,7 @@ test_that("predict() on small data with non-proportional slowing model", {
       sort(colnames(out)),
       sort(
         c(
+          "patient",
           "estimate",
           "standard_error",
           "lower",
