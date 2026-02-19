@@ -204,6 +204,12 @@ pmrm_predictors_validate <- function(data) {
 pmrm_data_clean <- function(data) {
   labels <- pmrm_data_labels(data)
   data <- data[!is.na(data[[labels$outcome]]), , drop = FALSE] # nolint
+  data <- pmrm_data_clean_factors(data)
+  data[order(data[[labels$patient]], data[[labels$visit]]), , drop = FALSE] # nolint
+}
+
+pmrm_data_clean_factors <- function(data) {
+  labels <- pmrm_data_labels(data)
   data[[labels$patient]] <- factor(data[[labels$patient]], ordered = FALSE)
   for (name in c(labels$visit, labels$arm)) {
     value <- data[[name]]
@@ -218,5 +224,5 @@ pmrm_data_clean <- function(data) {
       data[[name]] <- ordered(value, levels = sort(levels(value)))
     }
   }
-  data[order(data[[labels$patient]], data[[labels$visit]]), , drop = FALSE] # nolint
+  data
 }
