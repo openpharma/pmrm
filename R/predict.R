@@ -85,7 +85,7 @@ predict.pmrm_fit <- function(
     predict = TRUE,
     adjust = adjust
   )
-  constants$W_column_means <- fit$constants$W_column_means
+  constants$W_column_means <- object$constants$W_column_means
   parameters <- object$optimization$par
   model <- RTMB::MakeADFun(
     func = function(parameters) object$objective(constants, parameters),
