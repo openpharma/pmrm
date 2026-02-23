@@ -84,5 +84,12 @@ Other predictions:
   )
   new_data$y <- NULL # Permitted but not strictly necessary.
   predict(fit, new_data)
-#> Error in predict.pmrm_fit(fit, new_data): object 'fit' not found
+#> # A tibble: 5 × 8
+#>   patient   arm   visit    time estimate standard_error lower  upper
+#>   <fct>     <ord> <ord>   <dbl>    <dbl>          <dbl> <dbl>  <dbl>
+#> 1 patient_1 arm_1 visit_1     0    -3.12         0.0705 -3.26 -2.98 
+#> 2 patient_1 arm_1 visit_2     1     1.14         0.0698  1.01  1.28 
+#> 3 patient_1 arm_1 visit_3     2     3.52         0.0795  3.37  3.68 
+#> 4 patient_1 arm_1 visit_4     3    -1.03         0.0827 -1.19 -0.867
+#> 5 patient_1 arm_1 visit_5     4     1.26         0.0834  1.10  1.43 
 ```
