@@ -70,7 +70,10 @@ predict.pmrm_fit <- function(
     . <= 1,
     message = "confidence must have length 1 and be between 0 and 1."
   )
+  data$.pmrm_original_row_order <- seq_len(nrow(data))
   data_new <- pmrm_predict_data_new(object, data)
+  original_order <- data_new$.pmrm_original_row_order
+  data_new$.pmrm_original_row_order <- NULL
   data_old <- object$data
   data_combined <- pmrm_predict_data_combined(object, data_new, data_old)
   constants <- pmrm_constants(
@@ -106,16 +109,17 @@ predict.pmrm_fit <- function(
   summary <- summary[-seq_len(nrow(data_old)), , drop = FALSE] # nolint
   z <- stats::qnorm(p = (1 - confidence) / 2, lower.tail = FALSE)
   labels <- pmrm_data_labels(object$data)
-  tibble::tibble(
+  out <- tibble::tibble(
     patient = data_new[[labels$patient]],
-    arm = data[[labels$arm]],
-    visit = data[[labels$visit]],
-    time = data[[labels$time]],
+    arm = data_new[[labels$arm]],
+    visit = data_new[[labels$visit]],
+    time = data_new[[labels$time]],
     estimate = summary[["Estimate"]],
     standard_error = summary[["Std. Error"]],
     lower = estimate - z * standard_error,
     upper = estimate + z * standard_error
   )
+  out[order(original_order), , drop = FALSE]
 }
 
 pmrm_predict_data_combined <- function(object, data_new, data_old) {
