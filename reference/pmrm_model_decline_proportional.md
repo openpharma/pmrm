@@ -75,9 +75,13 @@ pmrm_model_decline_proportional(
 
   Partial right-sided formula of concomitant terms in the model for
   covariate adjustment (e.g. by age, gender, biomarker status, etc.).
-  Should not include main variables such as the values of `outcome`,
-  `time`, `patient`, `visit`, or `arm`. The columns in the data
-  referenced in the formula must not have any missing values.
+  Usually does not include main variables such as the values of
+  `outcome`, `time`, `patient`, `visit`, or `arm`. (If you do include
+  any of these variables, be sure to check the fitted model for
+  identifiability problems.)
+
+  The columns in the data referenced in the formula must not have any
+  missing values.
 
   Set `covariates` to `~ 0` (default) to opt out of covariate
   adjustment. The intercept term is removed from the model matrix `W`
