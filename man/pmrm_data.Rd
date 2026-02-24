@@ -54,8 +54,11 @@ The minimum level is assumed to be the control arm.}
 \item{covariates}{Partial right-sided formula
 of concomitant terms in the model
 for covariate adjustment (e.g. by age, gender, biomarker status, etc.).
-Should not include main variables such as the values of
+Usually does not include main variables such as the values of
 \code{outcome}, \code{time}, \code{patient}, \code{visit}, or \code{arm}.
+(If you do include any of these variables, be sure
+to check the fitted model for identifiability problems.)
+
 The columns in the data referenced in the formula must not have
 any missing values.
 

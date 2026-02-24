@@ -41,8 +41,11 @@
 #' @param covariates Partial right-sided formula
 #'   of concomitant terms in the model
 #'   for covariate adjustment (e.g. by age, gender, biomarker status, etc.).
-#'   Should not include main variables such as the values of
+#'   Usually does not include main variables such as the values of
 #'   `outcome`, `time`, `patient`, `visit`, or `arm`.
+#'   (If you do include any of these variables, be sure
+#'   to check the fitted model for identifiability problems.)
+#'
 #'   The columns in the data referenced in the formula must not have
 #'   any missing values.
 #'
@@ -146,6 +149,11 @@ pmrm_predictors_validate <- function(data) {
   assert(
     rlang::is_formula(covariates),
     message = "covariates argument must be a formula."
+  )
+  covariate_terms <- intersect(all.vars(covariates), colnames(data))
+  assert(
+    !anyNA(data[, covariate_terms, drop = FALSE]),
+    message = "covariate columns must not have any missing values."
   )
   matrix <- tryCatch(
     Matrix::sparse.model.matrix(covariates, data = data),
