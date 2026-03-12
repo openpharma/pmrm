@@ -142,15 +142,15 @@ Other simulations:
 #> # A tibble: 1,500 × 11
 #>    patient   visit   arm       i     j     k      y     t  beta    mu      e
 #>    <chr>     <ord>   <ord> <int> <int> <int>  <dbl> <dbl> <dbl> <dbl>  <dbl>
-#>  1 patient_1 visit_1 arm_1     1     1     1  0.839     0   0   0      0.839
-#>  2 patient_1 visit_2 arm_1     1     2     1  1.23      1   0   0.693  0.540
-#>  3 patient_1 visit_3 arm_1     1     3     1  2.97      2   0   1.10   1.87 
-#>  4 patient_1 visit_4 arm_1     1     4     1  1.83      3   0   1.39   0.445
-#>  5 patient_1 visit_5 arm_1     1     5     1  1.94      4   0   1.61   0.332
-#>  6 patient_2 visit_1 arm_2     2     1     2 -1.91      0   0.1 0     -1.91 
-#>  7 patient_2 visit_2 arm_2     2     2     2  1.98      1   0.1 0.624  1.36 
-#>  8 patient_2 visit_3 arm_2     2     3     2  1.72      2   0.1 0.989  0.733
-#>  9 patient_2 visit_4 arm_2     2     4     2  2.63      3   0.1 1.25   1.38 
-#> 10 patient_2 visit_5 arm_2     2     5     2  1.59      4   0.1 1.45   0.141
+#>  1 patient_1 visit_1 arm_1     1     1     1 -0.421     0   0   0     -0.421
+#>  2 patient_1 visit_2 arm_1     1     2     1 -0.578     1   0   0.693 -1.27 
+#>  3 patient_1 visit_3 arm_1     1     3     1  1.94      2   0   1.10   0.839
+#>  4 patient_1 visit_4 arm_1     1     4     1  1.93      3   0   1.39   0.540
+#>  5 patient_1 visit_5 arm_1     1     5     1  3.48      4   0   1.61   1.87 
+#>  6 patient_2 visit_1 arm_2     2     1     2  0.445     0   0.1 0      0.445
+#>  7 patient_2 visit_2 arm_2     2     2     2  0.955     1   0.1 0.624  0.332
+#>  8 patient_2 visit_3 arm_2     2     3     2 -0.924     2   0.1 0.989 -1.91 
+#>  9 patient_2 visit_4 arm_2     2     4     2  2.61      3   0.1 1.25   1.36 
+#> 10 patient_2 visit_5 arm_2     2     5     2  2.18      4   0.1 1.45   0.733
 #> # ℹ 1,490 more rows
 ```

@@ -141,17 +141,17 @@ Other simulations:
 ``` r
   pmrm_simulate_decline_nonproportional()
 #> # A tibble: 1,500 × 11
-#>    patient   visit   arm       i     j     k      y     t  beta    mu       e
-#>    <chr>     <ord>   <ord> <int> <int> <int>  <dbl> <dbl> <dbl> <dbl>   <dbl>
-#>  1 patient_1 visit_1 arm_1     1     1     1  2.72      0   0   0      2.72  
-#>  2 patient_1 visit_2 arm_1     1     2     1 -0.379     1   0   0.693 -1.07  
-#>  3 patient_1 visit_3 arm_1     1     3     1  1.72      2   0   1.10   0.621 
-#>  4 patient_1 visit_4 arm_1     1     4     1  1.97      3   0   1.39   0.581 
-#>  5 patient_1 visit_5 arm_1     1     5     1  0.668     4   0   1.61  -0.942 
-#>  6 patient_2 visit_1 arm_2     2     1     2  0.644     0   0   0      0.644 
-#>  7 patient_2 visit_2 arm_2     2     2     2  1.14      1   0.2 0.555  0.589 
-#>  8 patient_2 visit_3 arm_2     2     3     2  0.329     2   0.2 0.879 -0.550 
-#>  9 patient_2 visit_4 arm_2     2     4     2  1.08      3   0.2 1.11  -0.0277
-#> 10 patient_2 visit_5 arm_2     2     5     2  0.205     4   0.2 1.29  -1.08  
+#>    patient   visit   arm       i     j     k       y     t  beta    mu       e
+#>    <chr>     <ord>   <ord> <int> <int> <int>   <dbl> <dbl> <dbl> <dbl>   <dbl>
+#>  1 patient_1 visit_1 arm_1     1     1     1 -0.253      0   0   0     -0.253 
+#>  2 patient_1 visit_2 arm_1     1     2     1  3.42       1   0   0.693  2.72  
+#>  3 patient_1 visit_3 arm_1     1     3     1  0.0268     2   0   1.10  -1.07  
+#>  4 patient_1 visit_4 arm_1     1     4     1  2.01       3   0   1.39   0.621 
+#>  5 patient_1 visit_5 arm_1     1     5     1  2.19       4   0   1.61   0.581 
+#>  6 patient_2 visit_1 arm_2     2     1     2 -0.942      0   0   0     -0.942 
+#>  7 patient_2 visit_2 arm_2     2     2     2  1.20       1   0.2 0.555  0.644 
+#>  8 patient_2 visit_3 arm_2     2     3     2  1.47       2   0.2 0.879  0.589 
+#>  9 patient_2 visit_4 arm_2     2     4     2  0.559      3   0.2 1.11  -0.550 
+#> 10 patient_2 visit_5 arm_2     2     5     2  1.26       4   0.2 1.29  -0.0277
 #> # ℹ 1,490 more rows
 ```
