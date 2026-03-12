@@ -15,7 +15,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/openpharma/pmrm/blob/main/inst/CITATION)
+[`inst/CITATION`](https://github.com/openpharma/pmrm/blob/0.0.3/inst/CITATION)
 
 Landau WM, Raket LL, Kristensen K (2026). “Progression Models for
 Repeated Measures.”
