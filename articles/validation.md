@@ -32,9 +32,8 @@ pipeline once per release.
 
 ## Last run
 
-We last ran the simulation pipeline with `pmrm` version 0.0.2.9000 with
-GitHub commit hash
-[](https://github.com/openpharma/pmrm/commit/10f300b5266ef252159a889f2f9cbe869dd91324).
+We last ran the simulation pipeline with `pmrm` version 0.0.4 with
+GitHub commit hash [](https://openpharma.github.io/pmrm/articles/).
 
 ## Convergence
 
