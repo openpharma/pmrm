@@ -1,6 +1,6 @@
 # pmrm development version
 
-* CRITICAL: estimate the proper marginal means for `pmrm_marginals()`.
+* CRITICAL: estimate the proper marginal means for `pmrm_marginals()`. `pmrm_objective()` previously reported the wrong ones for the slowing and non-proportional decline models.
 
 # pmrm 0.0.3
 
