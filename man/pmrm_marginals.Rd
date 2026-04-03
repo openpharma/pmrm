@@ -10,11 +10,18 @@ pmrm_marginals(fit, type = c("outcome", "change", "effect"), confidence = 0.95)
 \item{fit}{A \code{pmrm} fitted model object returned by a model-fitting
 function.}
 
-\item{type}{Character string.
-\code{"outcome"} reports marginal means on the outcome scale,
-\code{"change"} reports estimates of change from baseline,
-and \code{"effect"} reports estimates of treatment effects
-(change from baseline of each active arm minus that of the control arm.)}
+\item{type}{Character string, type of marginal mean to report. Choices:
+\itemize{
+\item \code{"outcome"}: reports marginal means on the outcome scale,
+\item \code{"change"}: reports estimates of change from baseline, which is
+the the predicted outcome at the given visit
+minus the predicted outcome at baseline for each study arm.
+Baseline is taken to be the predicted outcome at time 0,
+which is the same for all study arms because the models
+naturally constrain the treatment effect to be 0 at time 0.
+\item \code{"effect"}: reports estimates of treatment effects
+(change from baseline of each active arm minus that of the control arm.)
+}}
 
 \item{confidence}{A numeric from 0 to 1 with the confidence level
 for confidence intervals.}

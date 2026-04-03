@@ -41,14 +41,19 @@ pmrm_objective <- function(constants, parameters) {
     start <- end + 1L
   }
   # Report the marginal mean of each study arm at all the user-defined
-  # time points in the `marginal` vector.
-  marginal_m <- f(marginal_t)
-  marginal_m1 <- rep(marginal_m[marginal_j == 1L], each = J)
-  marginal_decline <- (1 - beta[marginal_k])
-  marginal_change <- marginal_decline * (marginal_m - marginal_m1)
-  marginal_outcome <- marginal_change + marginal_m1
+  # time points in the `marginal_t` vector.
+  marginal_beta_fitted <- beta[marginal_index_beta_fitted]
+  marginal_outcome <- pmrm_mu_unadjusted(
+    marginal_beta_fitted,
+    f,
+    marginal_t,
+    slowing
+  )
   RTMB::ADREPORT(marginal_outcome)
-  # Report marginal change from baseline.
+  # Report marginal change from baseline/randomization.
+  # Baseline is taken to be the predicted outcome at time 0,
+  # which is the same for all study arms.
+  marginal_change <- marginal_outcome - f(0)
   RTMB::ADREPORT(marginal_change)
   # Report marginal treatment differences.
   marginal_control <- rep(marginal_change[marginal_k == 1L], times = K)

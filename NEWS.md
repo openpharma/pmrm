@@ -1,6 +1,6 @@
 # pmrm development version
 
-
+* CRITICAL: estimate the proper marginal means for `pmrm_marginals()`.
 
 # pmrm 0.0.3
 

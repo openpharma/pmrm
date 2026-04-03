@@ -77,7 +77,7 @@ The intercept term is removed from the model matrix \code{W}
 whether or not the formula begins with `~ 0.}
 
 \item{visit_times}{Numeric vector, the continuous scheduled time
-of each study visit (since randomization).
+of each study visit (since baseline/randomization).
 If \code{NULL}, each visit time is automatically set set to the median
 of the observed times at categorical visit in the data.}
 

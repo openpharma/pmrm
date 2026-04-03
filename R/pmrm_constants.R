@@ -34,8 +34,9 @@ pmrm_constants <- function(
   K <- max(k)
   W <- pmrm_compute_W(data = data)
   if (is.null(visit_times)) {
-    visit_times <- sort(as.numeric(tapply(t, j, median)))
+    visit_times <- tapply(t, j, median)
   }
+  visit_times <- sort(unique(as.numeric(visit_times)))
   if (is.null(spline_knots)) {
     spline_knots <- visit_times
   }
@@ -62,6 +63,7 @@ pmrm_constants <- function(
     marginal_j = marginal_j,
     marginal_k = marginal_k,
     marginal_kj = marginal_kj,
+    marginal_index_beta_fitted = if_any(proportional, marginal_k, marginal_kj),
     n_visits = as.integer(table(data[[labels$patient]])),
     reml = reml,
     random = if_any(reml, c("alpha", "theta", "gamma"), NULL),
