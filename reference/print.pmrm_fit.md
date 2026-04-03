@@ -25,7 +25,7 @@ print(x, digits = 3L, ...)
 
 ## Value
 
-`NULL` (invisibly). Called for side effects (printing to the R console).
+Invisibly returns `x`, the fitted PMRM object.
 
 ## See also
 
