@@ -2,6 +2,8 @@
 
 ## pmrm 0.0.4
 
+CRAN release: 2026-04-03
+
 - CRITICAL: estimate the proper marginal means for
   [`pmrm_marginals()`](https://openpharma.github.io/pmrm/reference/pmrm_marginals.md).
   `pmrm_objective()` previously reported the wrong ones for the slowing
