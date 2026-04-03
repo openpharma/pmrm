@@ -2,9 +2,6 @@ test_that("pmrm_model_slowing_nonproportional()", {
   visit_times <- seq(from = 0, to = 4, by = 1)
   for (reml in c(TRUE, FALSE)) {
     for (with_missing in c(TRUE, FALSE)) {
-      if (!xor(reml, with_missing)) {
-        next
-      }
       set.seed(0L)
       simulation <- pmrm_simulate_slowing_nonproportional(
         patients = 500,

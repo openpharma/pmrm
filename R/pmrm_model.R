@@ -280,6 +280,7 @@ pmrm_model <- function(
   if (is.null(initial)) {
     initial <- pmrm_initial(constants, initial_method, proportional)
   }
+  pmrm_initial_validate(initial, constants)
   labels <- pmrm_data_labels(data)
   options <- list(silent = silent, hessian = hessian)
   model <- RTMB::MakeADFun(

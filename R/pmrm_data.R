@@ -142,7 +142,7 @@ pmrm_predictors_validate <- function(data) {
       message = sprintf(
         "%s must be the name of a column in the data. Found: \"%s\"",
         name,
-        outcome
+        value
       )
     )
   }

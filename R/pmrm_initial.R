@@ -28,3 +28,78 @@ pmrm_initial <- function(constants, initial_method, proportional) {
   )
   initial
 }
+
+pmrm_initial_validate <- function(initial, constants) {
+  assert(
+    sort(names(initial)) == c("alpha", "gamma", "phi", "rho", "theta"),
+    message = past(
+      "initial must be a list with names:",
+      "alpha, gamma, phi, rho, theta."
+    )
+  )
+  for (name in names(initial)) {
+    value <- initial[[name]]
+    assert(
+      is.vector(value) || is.matrix(value),
+      is.numeric(value),
+      is.finite(value),
+      message = sprintf(
+        "initial$%s must have numeric mode and have finite values.",
+        name
+      )
+    )
+  }
+  assert(
+    length(initial$alpha) == length(constants$spline_knots),
+    message = paste(
+      "initial$alpha must have the same length",
+      "as constants$spline_knots."
+    )
+  )
+  assert(
+    initial$alpha,
+    is.atomic(.),
+    is.numeric(.),
+    length(.) > 0L,
+    is.finite(.),
+    message = "initial$alpha must be a numeric vector of finite values."
+  )
+  assert(
+    length(initial$gamma) == ncol(constants$W),
+    message = paste(
+      "initial$gamma must have the same length",
+      "as ncol(constants$W)."
+    )
+  )
+  assert(
+    length(initial$phi) == constants$J,
+    message = "initial$phi must have the same length as constants$J."
+  )
+  assert(
+    length(initial$rho) == constants$J * (constants$J - 1L) / 2L,
+    message = paste(
+      "initial$rho must have length",
+      "constants$J * (constants$J - 1) / 2."
+    )
+  )
+  if (constants$proportional) {
+    assert(
+      is.vector(initial$theta),
+      length(initial$theta) == constants$K - 1L,
+      message = paste(
+        "initial$theta must be a vector of length constants$K - 1",
+        "for proportional models."
+      )
+    )
+  } else {
+    assert(
+      is.matrix(initial$theta),
+      nrow(initial$theta) == constants$K - 1L,
+      ncol(initial$theta) == constants$J - 1L,
+      message = paste(
+        "initial$theta must be a matrix with constants$K - 1 rows",
+        "and constants$J - 1 columns for non-proportional models."
+      )
+    )
+  }
+}

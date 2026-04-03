@@ -140,7 +140,7 @@ summarize_beta <- function(fit) {
 
 summarize_parameter <- function(fit, name) {
   tibble::tibble(
-    index = seq_along(fit$estimate[[name]]),
+    index = seq_along(fit$estimates[[name]]),
     estimate = as.numeric(fit$estimates[[name]]),
     standard_error = as.numeric(fit$standard_errors[[name]])
   )
