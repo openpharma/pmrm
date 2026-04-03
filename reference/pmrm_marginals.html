@@ -17,7 +17,7 @@ baseline, and marginal estimates of treatment effects."><meta property="og:image
 
     <a class="navbar-brand me-2" href="../index.html">pmrm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -72,11 +72,16 @@ function.</p></dd>
 
 
 <dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
-<dd><p>Character string.
-<code>"outcome"</code> reports marginal means on the outcome scale,
-<code>"change"</code> reports estimates of change from baseline,
-and <code>"effect"</code> reports estimates of treatment effects
-(change from baseline of each active arm minus that of the control arm.)</p></dd>
+<dd><p>Character string, type of marginal mean to report. Choices:</p><ul><li><p><code>"outcome"</code>: reports marginal means on the outcome scale,</p></li>
+<li><p><code>"change"</code>: reports estimates of change from baseline, which is
+the the predicted outcome at the given visit
+minus the predicted outcome at baseline for each study arm.
+Baseline is taken to be the predicted outcome at time 0,
+which is the same for all study arms because the models
+naturally constrain the treatment effect to be 0 at time 0.</p></li>
+<li><p><code>"effect"</code>: reports estimates of treatment effects
+(change from baseline of each active arm minus that of the control arm.)</p></li>
+</ul></dd>
 
 
 <dt id="arg-confidence">confidence<a class="anchor" aria-label="anchor" href="#arg-confidence"></a></dt>

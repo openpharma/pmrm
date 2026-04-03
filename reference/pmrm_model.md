@@ -91,9 +91,9 @@ pmrm_model(
 - visit_times:
 
   Numeric vector, the continuous scheduled time of each study visit
-  (since randomization). If `NULL`, each visit time is automatically set
-  set to the median of the observed times at categorical visit in the
-  data.
+  (since baseline/randomization). If `NULL`, each visit time is
+  automatically set set to the median of the observed times at
+  categorical visit in the data.
 
 - spline_knots:
 

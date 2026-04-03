@@ -2,6 +2,8 @@
 
 ## pmrm 0.0.3
 
+CRAN release: 2026-03-12
+
 - Use all of
   [`pmrm_data()`](https://openpharma.github.io/pmrm/reference/pmrm_data.md)
   and rebuild all ordered factors in

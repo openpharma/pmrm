@@ -20,10 +20,19 @@ pmrm_marginals(fit, type = c("outcome", "change", "effect"), confidence = 0.95)
 
 - type:
 
-  Character string. `"outcome"` reports marginal means on the outcome
-  scale, `"change"` reports estimates of change from baseline, and
-  `"effect"` reports estimates of treatment effects (change from
-  baseline of each active arm minus that of the control arm.)
+  Character string, type of marginal mean to report. Choices:
+
+  - `"outcome"`: reports marginal means on the outcome scale,
+
+  - `"change"`: reports estimates of change from baseline, which is the
+    the predicted outcome at the given visit minus the predicted outcome
+    at baseline for each study arm. Baseline is taken to be the
+    predicted outcome at time 0, which is the same for all study arms
+    because the models naturally constrain the treatment effect to be 0
+    at time 0.
+
+  - `"effect"`: reports estimates of treatment effects (change from
+    baseline of each active arm minus that of the control arm.)
 
 - confidence:
 
