@@ -32,6 +32,7 @@ utils::globalVariables(
     "kj",
     "K",
     "lower",
+    "marginal_index_beta_fitted",
     "marginal_j",
     "marginal_k",
     "marginal_kj",

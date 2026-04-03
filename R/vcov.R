@@ -24,7 +24,7 @@
 #'   )
 #'   vcov(fit)
 vcov.pmrm_fit <- function(object, ...) {
-  full <- RTMB::sdreport(object$model, getReportCovariance = TRUE)$cov.fixed
+  full <- RTMB::sdreport(object$model, getReportCovariance = FALSE)$cov.fixed
   theta <- full[rownames(full) == "theta", colnames(full) == "theta"]
   labels <- pmrm_data_labels(object$data)
   arms <- levels(object$data[[labels$arm]])[-1L]
