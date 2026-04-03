@@ -32,7 +32,7 @@ pmrm_initial <- function(constants, initial_method, proportional) {
 pmrm_initial_validate <- function(initial, constants) {
   assert(
     sort(names(initial)) == c("alpha", "gamma", "phi", "rho", "theta"),
-    message = past(
+    message = paste(
       "initial must be a list with names:",
       "alpha, gamma, phi, rho, theta."
     )

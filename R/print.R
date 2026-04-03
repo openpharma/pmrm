@@ -2,8 +2,7 @@
 #' @export
 #' @family visualization
 #' @description Print a fitted progression model for repeated measures (PMRM).
-#' @return `NULL` (invisibly). Called for side effects
-#'   (printing to the R console).
+#' @return Invisibly returns `x`, the fitted PMRM object.
 #' @param x A fitted progression model for repeated measures (PMRM).
 #' @param digits Non-negative integer, number of digits for rounding.
 #' @param ... Not used.
@@ -63,4 +62,5 @@ print.pmrm_fit <- function(x, digits = 3L, ...) {
     paste0("  ", utils::capture.output(print(estimates)))
   )
   cat(lines, sep = "\n")
+  invisible(x)
 }

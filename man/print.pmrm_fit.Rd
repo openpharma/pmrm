@@ -14,8 +14,7 @@
 \item{...}{Not used.}
 }
 \value{
-\code{NULL} (invisibly). Called for side effects
-(printing to the R console).
+Invisibly returns \code{x}, the fitted PMRM object.
 }
 \description{
 Print a fitted progression model for repeated measures (PMRM).
