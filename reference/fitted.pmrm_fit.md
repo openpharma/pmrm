@@ -7,7 +7,7 @@ measures.
 
 ``` r
 # S3 method for class 'pmrm_fit'
-fitted(object, data = object$data, adjust = TRUE, ...)
+fitted(object, adjust = TRUE, ...)
 ```
 
 ## Arguments
@@ -15,16 +15,6 @@ fitted(object, data = object$data, adjust = TRUE, ...)
 - object:
 
   A fitted model object of class `"pmrm_fit"`.
-
-- data:
-
-  A `tibble` or data frame with one row per patient visit. This is the
-  new data for making predictions. It must have all the same columns as
-  the original you fit with the model, except that the outcome column
-  can be entirely absent. `object$data` is an example dataset that will
-  work. It is just like the original data, except that rows with missing
-  responses are removed, and the remaining rows are sorted by patient ID
-  and categorical scheduled visit.
 
 - adjust:
 
@@ -43,7 +33,7 @@ fitted(object, data = object$data, adjust = TRUE, ...)
 ## Value
 
 A numeric vector of fitted values corresponding to the rows of the data
-supplied in the `data` argument.
+in `object$data`.
 
 ## Details
 

@@ -72,7 +72,7 @@ system.time(
   )
 )
 #>    user  system elapsed 
-#>   0.432   0.001   0.434
+#>   0.437   0.004   0.441
 ```
 
 ``` r
