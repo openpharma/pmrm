@@ -7,7 +7,7 @@
 #'   for large datasets, but the output only includes the estimates
 #'   (no measures of uncertainty).
 #' @return A numeric vector of fitted values corresponding to the
-#'   rows of the data supplied in the `data` argument.
+#'   rows of the data in `object$data`.
 #' @inheritParams predict.pmrm_fit
 #' @examples
 #'   set.seed(0L)
@@ -27,7 +27,6 @@
 #'   str(fitted(fit))
 fitted.pmrm_fit <- function(
   object,
-  data = object$data,
   adjust = TRUE,
   ...
 ) {

@@ -4,19 +4,10 @@
 \alias{fitted.pmrm_fit}
 \title{Fitted values}
 \usage{
-\method{fitted}{pmrm_fit}(object, data = object$data, adjust = TRUE, ...)
+\method{fitted}{pmrm_fit}(object, adjust = TRUE, ...)
 }
 \arguments{
 \item{object}{A fitted model object of class \code{"pmrm_fit"}.}
-
-\item{data}{A \code{tibble} or data frame with one row per patient visit.
-This is the new data for making predictions.
-It must have all the same columns as the original you fit with the model,
-except that the outcome column can be entirely absent.
-\code{object$data} is an example dataset that will work.
-It is just like the original data, except that rows with missing
-responses are removed, and the remaining rows are sorted
-by patient ID and categorical scheduled visit.}
 
 \item{adjust}{\code{TRUE} or \code{FALSE}.
 \code{adjust = TRUE} returns estimates and inference for
@@ -30,7 +21,7 @@ continuous disease progression trajectory in \code{\link[=plot.pmrm_fit]{plot.pm
 }
 \value{
 A numeric vector of fitted values corresponding to the
-rows of the data supplied in the \code{data} argument.
+rows of the data in \code{object$data}.
 }
 \description{
 Compute the fitted values of a fitted

@@ -110,18 +110,18 @@ test_that("pmrm_estimates() on non-proportional models", {
           expect_true(is.character(column) || is.ordered(column))
         }
       }
+      for (name in c("standard_error", "lower", "upper")) {
+        element[[name]][is.na(element[[name]])] <- 0
+      }
+      parameter <- unique(element$parameter)
+      expect_equal(element$estimate, as.numeric(t(fit$estimates[[parameter]])))
+      expect_equal(
+        element$standard_error,
+        as.numeric(t(fit$standard_errors[[parameter]]))
+      )
+      z <- stats::qnorm(p = (1 - confidence) / 2, lower.tail = FALSE)
+      expect_equal(element$lower, element$estimate - z * element$standard_error)
+      expect_equal(element$upper, element$estimate + z * element$standard_error)
     }
-    for (name in c("standard_error", "lower", "upper")) {
-      element[[name]][is.na(element[[name]])] <- 0
-    }
-    parameter <- unique(element$parameter)
-    expect_equal(element$estimate, as.numeric(fit$estimates[[parameter]]))
-    expect_equal(
-      element$standard_error,
-      as.numeric(fit$standard_errors[[parameter]])
-    )
-    z <- stats::qnorm(p = (1 - confidence) / 2, lower.tail = FALSE)
-    expect_equal(element$lower, element$estimate - z * element$standard_error)
-    expect_equal(element$upper, element$estimate + z * element$standard_error)
   }
 })
